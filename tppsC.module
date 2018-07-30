@@ -50,6 +50,61 @@ function tppsC_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  $form['species1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Species 1:'),
+    '#states' => array(
+      'visible' => array(
+        array(
+          array('select[name="species_dropdown"]' => array('value' => '1')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '2')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '3')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '4')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '5')),
+        ),
+      ),
+    ),
+  );
+
+  $form['species2'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Species 2:'),
+    '#states' => array(
+      'visible' => array(
+        array(
+          array('select[name="species_dropdown"]' => array('value' => '2')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '3')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '4')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '5')),
+        ),
+      ),
+    ),
+  );
+
+  $form['species3'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Species 3:'),
+    '#states' => array(
+      'visible' => array(
+        array(
+          array('select[name="species_dropdown"]' => array('value' => '3')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '4')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '5')),
+        ),
+      ),
+    ),
+  );
+
+
   $study_type_options = array(
     'G' => 'Genotype',
     'P' => 'Phenotype',
