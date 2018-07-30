@@ -47,6 +47,7 @@ function tppsC_form($form, &$form_state) {
   );
 
   $species_dropdown_option = array(
+    '1' => '1',
     '2' => '2',
     '3' => '3',
     '4' => '4',
@@ -54,6 +55,7 @@ function tppsC_form($form, &$form_state) {
   );
 
   $form['species_dropdown'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'select',
     '#title' => t('Select how many total species you have:'),
     '#options' => $species_dropdown_option,
@@ -62,6 +64,7 @@ function tppsC_form($form, &$form_state) {
         ':input[name="species_checkbox"]' => array('checked' => TRUE),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $study_type_options = array(
