@@ -384,13 +384,12 @@ function tppsC_form_validate($form, &$form_state) {
 
 function tppsC_form_submit($form, &$form_state) {
   $DOI = $form_state['values']['DOI'];
-
+  $species_dropdown = $form_state['values']['species_dropdown'];
   $species1 = $form_state['values']['species1'];
   $species2 = $form_state['values']['species2'];
   $species3 = $form_state['values']['species3'];
   $species4 = $form_state['values']['species4'];
   $species5 = $form_state['values']['species5'];
-
   $studyType = $form_state['values']['study_type'];
   $studyDesign = $form_state['values']['study_design'];
   $studyLocation = $form_state['values']['study_location'];
@@ -401,7 +400,14 @@ function tppsC_form_submit($form, &$form_state) {
   elseif ($studyLocation == 'Custom Location') {
     $studyLocationCoord = $form_state['values']['study_location_states_custom'];
   }
-
+  
+  $species = array(
+    'Species 1' => $species1,
+    'Species 2' => $species2,
+    'Species 3' => $species3,
+    'Species 4' => $species4,
+    'Species 5' => $species5,
+  );
 
   $data = array(
     'DOI' => $DOI,
@@ -412,7 +418,7 @@ function tppsC_form_submit($form, &$form_state) {
   );
 
   drupal_write_record('node', $data);
-
+  drupal_set_message($species);
 }
 
 function tppsC_permission() {
