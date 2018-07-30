@@ -39,19 +39,6 @@ function tppsC_form($form, &$form_state) {
     '#size' => 40,
     '#maxlength' => 100,
     '#required' => TRUE,
-    '#description' => t('For multiple species, seperate each with a comma'),
-  );
-
-  $form['species2'] = array(
-    '#type' => 'textfield',
-    '#title' =>t('Species:'),
-    '#size' => 40,
-    '#maxlength' => 100,
-    '#states' => array(
-      'visible' => array(
-        ':input[name="speciescheck1"]' => array('checked' => TRUE),
-      ),
-    ),
   );
 
   $form['speciescheck1'] = array(
@@ -60,6 +47,17 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'invisible' => array(
         ':input[name="speciescheck2"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  $form['species2'] = array(
+    '#type' => 'textfield',
+    '#size' => 40,
+    '#maxlength' => 100,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="speciescheck1"]' => array('checked' => TRUE),
       ),
     ),
   );
