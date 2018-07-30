@@ -28,7 +28,6 @@ function tppsC_form($form, &$form_state) {
   $form['DOI'] = array(
     '#type' => 'textfield',
     '#title' => t('DOI:'),
-    '#size' => 40,
     '#maxlength' => 100,
     '#required' => TRUE,
   );
@@ -104,6 +103,29 @@ function tppsC_form($form, &$form_state) {
     ),
   );
 
+  $form['species4'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Species 4:'),
+    '#states' => array(
+      'visible' => array(
+        array(
+          array('select[name="species_dropdown"]' => array('value' => '4')),
+          'or',
+          array('select[name="species_dropdown"]' => array('value' => '5')),
+        ),
+      ),
+    ),
+  );
+
+  $form['species5'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Species 5:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '5')),
+      ),
+    ),
+  );
 
   $study_type_options = array(
     'G' => 'Genotype',
