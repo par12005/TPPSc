@@ -41,10 +41,12 @@ function tppsC_form($form, &$form_state) {
   );
 
   $form['species_dropdown'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'select',
     '#title' => t('How many species are there in the study?'),
     '#options' => $species_dropdown_option,
     '#required' => TRUE,
+    '#suffix' => '</div>',
   );
 
   $form['species1'] = array(
@@ -400,6 +402,7 @@ function tppsC_form_submit($form, &$form_state) {
     $studyLocationCoord = $form_state['values']['study_location_states_custom'];
   }
 
+
   $data = array(
     'DOI' => $DOI,
     'studyType' => $studyType,
@@ -409,7 +412,7 @@ function tppsC_form_submit($form, &$form_state) {
   );
 
   drupal_write_record('node', $data);
-  drupal_set_message($species5);
+
 }
 
 function tppsC_permission() {
