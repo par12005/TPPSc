@@ -41,17 +41,17 @@ function tppsC_form($form, &$form_state) {
   );
 
   $form['species_dropdown'] = array(
-    '#prefix' => '<div class="container-inline">',
     '#type' => 'select',
     '#title' => t('How many species are there in the study?'),
     '#options' => $species_dropdown_option,
-    '#suffix' => '</div>',
     '#required' => TRUE,
   );
 
   $form['species1'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'textfield',
     '#title' => t('Species 1:'),
+    '#required' => TRUE,
     '#states' => array(
       'visible' => array(
         array(
@@ -67,9 +67,11 @@ function tppsC_form($form, &$form_state) {
         ),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $form['species2'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'textfield',
     '#title' => t('Species 2:'),
     '#states' => array(
@@ -85,9 +87,11 @@ function tppsC_form($form, &$form_state) {
         ),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $form['species3'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'textfield',
     '#title' => t('Species 3:'),
     '#states' => array(
@@ -101,9 +105,11 @@ function tppsC_form($form, &$form_state) {
         ),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $form['species4'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'textfield',
     '#title' => t('Species 4:'),
     '#states' => array(
@@ -115,9 +121,11 @@ function tppsC_form($form, &$form_state) {
         ),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $form['species5'] = array(
+    '#prefix' => '<div class="container-inline">',
     '#type' => 'textfield',
     '#title' => t('Species 5:'),
     '#states' => array(
@@ -125,6 +133,7 @@ function tppsC_form($form, &$form_state) {
           array('select[name="species_dropdown"]' => array('value' => '5')),
       ),
     ),
+    '#suffix' => '</div>',
   );
 
   $study_type_options = array(
