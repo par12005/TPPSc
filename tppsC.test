@@ -1,0 +1,46 @@
+<?php
+
+class tppsCTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'tppsC module functionality',
+      'description' => 'Tests hooks in the tppsC module',
+      'group' => 'tppsC',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('tppsC');
+  }
+  
+  public function testPermission() {
+    $data = module_invoke('tppsC', 'permission');
+    $this->assertTrue(is_array($data), t('Permission hook returns array.'));
+    $this->assertTrue(array_key_exists('access tppsC content', $data), t('Permission is as expected.'));
+  }
+
+  public function testMenu() {
+    $items = module_invoke('tppsC', 'menu');
+    $this-> assertEqual(2, count($items), t('Two items in menu.'));
+    $this->assertIdentical($items['admin/config/content/tppsC']['title'], $items['tppsC']['title'], t('Titles are identical.'));
+  }
+
+  public function testBlockView() {
+    $data = module_invoke('tppsC', 'block_view', 'tppsC');
+    $this->assertEqual(t('tppsC'), $data['subject'], t('Subject is as expected.'));
+    $this->assertNotNull($data['content'], t('Block contains data.'));
+  }
+
+  public function testBlockInfo() {
+    $info = module_invoke('tppsC', 'block_info');
+    $this->assertNotEqual('DRUPAL_CACHE_PER_USER', $info['tppsC']['cache'], t('Cache is not set to DRUPAL_CACHE_PER_USER'));
+    $this->assertFalse(count($info) > 1, t('No more than one block defined.'));
+  }
+
+  public function testBlock() {
+    $info = module_invoke('tppsC','block_info');
+    $data = module_invoke('tppsC','block_view','tppsC');
+    $this->assertIdentical($info['tppsC']['info'], $data['subject'], t('Block list name and subject are identical.'));
+  }
+
+}

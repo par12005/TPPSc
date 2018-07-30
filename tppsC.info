@@ -1,0 +1,9 @@
+name = tppsC
+description = tppsC is my internal TPPS module
+core = 7.x
+package = AAA
+
+
+; NEW LINE
+configure = admin/config/content/tppsC
+files[] = tppsC.test

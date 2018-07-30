@@ -1,0 +1,12 @@
+<?php
+
+function mymodule_schema(){
+  $schema['mytable1'] = array(
+    //table1
+  );
+  $schema['mytable2'] = array(
+    //table2
+  );
+
+  return $schema;
+}
