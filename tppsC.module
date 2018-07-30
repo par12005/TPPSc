@@ -418,7 +418,7 @@ function tppsC_form_submit($form, &$form_state) {
   );
 
   drupal_write_record('node', $data);
-  drupal_set_message($species);
+  drupal_set_message($species['Species 5']);
 }
 
 function tppsC_permission() {
