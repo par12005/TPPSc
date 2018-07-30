@@ -382,6 +382,13 @@ function tppsC_form_validate($form, &$form_state) {
 
 function tppsC_form_submit($form, &$form_state) {
   $DOI = $form_state['values']['DOI'];
+
+  $species1 = $form_state['values']['species1']
+  $species2 = $form_state['values']['species2']
+  $species3 = $form_state['values']['species3']
+  $species4 = $form_state['values']['species4']
+  $species5 = $form_state['values']['species5']
+
   $studyType = $form_state['values']['study_type'];
   $studyDesign = $form_state['values']['study_design'];
   $studyLocation = $form_state['values']['study_location'];
@@ -402,7 +409,7 @@ function tppsC_form_submit($form, &$form_state) {
   );
 
   drupal_write_record('node', $data);
-
+  drupal_set_message($species5)
 }
 
 function tppsC_permission() {
