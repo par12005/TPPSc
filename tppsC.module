@@ -196,6 +196,130 @@ function tppsC_form($form, &$form_state) {
     '#suffix' => '</div>',
   );
 
+  $form['species11'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 11:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species12'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 12:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species13'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 13:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species14'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 14:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species15'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 15:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '15')), 'or', array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species16'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 16:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species17'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 17:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species18'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 18:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species19'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 19:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
+  $form['species20'] = array(
+    '#prefix' => '<div class="container-inline">',
+    '#type' => 'textfield',
+    '#title' => t('Species 20:'),
+    '#states' => array(
+      'visible' => array(
+          array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
+    ),
+    '#suffix' => '</div>',
+  );
+
   $study_type_options = array(
     'G' => 'Genotype',
     'P' => 'Phenotype',
