@@ -197,6 +197,7 @@ function tppsC_form($form, &$form_state) {
         array('select[name="species_dropdown"]' => array('value' => '18')), 
         array('select[name="species_dropdown"]' => array('value' => '19')), 
         array('select[name="species_dropdown"]' => array('value' => '20')),
+      ),
     ),
     '#suffix' => '</div>',
   );
