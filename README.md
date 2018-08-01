@@ -19,13 +19,13 @@ TPPSc is a [Drupal](https://www.drupal.org/) module built to extend the function
 # Current Input Fields
 
 The module has 6 primary input fields and many secondary input fields dependent on the primary input. The primary input fields are DOI, Species, Study Type, Study Design, Study Location, and Tree Accession File.
-The DOI field is a textfield where one would enter the DOI link from Dyrad
-The Species field has a dropdown menu with options of 1-20 for number of different species in the study. Once a number is selected, the same amount of textfields appear.
-The Study Type Field is a dropdown menu with 7 options of all the different combinations of Genotype, Phenotype, and Enviornment
+1. The DOI field is a textfield where one would enter the DOI link from Dyrad
+2. The Species field has a dropdown menu with options of 1-20 for number of different species in the study. Once a number is selected, the same amount of textfields appear.
+3. The Study Type Field is a dropdown menu with 7 options of all the different combinations of Genotype, Phenotype, and Enviornment
     If Genotype selected, a second field will pop up for genotype marker type (SNPs, SSRs/cpSSRs, other). Once an option is selected, an optional file upload input appears to upload the selected data in its correct file format.
     If Phenotype or Enviornment is selected, an optional file upload input appears to upload the phenotypic or enviornmental data.
-The Study Design Field is a dropdown menu with 5 options (Natural Population, Growth Chamber, Greenhouse, Common Garden, and Plantation). No further data requested / needed.
-The Study Location Field is a dropdown menu with 4 options (Lattitude Longitude (WGS 84), Lat/Long (NAD 83), Lat/Long (ETRS 89), and Custom Location). The Study Location is not location of the trees but instead the general location of the study.
+4. The Study Design Field is a dropdown menu with 5 options (Natural Population, Growth Chamber, Greenhouse, Common Garden, and Plantation). No further data requested / needed.
+5. The Study Location Field is a dropdown menu with 4 options (Lattitude Longitude (WGS 84), Lat/Long (NAD 83), Lat/Long (ETRS 89), and Custom Location). The Study Location is not location of the trees but instead the general location of the study.
     Once an option is selected, a textfield appears with either coordinates (for all of the lat/long options) or Custom Location (for custom location). 
-The Tree Accession File is a file upload field for one to upload an excel file with columns of tree ID's and their location.
+6. The Tree Accession File is a file upload field for one to upload an excel file with columns of tree ID's and their location.
 
