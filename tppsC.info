@@ -6,4 +6,4 @@ package = AAA
 
 ; NEW LINE
 configure = admin/config/content/tppsC
-files[] = tppsC.test
+
