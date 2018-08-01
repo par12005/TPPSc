@@ -52,15 +52,8 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="species_dropdown"]' => array('value' => '1')),
-          'or',
-          array('select[name="species_dropdown"]' => array('value' => '2')),
-          'or',
-          array('select[name="species_dropdown"]' => array('value' => '3')),
-          'or',
-          array('select[name="species_dropdown"]' => array('value' => '4')),
-          'or',
-          array('select[name="species_dropdown"]' => array('value' => '5')),
+          array('select[name="species_dropdown"]' => array('value' => '1')), 'or', array('select[name="species_dropdown"]' => array('value' => '2')), 'or', array('select[name="species_dropdown"]' => array('value' => '3')), 'or', array('select[name="species_dropdown"]' => array('value' => '4')), 'or', array('select[name="species_dropdown"]' => array('value' => '5')),
+          array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
         ),
       ),
     ),
