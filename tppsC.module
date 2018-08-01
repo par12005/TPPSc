@@ -421,13 +421,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_type"]' => array('value' => 'P')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'PxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxP')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxPxE')),
+          array('select[name="study_type"]' => array('value' => 'P')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
         )
       ),
     ),
@@ -439,13 +433,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_type"]' => array('value' => 'P')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'PxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxP')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxPxE')),
+          array('select[name="study_type"]' => array('value' => 'P')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
         )
       ),
     ),
@@ -458,13 +446,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_type"]' => array('value' => 'E')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'PxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxPxE')),
+          array('select[name="study_type"]' => array('value' => 'E')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
         )
       ),
     ),
@@ -476,13 +458,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_type"]' => array('value' => 'E')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'PxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxPxE')),
+          array('select[name="study_type"]' => array('value' => 'E')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
         )
       ),
     ),
@@ -523,11 +499,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_location"]' => array('value' => 'WGS 84')),
-          'or',
-          array('select[name="study_location"]' => array('value' => 'NAD 83')),
-          'or',
-          array('select[name="study_location"]' => array('value' => 'ETRS 89')),
+          array('select[name="study_location"]' => array('value' => 'WGS 84')), array('select[name="study_location"]' => array('value' => 'NAD 83')), array('select[name="study_location"]' => array('value' => 'ETRS 89')),
         )
       ),
     ),
