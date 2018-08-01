@@ -52,10 +52,10 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="species_dropdown"]' => array('value' => '1')), 'or', array('select[name="species_dropdown"]' => array('value' => '2')), 'or', array('select[name="species_dropdown"]' => array('value' => '3')), 'or', array('select[name="species_dropdown"]' => array('value' => '4')), 'or', array('select[name="species_dropdown"]' => array('value' => '5')),
-          array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '1')),   array('select[name="species_dropdown"]' => array('value' => '2')),   array('select[name="species_dropdown"]' => array('value' => '3')),   array('select[name="species_dropdown"]' => array('value' => '4')),   array('select[name="species_dropdown"]' => array('value' => '5')),
+          array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
         ),
       ),
     ),
@@ -69,7 +69,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="species_dropdown"]' => array('value' => '2')), 'or', array('select[name="species_dropdown"]' => array('value' => '3')), 'or', array('select[name="species_dropdown"]' => array('value' => '4')), 'or', array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '2')),   array('select[name="species_dropdown"]' => array('value' => '3')),   array('select[name="species_dropdown"]' => array('value' => '4')),   array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
         ),
       ),
     ),
@@ -83,10 +83,10 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="species_dropdown"]' => array('value' => '3')), 'or', array('select[name="species_dropdown"]' => array('value' => '4')), 'or', array('select[name="species_dropdown"]' => array('value' => '5')),
-          array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '3')),   array('select[name="species_dropdown"]' => array('value' => '4')),   array('select[name="species_dropdown"]' => array('value' => '5')),
+          array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
         ),
       ),
     ),
@@ -100,10 +100,10 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="species_dropdown"]' => array('value' => '4')), 'or', array('select[name="species_dropdown"]' => array('value' => '5')),
-          array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '4')),   array('select[name="species_dropdown"]' => array('value' => '5')),
+          array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
         ),
       ),
     ),
@@ -116,9 +116,9 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 5:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '5')), 'or', array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '5')),   array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -130,9 +130,9 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 6:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '6')), 'or', array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '6')),   array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -144,9 +144,9 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 7:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '7')), 'or', array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '7')),   array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -158,9 +158,9 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 8:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '8')), 'or', array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '8')),   array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -172,9 +172,9 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 9:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '9')), 'or', array('select[name="species_dropdown"]' => array('value' => '10')),
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '9')),   array('select[name="species_dropdown"]' => array('value' => '10')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),   array('select[name="species_dropdown"]' => array('value' => '12')),   array('select[name="species_dropdown"]' => array('value' => '13')),   array('select[name="species_dropdown"]' => array('value' => '14')),   array('select[name="species_dropdown"]' => array('value' => '15')),
+          array('select[name="species_dropdown"]' => array('value' => '16')),   array('select[name="species_dropdown"]' => array('value' => '17')),   array('select[name="species_dropdown"]' => array('value' => '18')),   array('select[name="species_dropdown"]' => array('value' => '19')),   array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -186,9 +186,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 10:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '10')), 'or', array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
+          array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')),array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
     ),
     '#suffix' => '</div>',
   );
@@ -199,8 +197,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 11:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '11')), 'or', array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '11')),array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -212,8 +209,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 12:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '12')), 'or', array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -225,8 +221,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 13:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '13')), 'or', array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -238,8 +233,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 14:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '14')), 'or', array('select[name="species_dropdown"]' => array('value' => '15')),
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -251,7 +245,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 15:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '15')), 'or', array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -263,7 +257,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 16:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '16')), 'or', array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -275,7 +269,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 17:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '17')), 'or', array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -287,7 +281,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 18:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '18')), 'or', array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -299,7 +293,7 @@ function tppsC_form($form, &$form_state) {
     '#title' => t('Species 19:'),
     '#states' => array(
       'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '19')), 'or', array('select[name="species_dropdown"]' => array('value' => '20')),
+          array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
       ),
     ),
     '#suffix' => '</div>',
@@ -347,13 +341,7 @@ function tppsC_form($form, &$form_state) {
     '#states' => array(
       'visible' => array(
         array(
-          array('select[name="study_type"]' => array('value' => 'G')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxE')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxP')),
-          'or',
-          array('select[name="study_type"]' => array('value' => 'GxPxE')),
+          array('select[name="study_type"]' => array('value' => 'G')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
         )
       ),
     ),
