@@ -3,6 +3,7 @@
 2. [Installation](#installation)
 3. [Features](#features)
 4. [Current Input Fields](#current-input-fields)
+5. [Currently Working On](#currently-working-on)
 
 # Introduction
 TPPSc is a [Drupal](https://www.drupal.org/) module built to extend the functionality of the [Tripal](http://tripal.info/) toolset. The purpose of this tripal module is to permit internal curation of manuscripts available on public sites with supplemental data, such as Dryad. This module will allow members of the database team to load existing flat files and select the data that is relevant. This module does not currently require any other modules.
@@ -28,4 +29,7 @@ The module has 6 primary input fields and many secondary input fields dependent 
 5. The Study Location Field is a dropdown menu with 4 options (Lattitude Longitude (WGS 84), Lat/Long (NAD 83), Lat/Long (ETRS 89), and Custom Location). The Study Location is not location of the trees but instead the general location of the study.
     Once an option is selected, a textfield appears with either coordinates (for all of the lat/long options) or Custom Location (for custom location). 
 6. The Tree Accession File is a file upload field for one to upload an excel file with columns of tree ID's and their location.
+
+# Currently Working On
+Currently Working on File Column options, and how the data is being stored in the Drupal Database
 
