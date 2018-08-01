@@ -567,11 +567,6 @@ function tppsC_form_validate($form, &$form_state) {
 function tppsC_form_submit($form, &$form_state) {
   $DOI = $form_state['values']['DOI'];
   $species_dropdown = $form_state['values']['species_dropdown'];
-  $species1 = $form_state['values']['species1'];
-  $species2 = $form_state['values']['species2'];
-  $species3 = $form_state['values']['species3'];
-  $species4 = $form_state['values']['species4'];
-  $species5 = $form_state['values']['species5'];
   $studyType = $form_state['values']['study_type'];
   $studyDesign = $form_state['values']['study_design'];
   $studyLocation = $form_state['values']['study_location'];
@@ -582,13 +577,30 @@ function tppsC_form_submit($form, &$form_state) {
   elseif ($studyLocation == 'Custom Location') {
     $studyLocationCoord = $form_state['values']['study_location_states_custom'];
   }
+
+  $species1 = $form_state['values']['species1'];
+  $species2 = $form_state['values']['species2'];
+  $species3 = $form_state['values']['species3'];
+  $species4 = $form_state['values']['species4'];
+  $species5 = $form_state['values']['species5'];
+  $species6 = $form_state['values']['species6'];
+  $species7 = $form_state['values']['species7'];
+  $species8 = $form_state['values']['species8'];
+  $species9 = $form_state['values']['species9'];
+  $species10 = $form_state['values']['species10'];
+  $species11 = $form_state['values']['species11'];
+  $species12 = $form_state['values']['species12'];
+  $species13 = $form_state['values']['species13'];
+  $species14 = $form_state['values']['species14'];
+  $species15 = $form_state['values']['species15'];
+  $species16 = $form_state['values']['species16'];
+  $species17 = $form_state['values']['species17'];
+  $species18 = $form_state['values']['species18'];
+  $species19 = $form_state['values']['species19'];
+  $species20 = $form_state['values']['species20'];
   
   $species = array(
-    'Species 1' => $species1,
-    'Species 2' => $species2,
-    'Species 3' => $species3,
-    'Species 4' => $species4,
-    'Species 5' => $species5,
+    'Species 1' => $species1, 'Species 2' => $species2, 'Species 3' => $species3, 'Species 4' => $species4, 'Species 5' => $species5,  'Species 6' => $species6, 'Species 7' => $species7, 'Species 8' => $species8, 'Species 9' => $species9, 'Species 10' => $species10,  'Species 11' => $species11, 'Species 12' => $species12, 'Species 13' => $species13, 'Species 14' => $species14, 'Species 15' => $species15, 'Species 16' => $species16, 'Species 17' => $species17, 'Species 18' => $species18, 'Species 19' => $species19, 'Species 20' => $species20,
   );
 
   $data = array(
