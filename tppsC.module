@@ -2,7 +2,7 @@
 
 function tppsC_menu() {
   $items = array();
-  
+
   $items['admin/config/content/tppsC'] = array(
     'title' => 'tppsC',
     'description' => 'Configuration for the tppsC module',
@@ -19,7 +19,7 @@ function tppsC_menu() {
     'page arguments' => array('tppsC_form'),
     'access callback' => TRUE
   );
-  
+
   return $items;
 }
 
@@ -327,11 +327,10 @@ function tppsC_form($form, &$form_state) {
     ),
   );
 
-  $form['genotype_file_SNPs'] = array(
-    '#type' => 'file',
+  $form['genotype_SNPs'] = array(
+    '#type' => 'managed_file',
     '#title' => t('SNPs File Upload'),
     '#description' => t('Please upload a .vcf file with the SNPs information.'),
-    '#upload_location' => "public://",
     '#upload_validators' => array('file_validate_extensions' => array('vcf')),
     '#states' => array(
       'visible' => array(
@@ -340,10 +339,27 @@ function tppsC_form($form, &$form_state) {
     ),
   );
 
+  $ref_genome = array(
+      'N/A',
+      'To be added',
+  );
+
+  $form['genotype_SSRs_refrence_genome'] = array(
+      '#prefix' => '<div class="container-inline">',
+      '#type' => 'select',
+      '#title' => t('Reference Genome Used: '),
+      '#options' => $ref_genome,
+      '#states' => array(
+        'visible' => array(
+            ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
+      ),
+    ),
+      '#suffix' => '</div>',
+  );
+
   $form['genotype_SSRs'] = array(
     '#type' => 'managed_file',
     '#title' => t('SSRs/cpSSRs File Upload'),
-    '#description' => t('Please upload an excel file with the SSRs/cpSSRs information.'),
     '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
     '#tree' => TRUE,
     '#states' => array(
@@ -352,29 +368,27 @@ function tppsC_form($form, &$form_state) {
       ),
     ),
   );
-  
    $form['genotype_SSRs']['file']['columns'] = array(
       '#type' => 'fieldset',
+      '#title' => t('Define Data'),
+      '#description' => t('Please define which columns hold the required data:'),
+      '#states' => array(
+        'invisible' => array(
+           ':input[name="genotype_SSRs_upload_button"]' => array('value' => 'Upload'))),
     );
-
-  
   $file = 0;
   if (isset($form_state['values']['genotype_SSRs']) and $form_state['values']['genotype_SSRs'] != 0){
     $file = $form_state['values']['genotype_SSRs'];
   }
-
   if ($file != 0){
     if (($file = file_load($file))){
-      dpm(t('test'));
       $file_name = $file->uri;
       $location = drupal_realpath("$file_name");
       $content = parse_xlsx($location);
-      dpm($content);
       $column_options = array(
         'N/A',
-        'First Name',
-        'Last Name',
-        'Middle Initial'
+        'Tree Identifier',
+        'Genotypic Information',
       );
       $first = TRUE;
       foreach ($content['headers'] as $item){
@@ -390,15 +404,12 @@ function tppsC_form($form, &$form_state) {
             'title' => array("Select the type of data the '$item' column holds")
           )
         );
-
         if ($first){
           $first = FALSE;
           $form['genotype_SSRs']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['genotype_SSRs']['file']['columns'][$item]['#prefix'];
          }
-
       }
     }
-
       $display = "</tr>";
       for ($i = 0; $i < 3; $i++){
         if (isset($content[$i])){
@@ -414,43 +425,11 @@ function tppsC_form($form, &$form_state) {
       $form['genotype_SSRs']['file']['columns'][$item]['#suffix'] .= $display;
     }
 
-
-  $form['genotype_file_SSRs_header_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('My file does not have a header'),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
-      ),
-    ),
-  );
-
-  $form['genotype_file_other'] = array(
-    '#type' => 'file',
-    '#title' => t('Other Genotype File Upload'),
-    '#description' => t('Please upload an excel file with the Genotype information.'),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="genotype_marker_type[Other]"]' => array('checked' => TRUE),
-      ),
-    ),
-  );
-
-  $form['genotype_file_other_header_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('My file does not have a header'),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="genotype_marker_type[Other]"]' => array('checked' => TRUE),
-      ),
-    ),
-  );
-
-
-  $form['phenotype_file_upload'] = array(
-    '#type' => 'file',
+  $form['phenotype_file'] = array(
+    '#type' => 'managed_file',
     '#title' => t('Phenotype File Upload'),
-    '#description' => t('Optional: Upload an excel file of phenotypic data,'),
+    '#tree' => TRUE,
+    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
     '#states' => array(
       'visible' => array(
         array(
@@ -459,18 +438,65 @@ function tppsC_form($form, &$form_state) {
       ),
     ),
   );
+   $form['phenotype_file']['file']['columns'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Define Data'),
+      '#description' => t('Please define which columns hold the required data:'),
+      '#states' => array(
+        'invisible' => array(
+           ':input[name="phenotype_file_upload_button"]' => array('value' => 'Upload'))),
+    );
+  $file = 0;
+  if (isset($form_state['values']['phenotype_file']) and $form_state['values']['phenotype_file'] != 0){
+    $file = $form_state['values']['phenotype_file'];
+  }
+  if ($file != 0){
+    if (($file = file_load($file))){
+      $file_name = $file->uri;
+      $location = drupal_realpath("$file_name");
+      $content = parse_xlsx($location);
+      $column_options = array(
+        'N/A',
+        'Tree Identifier',
+        'Phenotype Name/Identifier',
+        'Value(s)',
+      );
+      $first = TRUE;
+      foreach ($content['headers'] as $item){
+        $form['phenotype_file']['file']['columns'][$item] = array(
+          '#type' => 'select',
+          '#title' => t($item),
+          '#options' => $column_options,
+          '#prefix' => "<td>",
+          '#suffix' => "</td>",
+          '#attributes' => array(
+            'data-toggle' => array('tooltip'),
+            'data-placement' => array('left'),
+            'title' => array("Select the type of data the '$item' column holds")
+          )
+        );
+        if ($first){
+          $first = FALSE;
+          $form['phenotype_file']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['phenotype_file']['file']['columns'][$item]['#prefix'];
+         }
+      }
+    }
+      $display = "</tr>";
+      for ($i = 0; $i < 3; $i++){
+        if (isset($content[$i])){
+          $display .= "<tr>";
+          foreach ($content['headers'] as $item){
+            $display .= "<th>{$content[$i][$item]}</th>";
+          }
+          $display .= "</tr>";
+          }
+        }
+      $display .= "</tbody></table></div>";
 
-  $form['phenotype_header_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('My file does not have a header'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_type"]' => array('value' => 'P')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
-        )
-      ),
-    ),
-  );
+      $form['phenotype_file']['file']['columns'][$item]['#suffix'] .= $display;
+    }
+
+
 
   $form['environment_file_upload'] = array(
     '#type' => 'file',
@@ -485,17 +511,6 @@ function tppsC_form($form, &$form_state) {
     ),
   );
 
-  $form['enviornment_header_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('My file does not have a header'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_type"]' => array('value' => 'E')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
-        )
-      ),
-    ),
-  );
 
   $study_design_options = array(
     'Natural Population' => 'Natural Population',
@@ -550,10 +565,86 @@ function tppsC_form($form, &$form_state) {
     ),
   );
 
-  $form['tree_location_data'] = array(
-    '#type' => 'file',
+  $form['tree_location'] = array(
+    '#type' => 'managed_file',
     '#title' => t('Tree Accession File'),
+    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
+    '#tree' => TRUE,
     '#description' => t('Please provide a spreadsheet with columns for the Tree ID and the location of trees used in this study'),
+  );
+
+   $form['tree_location']['file']['columns'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Define Data'),
+      '#description' => t('Please define which columns hold the required data:'),
+      '#states' => array(
+        'invisible' => array(
+           ':input[name="tree_location_upload_button"]' => array('value' => 'Upload'))),
+    );
+  $file = 0;
+  if (isset($form_state['values']['tree_location']) and $form_state['values']['tree_location'] != 0){
+    $file = $form_state['values']['tree_location'];
+  }
+  if ($file != 0){
+    if (($file = file_load($file))){
+      $file_name = $file->uri;
+      $location = drupal_realpath("$file_name");
+      $content = parse_xlsx($location);
+      $column_options = array(
+        'N/A',
+        'Tree Identifier',
+        'Country',
+        'State',
+        'County',
+        'District',
+        'Lattitude',
+        'Longitude',
+        'Genus',
+        'Species',
+        'Genus+Species',
+        'Altitude',
+        'Time',
+      );
+      $first = TRUE;
+      foreach ($content['headers'] as $item){
+        $form['tree_location']['file']['columns'][$item] = array(
+          '#type' => 'select',
+          '#title' => t($item),
+          '#options' => $column_options,
+          '#prefix' => "<td>",
+          '#suffix' => "</td>",
+          '#attributes' => array(
+            'data-toggle' => array('tooltip'),
+            'data-placement' => array('left'),
+            'title' => array("Select the type of data the '$item' column holds")
+          )
+        );
+        if ($first){
+          $first = FALSE;
+          $form['tree_location']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['tree_location']['file']['columns'][$item]['#prefix'];
+         }
+      }
+    }
+      $display = "</tr>";
+      for ($i = 0; $i < 3; $i++){
+        if (isset($content[$i])){
+          $display .= "<tr>";
+          foreach ($content['headers'] as $item){
+            $display .= "<th>{$content[$i][$item]}</th>";
+          }
+          $display .= "</tr>";
+          }
+        }
+      $display .= "</tbody></table></div>";
+
+      $form['tree_location']['file']['columns'][$item]['#suffix'] .= $display;
+    }  
+
+
+
+  $form['treelocation_check'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('My file does not have a header'),
   );
 
 
@@ -572,7 +663,7 @@ function tppsC_form_submit($form, &$form_state) {
   $studyType = $form_state['values']['study_type'];
   $studyDesign = $form_state['values']['study_design'];
   $studyLocation = $form_state['values']['study_location'];
-  
+
   if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
     $studyLocationCoord = $form_state['values']['study_location_states_exact'];
   }
@@ -600,7 +691,7 @@ function tppsC_form_submit($form, &$form_state) {
   $species18 = $form_state['values']['species18'];
   $species19 = $form_state['values']['species19'];
   $species20 = $form_state['values']['species20'];
-  
+
   $species = array(
     'Species 1' => $species1, 'Species 2' => $species2, 'Species 3' => $species3, 'Species 4' => $species4, 'Species 5' => $species5,  'Species 6' => $species6, 'Species 7' => $species7, 'Species 8' => $species8, 'Species 9' => $species9, 'Species 10' => $species10,  'Species 11' => $species11, 'Species 12' => $species12, 'Species 13' => $species13, 'Species 14' => $species14, 'Species 15' => $species15, 'Species 16' => $species16, 'Species 17' => $species17, 'Species 18' => $species18, 'Species 19' => $species19, 'Species 20' => $species20,
   );
@@ -636,12 +727,12 @@ function tppsC_help($path, $arg) {
 }
 
 function parse_xlsx($location){
-    
+
     //modified from https://gist.github.com/searbe/3284011
-    
+
     $content = array();
     $dir = drupal_realpath("public://tpps_xlsx");
-    
+
     $zip = new ZipArchive();
     $zip->open($location);
     $zip->extractTo($dir);
@@ -653,20 +744,20 @@ function parse_xlsx($location){
 
     foreach ($xlrows as $xlrow) {
         $arr = array();
-        
+
         foreach ($xlrow->c as $cell) {
-            
+
             $v = (string) $cell->v;
 
             if (isset($cell['t']) && $cell['t'] == 's') {
                 $s  = array();
                 $si = $strings->si[(int) $v];
                 $si->registerXPathNamespace('n', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
-                
+
                 foreach($si->xpath('.//n:t') as $t) {
                     $s[] = (string) $t;
                 }
-                
+
                 $v = implode($s);
             }
             $arr[] = $v;
@@ -682,11 +773,10 @@ function parse_xlsx($location){
             $content[] = $row;
         }
     }
-    
+
     @unlink($dir);
     @unlink($inputFile);
-    
-    return $content;
-    
-}
 
+    return $content;
+
+}
