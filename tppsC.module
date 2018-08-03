@@ -370,7 +370,7 @@ function tppsC_form($form, &$form_state) {
       );
       $first = TRUE;
       foreach ($content['headers'] as $item){
-        $form['publication']['secondaryAuthors']['file']['columns'][$item] = array(
+        $form['genotype_SSRs']['file']['columns'][$item] = array(
           '#type' => 'select',
           '#title' => t($item),
           '#options' => $column_options,
@@ -385,7 +385,7 @@ function tppsC_form($form, &$form_state) {
 
         if ($first){
           $first = FALSE;
-          $form['publication']['secondaryAuthors']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['publication']['secondaryAuthors']['file']['columns'][$item]['#prefix'];
+          $form['genotype_SSRs']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['genotype_SSRs']['file']['columns'][$item]['#prefix'];
          }
 
       }
@@ -403,10 +403,8 @@ function tppsC_form($form, &$form_state) {
         }
       $display .= "</tbody></table></div>";
 
-      $form['publication']['secondaryAuthors']['file']['columns'][$item]['#suffix'] .= $display;
+      $form['genotype_SSRs']['file']['columns'][$item]['#suffix'] .= $display;
     }
-
-
 
 
   $form['genotype_file_SSRs_header_check'] = array(
