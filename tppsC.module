@@ -340,15 +340,22 @@ function tppsC_form($form, &$form_state) {
   );
 
   $form['genotype_file_SSRs'] = array(
-    '#type' => 'file',
+    '#type' => 'managed_file',
     '#title' => t('SSRs/cpSSRs File Upload'),
     '#description' => t('Please upload an excel file with the SSRs/cpSSRs information.'),
+    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
+    '#tree' => TRUE,
     '#states' => array(
       'visible' => array(
         ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
       ),
     ),
   );
+  
+  $file = 0;
+  if (isset($form_state['values']['genotype_file_SSRs']) and $form_state['values']['genotype_file_SSRs'] != 0){
+    $file = $form_state['values']['publication']['secondaryAuthors']['file'];
+  }
 
   $form['genotype_file_SSRs_header_check'] = array(
     '#type' => 'checkbox',
