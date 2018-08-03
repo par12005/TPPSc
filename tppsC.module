@@ -366,6 +366,7 @@ function tppsC_form($form, &$form_state) {
       $file_name = $file->uri;
       $location = drupal_realpath("$file_name");
       $content = parse_xlsx($location);
+      dpm($content);
       $column_options = array(
         'N/A',
         'First Name',
