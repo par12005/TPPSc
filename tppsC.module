@@ -357,6 +357,58 @@ function tppsC_form($form, &$form_state) {
     $file = $form_state['values']['genotype_file_SSRs'];
   }
 
+  if ($file != 0){
+    if (($file = file_load($file))){
+      $file_name = $file->uri;
+      $location = drupal_realpath("$file_name");
+      $content = parse_xlsx($location);
+      $column_options = array(
+        'N/A',
+        'First Name',
+        'Last Name',
+        'Middle Initial'
+      );
+      $first = TRUE;
+      foreach ($content['headers'] as $item){
+        $form['publication']['secondaryAuthors']['file']['columns'][$item] = array(
+          '#type' => 'select',
+          '#title' => t($item),
+          '#options' => $column_options,
+          '#prefix' => "<td>",
+          '#suffix' => "</td>",
+          '#attributes' => array(
+            'data-toggle' => array('tooltip'),
+            'data-placement' => array('left'),
+            'title' => array("Select the type of data the '$item' column holds")
+          )
+        );
+
+        if ($first){
+          $first = FALSE;
+          $form['publication']['secondaryAuthors']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['publication']['secondaryAuthors']['file']['columns'][$item]['#prefix'];
+         }
+
+      }
+    }
+
+      $display = "</tr>";
+      for ($i = 0; $i < 3; $i++){
+        if (isset($content[$i])){
+          $display .= "<tr>";
+          foreach ($content['headers'] as $item){
+            $display .= "<th>{$content[$i][$item]}</th>";
+          }
+          $display .= "</tr>";
+          }
+        }
+      $display .= "</tbody></table></div>";
+
+      $form['publication']['secondaryAuthors']['file']['columns'][$item]['#suffix'] .= $display;
+    }
+
+
+
+
   $form['genotype_file_SSRs_header_check'] = array(
     '#type' => 'checkbox',
     '#title' => t('My file does not have a header'),
