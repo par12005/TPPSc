@@ -331,6 +331,7 @@ function tppsC_form($form, &$form_state) {
     '#type' => 'file',
     '#title' => t('SNPs File Upload'),
     '#description' => t('Please upload a .vcf file with the SNPs information.'),
+    '#upload_location' => "public://",
     '#upload_validators' => array('file_validate_extensions' => array('vcf')),
     '#states' => array(
       'visible' => array(
