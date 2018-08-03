@@ -354,7 +354,7 @@ function tppsC_form($form, &$form_state) {
   
   $file = 0;
   if (isset($form_state['values']['genotype_file_SSRs']) and $form_state['values']['genotype_file_SSRs'] != 0){
-    $file = $form_state['values']['publication']['secondaryAuthors']['file'];
+    $file = $form_state['values']['genotype_file_SSRs'];
   }
 
   $form['genotype_file_SSRs_header_check'] = array(
