@@ -353,7 +353,7 @@ function tppsC_form($form, &$form_state) {
     ),
   );
   
-   $form['genotype_SSRs_column']['file']['columns'] = array(
+   $form['genotype_SSRs']['file']['columns'] = array(
       '#type' => 'fieldset',
       '#title' => t('<h2>Define Data</h2>'),
       '#states' => array(
