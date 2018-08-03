@@ -25,629 +25,676 @@ function tppsC_menu() {
 
 function tppsC_form($form, &$form_state) { 
 
-  $form['DOI'] = array(
-    '#type' => 'textfield',
-    '#title' => t('DOI:'),
-    '#maxlength' => 100,
-    '#required' => TRUE,
-  );
-
-  $species_dropdown_option = array(
-    '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20',
-  );
-
-  $form['species_dropdown'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'select',
-    '#title' => t('How many species are there in the study?'),
-    '#options' => $species_dropdown_option,
-    '#required' => TRUE,
-    '#suffix' => '</div>',
-  );
-
-  $form['species1'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 1:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '1')), array('select[name="species_dropdown"]' => array('value' => '2')), array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species2'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 2:'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="species_dropdown"]' => array('value' => '2')), array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-        ),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species3'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 3:'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-        ),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species4'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 4:'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-        ),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species5'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 5:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species6'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 6:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species7'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 7:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species8'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 8:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species9'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 9:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species10'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 10:'),
-    '#states' => array(
-      'visible' => array(
-        array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species11'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 11:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '11')),array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species12'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 12:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species13'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 13:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species14'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 14:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species15'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 15:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species16'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 16:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species17'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 17:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species18'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 18:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species19'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 19:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $form['species20'] = array(
-    '#prefix' => '<div class="container-inline">',
-    '#type' => 'textfield',
-    '#title' => t('Species 20:'),
-    '#states' => array(
-      'visible' => array(
-          array('select[name="species_dropdown"]' => array('value' => '20')),
-      ),
-    ),
-    '#suffix' => '</div>',
-  );
-
-  $study_type_options = array(
-    'G' => 'Genotype',
-    'P' => 'Phenotype',
-    'E' => 'Environment',
-    'GxP' => 'Genotype x Phenotype',
-    'GxE' => 'Genotype x Environment',
-    'PxE' => 'Phenotype x Environment',
-    'GxPxE' => 'Genotype x Phenotype x Environment',
-  );
-
-  $form['study_type'] = array(
-    '#type' => 'select',
-    '#title' => t('Study Type:'),
-    '#options' => $study_type_options,
-    '#required' => TRUE,
-  );
-
-  $genotype_marker_types = array(
-    'SNPs' => 'SNPs',
-    'SSRs/cpSSRs' => 'SSRs/cpSSRs',
-    'Other' => 'Other',
-  );
-
-  $form['genotype_marker_type'] = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Genotype Marker Type:'),
-    '#options' => $genotype_marker_types,
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_type"]' => array('value' => 'G')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
-        )
-      ),
-    ),
-  );
-
-  $form['genotype_SNPs'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('SNPs File Upload'),
-    '#description' => t('Please upload a .vcf file with the SNPs information.'),
-    '#upload_validators' => array('file_validate_extensions' => array('vcf')),
-    '#states' => array(
-      'visible' => array(
-        ':input[name="genotype_marker_type[SNPs]"]' => array('checked' => TRUE),
-      ),
-    ),
-  );
-
-  $ref_genome = array(
-      'N/A',
-      'To be added',
-  );
-
-  $form['genotype_SSRs_refrence_genome'] = array(
-      '#prefix' => '<div class="container-inline">',
-      '#type' => 'select',
-      '#title' => t('Reference Genome Used: '),
-      '#options' => $ref_genome,
-      '#states' => array(
-        'visible' => array(
-            ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
-      ),
-    ),
-      '#suffix' => '</div>',
-  );
-
-  $form['genotype_SSRs'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('SSRs/cpSSRs File Upload'),
-    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
-    '#tree' => TRUE,
-    '#states' => array(
-      'visible' => array(
-        ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
-      ),
-    ),
-  );
-   $form['genotype_SSRs']['file']['columns'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Define Data'),
-      '#description' => t('Please define which columns hold the required data:'),
-      '#states' => array(
-        'invisible' => array(
-           ':input[name="genotype_SSRs_upload_button"]' => array('value' => 'Upload'))),
-    );
-  $file = 0;
-  if (isset($form_state['values']['genotype_SSRs']) and $form_state['values']['genotype_SSRs'] != 0){
-    $file = $form_state['values']['genotype_SSRs'];
-  }
-  if ($file != 0){
-    if (($file = file_load($file))){
-      $file_name = $file->uri;
-      $location = drupal_realpath("$file_name");
-      $content = parse_xlsx($location);
-      $column_options = array(
-        'N/A',
-        'Tree Identifier',
-        'Genotypic Information',
-      );
-      $first = TRUE;
-      foreach ($content['headers'] as $item){
-        $form['genotype_SSRs']['file']['columns'][$item] = array(
-          '#type' => 'select',
-          '#title' => t($item),
-          '#options' => $column_options,
-          '#prefix' => "<td>",
-          '#suffix' => "</td>",
-          '#attributes' => array(
-            'data-toggle' => array('tooltip'),
-            'data-placement' => array('left'),
-            'title' => array("Select the type of data the '$item' column holds")
-          )
+    
+    function DOI(&$form, $form_state){
+        $form['DOI'] = array(
+            '#type' => 'textfield',
+            '#title' => t('DOI:'),
+            '#maxlength' => 100,
+            '#required' => TRUE,
         );
-        if ($first){
-          $first = FALSE;
-          $form['genotype_SSRs']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['genotype_SSRs']['file']['columns'][$item]['#prefix'];
-         }
-      }
+        return $form;
     }
-      $display = "</tr>";
-      for ($i = 0; $i < 3; $i++){
-        if (isset($content[$i])){
-          $display .= "<tr>";
-          foreach ($content['headers'] as $item){
-            $display .= "<th>{$content[$i][$item]}</th>";
-          }
-          $display .= "</tr>";
-          }
-        }
-      $display .= "</tbody></table></div>";
-
-      $form['genotype_SSRs']['file']['columns'][$item]['#suffix'] .= $display;
-    }
-
-  $form['phenotype_file'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('Phenotype File Upload'),
-    '#tree' => TRUE,
-    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_type"]' => array('value' => 'P')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
-        )
-      ),
-    ),
-  );
-   $form['phenotype_file']['file']['columns'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Define Data'),
-      '#description' => t('Please define which columns hold the required data:'),
-      '#states' => array(
-        'invisible' => array(
-           ':input[name="phenotype_file_upload_button"]' => array('value' => 'Upload'))),
-    );
-  $file = 0;
-  if (isset($form_state['values']['phenotype_file']) and $form_state['values']['phenotype_file'] != 0){
-    $file = $form_state['values']['phenotype_file'];
-  }
-  if ($file != 0){
-    if (($file = file_load($file))){
-      $file_name = $file->uri;
-      $location = drupal_realpath("$file_name");
-      $content = parse_xlsx($location);
-      $column_options = array(
-        'N/A',
-        'Tree Identifier',
-        'Phenotype Name/Identifier',
-        'Value(s)',
-      );
-      $first = TRUE;
-      foreach ($content['headers'] as $item){
-        $form['phenotype_file']['file']['columns'][$item] = array(
-          '#type' => 'select',
-          '#title' => t($item),
-          '#options' => $column_options,
-          '#prefix' => "<td>",
-          '#suffix' => "</td>",
-          '#attributes' => array(
-            'data-toggle' => array('tooltip'),
-            'data-placement' => array('left'),
-            'title' => array("Select the type of data the '$item' column holds")
-          )
+  
+    DOI($form, $form_state);
+  
+    function species(&$form, $form_state){
+        $species_dropdown_option = array(
+          '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20',
         );
-        if ($first){
-          $first = FALSE;
-          $form['phenotype_file']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['phenotype_file']['file']['columns'][$item]['#prefix'];
-         }
-      }
-    }
-      $display = "</tr>";
-      for ($i = 0; $i < 3; $i++){
-        if (isset($content[$i])){
-          $display .= "<tr>";
-          foreach ($content['headers'] as $item){
-            $display .= "<th>{$content[$i][$item]}</th>";
-          }
-          $display .= "</tr>";
-          }
-        }
-      $display .= "</tbody></table></div>";
 
-      $form['phenotype_file']['file']['columns'][$item]['#suffix'] .= $display;
-    }
-
-
-
-  $form['environment_file_upload'] = array(
-    '#type' => 'file',
-    '#title' => t('Environment File Upload'),
-    '#description' => t('Optional: Upload an excel file of enviornmental data.'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_type"]' => array('value' => 'E')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
-        )
-      ),
-    ),
-  );
-
-
-  $study_design_options = array(
-    'Natural Population' => 'Natural Population',
-    'Growth Chamber' => 'Growth Chamber',
-    'Greenhouse' => 'Greenhouse',
-    'Common Garden' => 'Common Garden',
-    'Plantation' => 'Plantation',
-  );
-
-  $form['study_design'] = array(
-    '#type' => 'select',
-    '#title' => t('Study Design:'),
-    '#options' => $study_design_options,
-    '#required' => TRUE,
-  );
-
-  $study_location_options = array(
-    'WGS 84' => 'Latitude/Longitude (WGS 84)',
-    'NAD 83' => 'Latitude/Longitude (NAD 83)',
-    'ETRS 89' => 'Latitude/Longitude (ETRS 89)',
-    'Custom Location' => 'Custom Location',
-  );
-
-  $form['study_location'] = array(
-    '#type' => 'select',
-    '#title' => t('Study Location:'),
-    '#options' => $study_location_options,
-    '#required' => TRUE,
-  );
-
-  $form['study_location_states_exact'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Coordinates:'),
-    '#states' => array(
-      'visible' => array(
-        array(
-          array('select[name="study_location"]' => array('value' => 'WGS 84')), array('select[name="study_location"]' => array('value' => 'NAD 83')), array('select[name="study_location"]' => array('value' => 'ETRS 89')),
-        )
-      ),
-    ),
-    '#description' => t('Accepted Formats are Degrees Minutes Seconds, Degrees Decimal Minutes, and Decimal Degrees.'),
-  );
-
-  $form['study_location_states_custom'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Custom Location:'),
-    '#description' => t('Ex: Street Address, or other location formats.'),
-    '#states' => array(
-      'visible' => array(
-        'select[name="study_location"]' => array('value' => 'Custom Location'),
-      ),
-    ),
-  );
-
-  $form['tree_location'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('Tree Accession File'),
-    '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
-    '#tree' => TRUE,
-    '#description' => t('Please provide a spreadsheet with columns for the Tree ID and the location of trees used in this study'),
-  );
-
-   $form['tree_location']['file']['columns'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Define Data'),
-      '#description' => t('Please define which columns hold the required data:'),
-      '#states' => array(
-        'invisible' => array(
-           ':input[name="tree_location_upload_button"]' => array('value' => 'Upload'))),
-    );
-  $file = 0;
-  if (isset($form_state['values']['tree_location']) and $form_state['values']['tree_location'] != 0){
-    $file = $form_state['values']['tree_location'];
-  }
-  if ($file != 0){
-    if (($file = file_load($file))){
-      $file_name = $file->uri;
-      $location = drupal_realpath("$file_name");
-      $content = parse_xlsx($location);
-      $column_options = array(
-        'N/A',
-        'Tree Identifier',
-        'Country',
-        'State',
-        'County',
-        'District',
-        'Lattitude',
-        'Longitude',
-        'Genus',
-        'Species',
-        'Genus+Species',
-        'Altitude',
-        'Time',
-      );
-      $first = TRUE;
-      foreach ($content['headers'] as $item){
-        $form['tree_location']['file']['columns'][$item] = array(
-          '#type' => 'select',
-          '#title' => t($item),
-          '#options' => $column_options,
-          '#prefix' => "<td>",
-          '#suffix' => "</td>",
-          '#attributes' => array(
-            'data-toggle' => array('tooltip'),
-            'data-placement' => array('left'),
-            'title' => array("Select the type of data the '$item' column holds")
-          )
+        $form['species_dropdown'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'select',
+            '#title' => t('How many species are there in the study?'),
+            '#options' => $species_dropdown_option,
+            '#required' => TRUE,
+            '#suffix' => '</div>',
         );
-        if ($first){
-          $first = FALSE;
-          $form['tree_location']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['tree_location']['file']['columns'][$item]['#prefix'];
-         }
-      }
+
+        $form['species1'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 1:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '1')), array('select[name="species_dropdown"]' => array('value' => '2')), array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species2'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 2:'),
+            '#states' => array(
+                'visible' => array(
+                    array(
+                        array('select[name="species_dropdown"]' => array('value' => '2')), array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                    ),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species3'] = array(
+              '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 3:'),
+            '#states' => array(
+                'visible' => array(
+                array(
+                    array('select[name="species_dropdown"]' => array('value' => '3')), array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                    ),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species4'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 4:'),
+            '#states' => array(
+                'visible' => array(
+                array(
+                    array('select[name="species_dropdown"]' => array('value' => '4')), array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                    ),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species5'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 5:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '5')), array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                    ),
+                ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species6'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 6:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '6')), array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species7'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 7:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '7')), array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20'))
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species8'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 8:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '8')), array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species9'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 9:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '9')), array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species10'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 10:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '10')), array('select[name="species_dropdown"]' => array('value' => '11')), array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species11'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 11:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '11')),array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species12'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 12:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '12')), array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                    ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species13'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 13:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '13')), array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species14'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 14:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '14')), array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species15'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 15:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '15')), array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species16'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 16:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '16')), array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species17'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 17:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '17')), array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species18'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 18:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '18')), array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species19'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 19:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '19')), array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['species20'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'textfield',
+            '#title' => t('Species 20:'),
+            '#states' => array(
+                'visible' => array(
+                    array('select[name="species_dropdown"]' => array('value' => '20')),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+        
+        return $form;
+  }
+  
+    species($form, $form_state);
+  
+    function study_type(&$form, $form_state){
+  
+        $study_type_options = array(
+            'G' => 'Genotype',
+            'P' => 'Phenotype',
+            'E' => 'Environment',
+            'GxP' => 'Genotype x Phenotype',
+            'GxE' => 'Genotype x Environment',
+            'PxE' => 'Phenotype x Environment',
+            'GxPxE' => 'Genotype x Phenotype x Environment',
+        );
+        $form['study_type'] = array(
+            '#type' => 'select',
+            '#title' => t('Study Type:'),
+            '#options' => $study_type_options,
+            '#required' => TRUE,
+        );
+        return $form;
     }
-      $display = "</tr>";
-      for ($i = 0; $i < 3; $i++){
-        if (isset($content[$i])){
-          $display .= "<tr>";
-          foreach ($content['headers'] as $item){
-            $display .= "<th>{$content[$i][$item]}</th>";
-          }
-          $display .= "</tr>";
-          }
+    
+    study_type($form, $form_state);
+    
+    function genotype(&$form, $form_state){
+        $genotype_marker_types = array(
+            'SNPs' => 'SNPs',
+            'SSRs/cpSSRs' => 'SSRs/cpSSRs',
+        'Other' => 'Other',
+        );
+
+        $form['genotype_marker_type'] = array(
+            '#type' => 'checkboxes',
+            '#title' => t('Genotype Marker Type:'),
+            '#options' => $genotype_marker_types,
+            '#states' => array(
+                'visible' => array(
+                    array(
+                        array('select[name="study_type"]' => array('value' => 'G')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
+                        )
+                    )
+            ),
+        );
+
+        $form['genotype_SNPs'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('SNPs File Upload'),
+            '#description' => t('Please upload a .vcf file with the SNPs information.'),
+            '#upload_validators' => array('file_validate_extensions' => array('vcf')),
+            '#states' => array(
+                'visible' => array(
+                    ':input[name="genotype_marker_type[SNPs]"]' => array('checked' => TRUE),
+                ),
+            ),
+        );
+
+        $ref_genome = array(
+            'N/A',
+            'To be added',
+        );
+
+        $form['genotype_SSRs_refrence_genome'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'select',
+            '#title' => t('Reference Genome Used: '),
+            '#options' => $ref_genome,
+            '#states' => array(
+                'visible' => array(
+                    ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+
+        $form['genotype_SSRs'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('SSRs/cpSSRs File Upload'),
+            '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
+            '#tree' => TRUE,
+            '#states' => array(
+            'visible' => array(
+                ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
+                ),
+            ),
+        );
+        $form['genotype_SSRs']['file']['columns'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Define Data'),
+            '#description' => t('Please define which columns hold the required data:'),
+            '#states' => array(
+                'invisible' => array(
+                    ':input[name="genotype_SSRs_upload_button"]' => array('value' => 'Upload'))),
+        );
+        $file = 0;
+        if (isset($form_state['values']['genotype_SSRs']) and $form_state['values']['genotype_SSRs'] != 0){
+            $file = $form_state['values']['genotype_SSRs'];
         }
-      $display .= "</tbody></table></div>";
+        if ($file != 0){
+            if (($file = file_load($file))){
+            $file_name = $file->uri;
+            $location = drupal_realpath("$file_name");
+            $content = parse_xlsx($location);
+            $column_options = array(
+                'N/A',
+                'Tree Identifier',
+                'Genotypic Information',
+            );
+                $first = TRUE;
+                foreach ($content['headers'] as $item){
+                    $form['genotype_SSRs']['file']['columns'][$item] = array(
+                        '#type' => 'select',
+                        '#title' => t($item),
+                        '#options' => $column_options,
+                        '#prefix' => "<td>",
+                        '#suffix' => "</td>",
+                        '#attributes' => array(
+                            'data-toggle' => array('tooltip'),
+                            'data-placement' => array('left'),
+                            'title' => array("Select the type of data the '$item' column holds")
+                        )
+                    );  
+                    if ($first){
+                        $first = FALSE;
+                        $form['genotype_SSRs']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['genotype_SSRs']['file']['columns'][$item]['#prefix'];
+                    }
+                }
+            }
+            $display = "</tr>";
+            for ($i = 0; $i < 3; $i++){
+                if (isset($content[$i])){
+                    $display .= "<tr>";
+                    foreach ($content['headers'] as $item){
+                        $display .= "<th>{$content[$i][$item]}</th>";
+                    }
+                    $display .= "</tr>";
+                }
+            }
+            $display .= "</tbody></table></div>";
 
-      $form['tree_location']['file']['columns'][$item]['#suffix'] .= $display;
-    }  
+            $form['genotype_SSRs']['file']['columns'][$item]['#suffix'] .= $display;
+            }
+        return $form;
+    }
+    
+    genotype($form, $form_state);
+    
+    function phenotype(&$form, $form_state){
+        
+        $form['phenotype_file'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('Phenotype File Upload'),
+            '#tree' => TRUE,
+            '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
+            '#states' => array(
+                'visible' => array(
+                    array(
+                        array('select[name="study_type"]' => array('value' => 'P')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
+                    )
+                ),
+            ),
+        );
+        
+        $form['phenotype_file']['file']['columns'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Define Data'),
+            '#description' => t('Please define which columns hold the required data:'),
+            '#states' => array(
+                'invisible' => array(
+                    ':input[name="phenotype_file_upload_button"]' => array('value' => 'Upload'))),
+        );
+        $file = 0;
+        if (isset($form_state['values']['phenotype_file']) and $form_state['values']['phenotype_file'] != 0){
+            $file = $form_state['values']['phenotype_file'];
+        }
+        if ($file != 0){
+            if (($file = file_load($file))){
+                $file_name = $file->uri;
+                $location = drupal_realpath("$file_name");
+                $content = parse_xlsx($location);
+                $column_options = array(
+                    'N/A',
+                    'Tree Identifier',
+                    'Phenotype Name/Identifier',
+                    'Value(s)',
+                );
+                $first = TRUE;
+                foreach ($content['headers'] as $item){
+                    $form['phenotype_file']['file']['columns'][$item] = array(
+                        '#type' => 'select',
+                        '#title' => t($item),
+                        '#options' => $column_options,
+                        '#prefix' => "<td>",
+                        '#suffix' => "</td>",
+                        '#attributes' => array(
+                            'data-toggle' => array('tooltip'),
+                            'data-placement' => array('left'),
+                            'title' => array("Select the type of data the '$item' column holds")
+                        )
+                    );
+                    if ($first){
+                        $first = FALSE;
+                        $form['phenotype_file']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['phenotype_file']['file']['columns'][$item]['#prefix'];
+                    }
+                }
+            }
+            $display = "</tr>";
+            for ($i = 0; $i < 3; $i++){
+                if (isset($content[$i])){
+                    $display .= "<tr>";
+                    foreach ($content['headers'] as $item){
+                        $display .= "<th>{$content[$i][$item]}</th>";
+                    }
+                    $display .= "</tr>";
+                }
+            }
+            $display .= "</tbody></table></div>";
 
+            $form['phenotype_file']['file']['columns'][$item]['#suffix'] .= $display;
+        }
+        
+        return $form;
+    }
+    
+    phenotype($form, $form_state);
 
+    
+    function environment(&$form, $form_state){
 
-  $form['treelocation_check'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('My file does not have a header'),
-  );
+        $form['environment_file_upload'] = array(
+            '#type' => 'file',
+            '#title' => t('Environment File Upload'),
+            '#description' => t('Optional: Upload an excel file of enviornmental data.'),
+            '#states' => array(
+                'visible' => array(
+                    array(
+                        array('select[name="study_type"]' => array('value' => 'E')), array('select[name="study_type"]' => array('value' => 'PxE')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxPxE')),
+                    )
+                ),
+            ),
+        );
 
+        return $form;
+    }
+    
+    environment($form, $form_state);
 
+    function otherStudy(&$form, $form_state){
+        
+        $study_design_options = array(
+            'Natural Population' => 'Natural Population',
+            'Growth Chamber' => 'Growth Chamber',
+            'Greenhouse' => 'Greenhouse',
+            'Common Garden' => 'Common Garden',
+            'Plantation' => 'Plantation',
+        );
+
+        $form['study_design'] = array(
+            '#type' => 'select',
+            '#title' => t('Study Design:'),
+            '#options' => $study_design_options,
+            '#required' => TRUE,
+        );
+
+        $study_location_options = array(
+            'WGS 84' => 'Latitude/Longitude (WGS 84)',
+            'NAD 83' => 'Latitude/Longitude (NAD 83)',
+            'ETRS 89' => 'Latitude/Longitude (ETRS 89)',
+            'Custom Location' => 'Custom Location',
+        );
+
+        $form['study_location'] = array(
+            '#type' => 'select',
+            '#title' => t('Study Location:'),
+            '#options' => $study_location_options,
+            '#required' => TRUE,
+        );
+
+        $form['study_location_states_exact'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Coordinates:'),
+            '#states' => array(
+                'visible' => array(
+                    array(
+                        array('select[name="study_location"]' => array('value' => 'WGS 84')), array('select[name="study_location"]' => array('value' => 'NAD 83')), array('select[name="study_location"]' => array('value' => 'ETRS 89')),
+                    )
+                ),
+            ),
+            '#description' => t('Accepted Formats are Degrees Minutes Seconds, Degrees Decimal Minutes, and Decimal Degrees.'),
+        );
+
+        $form['study_location_states_custom'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Custom Location:'),
+            '#description' => t('Ex: Street Address, or other location formats.'),
+            '#states' => array(
+                'visible' => array(
+                    'select[name="study_location"]' => array('value' => 'Custom Location'),
+                ),
+            ),
+        );
+        
+        return $form;
+    }
+    
+    otherStudy($form, $form_state);
+        
+    
+    function tree_location(&$form, $form_state){
+        
+        $form['tree_location'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('Tree Accession File'),
+            '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
+            '#tree' => TRUE,
+            '#description' => t('Please provide a spreadsheet with columns for the Tree ID and the location of trees used in this study'),
+        );
+
+        $form['tree_location']['file']['columns'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Define Data'),
+            '#description' => t('Please define which columns hold the required data:'),
+            '#states' => array(
+                'invisible' => array(
+                    ':input[name="tree_location_upload_button"]' => array('value' => 'Upload'))),
+        );
+        $file = 0;
+        if (isset($form_state['values']['tree_location']) and $form_state['values']['tree_location'] != 0){
+            $file = $form_state['values']['tree_location'];
+        }
+        if ($file != 0){
+            if (($file = file_load($file))){
+                $file_name = $file->uri;
+                $location = drupal_realpath("$file_name");
+                $content = parse_xlsx($location);
+                $column_options = array(
+                    'N/A',
+                    'Tree Identifier',
+                    'Country',
+                    'State',
+                    'County',
+                    'District',
+                    'Lattitude',
+                    'Longitude',
+                    'Genus',
+                    'Species',
+                    'Genus+Species',
+                    'Altitude',
+                    'Time',
+                );
+                $first = TRUE;
+                foreach ($content['headers'] as $item){
+                    $form['tree_location']['file']['columns'][$item] = array(
+                        '#type' => 'select',
+                        '#title' => t($item),
+                        '#options' => $column_options,
+                        '#prefix' => "<td>",
+                        '#suffix' => "</td>",
+                        '#attributes' => array(
+                            'data-toggle' => array('tooltip'),
+                            'data-placement' => array('left'),
+                            'title' => array("Select the type of data the '$item' column holds")
+                        )
+                    );
+                    if ($first){
+                        $first = FALSE;
+                        $form['tree_location']['file']['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $form['tree_location']['file']['columns'][$item]['#prefix'];
+                    }
+                }
+            }   
+            $display = "</tr>";
+            for ($i = 0; $i < 3; $i++){
+                if (isset($content[$i])){
+                    $display .= "<tr>";
+                    foreach ($content['headers'] as $item){
+                        $display .= "<th>{$content[$i][$item]}</th>";
+                    }
+                    $display .= "</tr>";
+                }
+            }
+            $display .= "</tbody></table></div>";
+
+            $form['tree_location']['file']['columns'][$item]['#suffix'] .= $display;
+        }  
+        $form['treelocation_check'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('My file does not have a header'),
+        );
+        return $form;
+    }
+
+    tree_location($form, $form_state);
+        
+        
+        
   $form['submit_button'] = array('#type' => 'submit', '#value' => t('Submit'));
 
   return $form;
@@ -658,54 +705,54 @@ function tppsC_form_validate($form, &$form_state) {
 }
 
 function tppsC_form_submit($form, &$form_state) {
-  $DOI = $form_state['values']['DOI'];
-  $species_dropdown = $form_state['values']['species_dropdown'];
-  $studyType = $form_state['values']['study_type'];
-  $studyDesign = $form_state['values']['study_design'];
-  $studyLocation = $form_state['values']['study_location'];
+    $DOI = $form_state['values']['DOI'];
+    $species_dropdown = $form_state['values']['species_dropdown'];
+    $studyType = $form_state['values']['study_type'];
+    $studyDesign = $form_state['values']['study_design'];
+    $studyLocation = $form_state['values']['study_location'];
 
-  if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
-    $studyLocationCoord = $form_state['values']['study_location_states_exact'];
-  }
-  elseif ($studyLocation == 'Custom Location') {
-    $studyLocationCoord = $form_state['values']['study_location_states_custom'];
-  }
+    if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
+        $studyLocationCoord = $form_state['values']['study_location_states_exact'];
+    }
+    elseif ($studyLocation == 'Custom Location') {
+        $studyLocationCoord = $form_state['values']['study_location_states_custom'];
+    }
 
-  $species1 = $form_state['values']['species1'];
-  $species2 = $form_state['values']['species2'];
-  $species3 = $form_state['values']['species3'];
-  $species4 = $form_state['values']['species4'];
-  $species5 = $form_state['values']['species5'];
-  $species6 = $form_state['values']['species6'];
-  $species7 = $form_state['values']['species7'];
-  $species8 = $form_state['values']['species8'];
-  $species9 = $form_state['values']['species9'];
-  $species10 = $form_state['values']['species10'];
-  $species11 = $form_state['values']['species11'];
-  $species12 = $form_state['values']['species12'];
-  $species13 = $form_state['values']['species13'];
-  $species14 = $form_state['values']['species14'];
-  $species15 = $form_state['values']['species15'];
-  $species16 = $form_state['values']['species16'];
-  $species17 = $form_state['values']['species17'];
-  $species18 = $form_state['values']['species18'];
-  $species19 = $form_state['values']['species19'];
-  $species20 = $form_state['values']['species20'];
+    $species1 = $form_state['values']['species1'];
+    $species2 = $form_state['values']['species2'];
+    $species3 = $form_state['values']['species3'];
+    $species4 = $form_state['values']['species4'];
+    $species5 = $form_state['values']['species5'];
+    $species6 = $form_state['values']['species6'];
+    $species7 = $form_state['values']['species7'];
+    $species8 = $form_state['values']['species8'];
+    $species9 = $form_state['values']['species9'];
+    $species10 = $form_state['values']['species10'];
+    $species11 = $form_state['values']['species11'];
+    $species12 = $form_state['values']['species12'];
+    $species13 = $form_state['values']['species13'];
+    $species14 = $form_state['values']['species14'];
+    $species15 = $form_state['values']['species15'];
+    $species16 = $form_state['values']['species16'];
+    $species17 = $form_state['values']['species17'];
+    $species18 = $form_state['values']['species18'];
+    $species19 = $form_state['values']['species19'];
+    $species20 = $form_state['values']['species20'];
 
-  $species = array(
-    'Species 1' => $species1, 'Species 2' => $species2, 'Species 3' => $species3, 'Species 4' => $species4, 'Species 5' => $species5,  'Species 6' => $species6, 'Species 7' => $species7, 'Species 8' => $species8, 'Species 9' => $species9, 'Species 10' => $species10,  'Species 11' => $species11, 'Species 12' => $species12, 'Species 13' => $species13, 'Species 14' => $species14, 'Species 15' => $species15, 'Species 16' => $species16, 'Species 17' => $species17, 'Species 18' => $species18, 'Species 19' => $species19, 'Species 20' => $species20,
-  );
+    $species = array(
+        'Species 1' => $species1, 'Species 2' => $species2, 'Species 3' => $species3, 'Species 4' => $species4, 'Species 5' => $species5,  'Species 6' => $species6, 'Species 7' => $species7, 'Species 8' => $species8, 'Species 9' => $species9, 'Species 10' => $species10,  'Species 11' => $species11, 'Species 12' => $species12, 'Species 13' => $species13, 'Species 14' => $species14, 'Species 15' => $species15, 'Species 16' => $species16, 'Species 17' => $species17, 'Species 18' => $species18, 'Species 19' => $species19, 'Species 20' => $species20,
+    );
 
-  $data = array(
-    'DOI' => $DOI,
-    'species' => $species,
-    'studyType' => $studyType,
-    'studyDesign' => $studyDesign,
-    'studyLocation' => $studyLocation,
-    'studyLocationCoord' => $studyLocationCoord,
-  );
+    $data = array(
+        'DOI' => $DOI,
+        'species' => $species,
+        'studyType' => $studyType,
+        'studyDesign' => $studyDesign,
+        'studyLocation' => $studyLocation,
+        'studyLocationCoord' => $studyLocationCoord,
+    );
 
-  drupal_write_record('node', $data);
+    drupal_write_record('node', $data);
 }
 
 function tppsC_permission() {
