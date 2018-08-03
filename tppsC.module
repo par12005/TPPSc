@@ -365,9 +365,7 @@ function tppsC_form($form, &$form_state) {
 
   if ($file != 0){
     if (($file = file_load($file))){
-      dpm($file);
-      dpm(drupal_realpath("public://"));
-      dpm(drupal_realpath("temporary://"));
+      dpm(t('test'));
       $file_name = $file->uri;
       $location = drupal_realpath("$file_name");
       $content = parse_xlsx($location);
