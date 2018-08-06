@@ -31,5 +31,5 @@ The module has 6 primary input fields and many secondary input fields dependent 
 6. The Tree Accession File is a file upload field for one to upload an excel file with columns of tree ID's and their location.
 
 # Currently Working On
-Currently Working on File Column options, and how the data is being stored in the Drupal Database
+Currently Working on Data Storage in the drupal database and the drupal validate function
 
