@@ -345,6 +345,7 @@ function tppsC_form($form, &$form_state) {
             ),
         );
 
+        
         $form['genotype_SNPs'] = array(
             '#type' => 'managed_file',
             '#title' => t('SNPs File Upload'),
@@ -357,32 +358,15 @@ function tppsC_form($form, &$form_state) {
             ),
         );
 
-        $ref_genome = array(
-            'N/A',
-            'To be added',
-        );
-
-        $form['genotype_SSRs_refrence_genome'] = array(
-            '#prefix' => '<div class="container-inline">',
-            '#type' => 'select',
-            '#title' => t('Reference Genome Used: '),
-            '#options' => $ref_genome,
-            '#states' => array(
-                'visible' => array(
-                    ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
-                ),
-            ),
-            '#suffix' => '</div>',
-        );
-
         $form['genotype_SSRs'] = array(
             '#type' => 'managed_file',
             '#title' => t('SSRs/cpSSRs File Upload'),
             '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
             '#tree' => TRUE,
             '#states' => array(
-            'visible' => array(
-                ':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE),
+                'visible' => array(
+                    array(':input[name="genotype_marker_type[SSRs/cpSSRs]"]' => array('checked' => TRUE)),
+                    array(':input[name="genotype_marker_type[Other]"]' => array('checked' => TRUE)),
                 ),
             ),
         );
@@ -442,6 +426,56 @@ function tppsC_form($form, &$form_state) {
 
             $form['genotype_SSRs']['file']['columns'][$item]['#suffix'] .= $display;
             }
+            
+        
+        $ref_genome = array(
+            '1' => '--Select--', 
+            '2' => 'I can provide a URL to my Reference Genome or assembly file(s)' , 
+            '3' => 'I can provide a BioProject accession number', 
+            '4' => 'I can upload my own assembly file',
+            'Juglans nigra v1.0', 'Fraxinus excelsior v0.5', 'Fraxinus excelsior v0.1', 'Fraxinus excelsior v0.4', 'Populus trichocarpa v2.0', 'Populus trichocarpa v3.0', 'Manihot esculenta v6.1', 'Picea glauca v1.0', 'Quercus robur v1.0', 'Hevea brasiliensis v1.0', 'Populus deltoides v2.1', 'Pinus taeda v1.01', 'Pinus taeda v1.0', 'Pinus taeda v2.01', 'Populus tremuloides v1.0',
+            'Ginkgo biloba v1.0', 'Juglans regia v1.0', 'Carica papaya v0.4', 'Olea europaea v1.0', 'Eucalyptus camaldulensis v1.0', 'Juglans cathayensis v1.0', 'Handroanthus impetiginosus v1.0', 'Vitis vinifera v145', 'Pterocarya stenoptera v1.0', 'Elaeis guineensis v1.0', 'Aquilaria agallocha v1.0', 'Symphonia globulifera v1.0', 'Gnetum montanum v1.0', 'Quercus lobata v1.0', 'Populas tremula x Populus tremuloides v1.0',
+            'Pinus lambertiana v1.5', 'Pinus lambertiana v0.5', 'Pinus lambertiana v1.0', 'Juglans sigillata v1.0', 'Populus euphratica v1.0', 'Betula nana v1.0', 'Picea abies v1.0b', 'Populus pruinosa v1.0', 'Eucalyptus grandis v1.0', 'Jatropha curcas v4.5', 'Phoenis dactylifera v1.0', 'Populus tremula v1.0', 'Abies alba v1.0', 'Pseudotsuga menziesii v0.5', 'Pseudotsuga menziesii v1.0',
+        );
+
+        $form['genotype_reference_genome'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'select',
+            '#title' => t('Reference Genome Used: '),
+            '#options' => $ref_genome,
+            '#states' => array(
+                'visible' => array(
+                        array('select[name="study_type"]' => array('value' => 'G')), array('select[name="study_type"]' => array('value' => 'GxE')), array('select[name="study_type"]' => array('value' => 'GxP')), array('select[name="study_type"]' => array('value' => 'GxPxE')), 
+                    )
+                ),
+            '#suffix' => '</div>',
+        );            
+  
+        $form['genotype_reference_genome_url'] = array(
+            '#type' => 'textfield',
+            '#title' => t('URL to Reference Genome:'),
+            '#states' => array(
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '2'))
+            ),
+        );
+        
+        $form['genotype_reference_genome_bio'] = array(
+            '#type' => 'textfield',
+            '#title' => t('BioProject Accession Number:'),
+            '#states' => array(
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '3'))
+            ),
+        );
+        
+        $form['genotype_reference_genome_upload'] = array(
+            '#type' => 'managed_file',
+            '#title' => t('Assembly File: please provide an assembly file in FASTA or Multi-FASTA format:'),
+            '#upload_validators' => array('file_validate_extensions' => array('fsa_nt')),
+            '#states' => array(
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '4'))
+            ),
+        );
+        
         return $form;
     }
     
@@ -692,10 +726,8 @@ function tppsC_form($form, &$form_state) {
     }
 
     tree_location($form, $form_state);
-        
-        
-        
-  $form['submit_button'] = array('#type' => 'submit', '#value' => t('Submit'));
+    
+    $form['submit_button'] = array('#type' => 'submit', '#value' => t('Submit'));
 
   return $form;
 
