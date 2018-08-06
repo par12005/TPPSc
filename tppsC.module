@@ -742,7 +742,15 @@ function tppsC_form_submit($form, &$form_state) {
     $studyType = $form_state['values']['study_type'];
     $studyDesign = $form_state['values']['study_design'];
     $studyLocation = $form_state['values']['study_location'];
-
+    $refGenome = $form_state['values']['genotype_reference_genome'];
+    if ($refGenome == '2') {
+        $refGenome = $form_state['values']['genotype_reference_genome_url'];
+    }
+    elseif ($refGenome == '3') {
+        $refGenome = $form_state['values']['genotype_reference_genome_bio'];
+    }
+    
+    
     if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
         $studyLocationCoord = $form_state['values']['study_location_states_exact'];
     }
@@ -782,6 +790,8 @@ function tppsC_form_submit($form, &$form_state) {
         'studyDesign' => $studyDesign,
         'studyLocation' => $studyLocation,
         'studyLocationCoord' => $studyLocationCoord,
+        'Reference Genome' => $refGenome,
+        
     );
 
     drupal_write_record('node', $data);
