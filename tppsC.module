@@ -516,12 +516,10 @@ function tppsC_form($form, &$form_state) {
         
         $ref_genome = array(
             '1' => '-Select-', 
-            '2' => 'I can provide a URL to my Reference Genome or assembly file(s)' , 
-            '3' => 'I can provide a BioProject accession number', 
-            '4' => 'I can upload my own assembly file',
-            'Juglans nigra v1.0', 'Fraxinus excelsior v0.5', 'Fraxinus excelsior v0.1', 'Fraxinus excelsior v0.4', 'Populus trichocarpa v2.0', 'Populus trichocarpa v3.0', 'Manihot esculenta v6.1', 'Picea glauca v1.0', 'Quercus robur v1.0', 'Hevea brasiliensis v1.0', 'Populus deltoides v2.1', 'Pinus taeda v1.01', 'Pinus taeda v1.0', 'Pinus taeda v2.01', 'Populus tremuloides v1.0',
-            'Ginkgo biloba v1.0', 'Juglans regia v1.0', 'Carica papaya v0.4', 'Olea europaea v1.0', 'Eucalyptus camaldulensis v1.0', 'Juglans cathayensis v1.0', 'Handroanthus impetiginosus v1.0', 'Vitis vinifera v145', 'Pterocarya stenoptera v1.0', 'Elaeis guineensis v1.0', 'Aquilaria agallocha v1.0', 'Symphonia globulifera v1.0', 'Gnetum montanum v1.0', 'Quercus lobata v1.0', 'Populas tremula x Populus tremuloides v1.0',
-            'Pinus lambertiana v1.5', 'Pinus lambertiana v0.5', 'Pinus lambertiana v1.0', 'Juglans sigillata v1.0', 'Populus euphratica v1.0', 'Betula nana v1.0', 'Picea abies v1.0b', 'Populus pruinosa v1.0', 'Eucalyptus grandis v1.0', 'Jatropha curcas v4.5', 'Phoenis dactylifera v1.0', 'Populus tremula v1.0', 'Abies alba v1.0', 'Pseudotsuga menziesii v0.5', 'Pseudotsuga menziesii v1.0',
+            'URL' => 'I can provide a URL to my Reference Genome or assembly file(s)' , 
+            'BIO' => 'I can provide a BioProject accession number', 
+            'OWN' => 'I can upload my own assembly file',
+            'Juglans nigra v1.0' => 'Juglans nigra v1.0', 'Fraxinus excelsior v0.5' => 'Fraxinus excelsior v0.5', 'Fraxinus excelsior v0.1' => 'Fraxinus excelsior v0.1', 'Fraxinus excelsior v0.4' => 'Fraxinus excelsior v0.4', 'Populus trichocarpa v2.0' => 'Populus trichocarpa v2.0', 'Populus trichocarpa v3.0' => 'Populus trichocarpa v3.0', 'Manihot esculenta v6.1' => 'Manihot esculenta v6.1', 'Picea glauca v1.0' => 'Picea glauca v1.0', 'Quercus robur v1.0' => 'Quercus robur v1.0', 'Hevea brasiliensis v1.0' => 'Hevea brasiliensis v1.0', 'Populus deltoides v2.1' => 'Populus deltoides v2.1', 'Pinus taeda v1.01' => 'Pinus taeda v1.01', 'Pinus taeda v1.0' => 'Pinus taeda v1.0', 'Pinus taeda v2.01' => 'Pinus taeda v2.01', 'Populus tremuloides v1.0' => 'Populus tremuloides v1.0','Ginkgo biloba v1.0' => 'Ginkgo biloba v1.0', 'Juglans regia v1.0' => 'Juglans regia v1.0', 'Carica papaya v0.4' => 'Carica papaya v0.4', 'Olea europaea v1.0' => 'Olea europaea v1.0', 'Eucalyptus camaldulensis v1.0' => 'Eucalyptus camaldulensis v1.0', 'Juglans cathayensis v1.0' => 'Juglans cathayensis v1.0', 'Handroanthus impetiginosus v1.0' => 'Handroanthus impetiginosus v1.0', 'Vitis vinifera v145' => 'Vitis vinifera v145', 'Pterocarya stenoptera v1.0' => 'Pterocarya stenoptera v1.0', 'Elaeis guineensis v1.0' => 'Elaeis guineensis v1.0', 'Aquilaria agallocha v1.0' => 'Aquilaria agallocha v1.0', 'Symphonia globulifera v1.0' => 'Symphonia globulifera v1.0', 'Gnetum montanum v1.0' => 'Gnetum montanum v1.0', 'Quercus lobata v1.0' => 'Quercus lobata v1.0', 'Populas tremula x Populus tremuloides v1.0' => 'Populas tremula x Populus tremuloides v1.0','Pinus lambertiana v1.5' => 'Pinus lambertiana v1.5', 'Pinus lambertiana v0.5' => 'Pinus lambertiana v0.5', 'Pinus lambertiana v1.0' => 'Pinus lambertiana v1.0', 'Juglans sigillata v1.0' => 'Juglans sigillata v1.0', 'Populus euphratica v1.0' => 'Populus euphratica v1.0', 'Betula nana v1.0' => 'Betula nana v1.0', 'Picea abies v1.0b' => 'Picea abies v1.0b', 'Populus pruinosa v1.0' => 'Populus pruinosa v1.0', 'Eucalyptus grandis v1.0' => 'Eucalyptus grandis v1.0', 'Jatropha curcas v4.5' => 'Jatropha curcas v4.5', 'Phoenis dactylifera v1.0' => 'Phoenis dactylifera v1.0', 'Populus tremula v1.0' => 'Populus tremula v1.0', 'Abies alba v1.0' => 'Abies alba v1.0', 'Pseudotsuga menziesii v0.5' => 'Pseudotsuga menziesii v0.5', 'Pseudotsuga menziesii v1.0' => 'Pseudotsuga menziesii v1.0',
         );
 
         $form['genotype_reference_genome'] = array(
@@ -541,7 +539,7 @@ function tppsC_form($form, &$form_state) {
             '#type' => 'textfield',
             '#title' => t('URL to Reference Genome:'),
             '#states' => array(
-                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '2'))
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => 'URL'))
             ),
         );
         
@@ -549,7 +547,7 @@ function tppsC_form($form, &$form_state) {
             '#type' => 'textfield',
             '#title' => t('BioProject Accession Number:'),
             '#states' => array(
-                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '3'))
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => 'BIO'))
             ),
         );
         
@@ -558,7 +556,7 @@ function tppsC_form($form, &$form_state) {
             '#title' => t('Assembly File: please provide an assembly file in FASTA or Multi-FASTA format:'),
             '#upload_validators' => array('file_validate_extensions' => array('fsa_nt')),
             '#states' => array(
-                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => '4'))
+                'visible' => array('select[name="genotype_reference_genome"]' => array('value' => 'OWN'))
             ),
         );
         
@@ -821,19 +819,41 @@ function tppsC_form_validate($form, &$form_state) {
 }
 
 function tppsC_form_submit($form, &$form_state) {
+    $data = array();
     $DOI = $form_state['values']['DOI'];
     $species_dropdown = $form_state['values']['species_dropdown'];
     $studyType = $form_state['values']['study_type'];
+    $genotypeDesign = $form_state['values']['genotype_SNPs_design'];
+    $genotypeMarkerType = $form_state['values']['genotype_marker_type'];
+    
+    if ($genotypeDesign == 'GBS'){
+        $genotypeGBStype = $form_state['values']['genotype_GBS'];
+        if ($genotypeGBStype == 'Other') {
+            $genotypeGBStype = $form_state['values']['genotype_GBS_other'];
+        }
+    }
+    else{
+        $genotypeGBStype = array();
+    }
+    if ($genotypeDesign == 'Targeted Capture'){
+        $genotypeTargetedCaptureType = $form_state['values']['genotype_targeted_capture'];
+        if ($genotypeTargetedCaptureType == 'Other'){
+            $genotypeTargetedCaptureType = $form_state['values']['targeted_capture_other'];
+        }
+    }
+    else{
+        $genotypeTargetedCaptureType = array();
+    }
+    
     $studyDesign = $form_state['values']['study_design'];
     $studyLocation = $form_state['values']['study_location'];
     $refGenome = $form_state['values']['genotype_reference_genome'];
-    if ($refGenome == '2') {
+    if ($refGenome == 'URL') {
         $refGenome = $form_state['values']['genotype_reference_genome_url'];
     }
-    elseif ($refGenome == '3') {
+    elseif ($refGenome == 'BIO') {
         $refGenome = $form_state['values']['genotype_reference_genome_bio'];
     }
-    
     
     if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
         $studyLocationCoord = $form_state['values']['study_location_states_exact'];
@@ -866,18 +886,22 @@ function tppsC_form_submit($form, &$form_state) {
     $species = array(
         'Species 1' => $species1, 'Species 2' => $species2, 'Species 3' => $species3, 'Species 4' => $species4, 'Species 5' => $species5,  'Species 6' => $species6, 'Species 7' => $species7, 'Species 8' => $species8, 'Species 9' => $species9, 'Species 10' => $species10,  'Species 11' => $species11, 'Species 12' => $species12, 'Species 13' => $species13, 'Species 14' => $species14, 'Species 15' => $species15, 'Species 16' => $species16, 'Species 17' => $species17, 'Species 18' => $species18, 'Species 19' => $species19, 'Species 20' => $species20,
     );
+    
 
     $data = array(
         'DOI' => $DOI,
         'species' => $species,
         'studyType' => $studyType,
+        'genotypeDesign' => $genotypeDesign,
+        'genotypeMarkerType' => $genotypeMarkerType,
+        'genotypeGBStype' => $genotypeGBStype,
+        'genotypeTargetedCaptureType' => $genotypeTargetedCaptureType,
+        'Reference Genome' => $refGenome,
         'studyDesign' => $studyDesign,
         'studyLocation' => $studyLocation,
         'studyLocationCoord' => $studyLocationCoord,
-        'Reference Genome' => $refGenome,
-    
     );
-    
+    dpm($data);
 }
 
 function tppsC_permission() {
