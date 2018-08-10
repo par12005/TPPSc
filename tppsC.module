@@ -345,6 +345,92 @@ function tppsC_form($form, &$form_state) {
             ),
         );
 
+        $genotype_SNPs_design_options = array(
+            '-Select-' => '-Select-',
+            'GBS' => 'GBS',
+            'Targeted Capture' => 'Targeted Capture',
+            'Whole Genome Resequencing' => 'Whole Genome Resequencing',
+            'RNA-Seq' => 'RNA-Seq',
+            'Genotyping Array' => 'Genotyping Array',
+        );
+        
+        $form['genotype_SNPs_design'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#type' => 'select',
+            '#title' => t('Genotyping Design:'),
+            '#options' => $genotype_SNPs_design_options,
+            '#states' => array(
+                'visible' => array(
+                    ':input[name="genotype_marker_type[SNPs]"]' => array('checked' => TRUE),
+                ),
+            ),
+            '#suffix' => '</div>',
+        );
+        
+        $genotype_GBS_options = array(
+            '-Select-' => '-Select-',
+            'RAD-Seq' => 'RAD-Seq',
+            'ddRAD-Seq' => 'ddRAD-Seq',
+            'NextRAD' => 'NextRAD',
+            'RAPTURE' => 'RAPTURE',
+            'Other' => 'Other',
+        );
+        
+        $form['genotype_GBS'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#suffix' => '</div>',
+            '#type' => 'select',
+            '#title' => t('GBS Type:'),
+            '#options' => $genotype_GBS_options,
+            '#states' => array(
+                'visible' => array(
+                    'select[name="genotype_SNPs_design"]' => array('value' => 'GBS')
+                ),
+            ),
+        );
+        
+        $form['genotype_GBS_other'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#suffix' => '</div>',
+            '#type' => 'textfield',
+            '#title' => t('Other GBS Type:'),
+            '#states' => array(
+                'visible' => array(
+                    'select[name="genotype_GBS"]' => array('value' => 'Other'),
+                ),
+            ),
+        );
+        
+        $genotype_targeted_capture_options = array(
+            '-Select-' => '-Select-',
+            'Exome Capture' => 'Exome Capture',
+            'Other' => 'Other',
+        );
+        
+        $form['genotype_targeted_capture'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#suffix' => '</div>',
+            '#type' => 'select',
+            '#title' => t('Targeted Capture Type:'),
+            '#options' => $genotype_targeted_capture_options,
+            '#states' => array(
+                'visible' => array(
+                    'select[name="genotype_SNPs_design"]' => array('value' => 'Targeted Capture'),
+                ),
+            ),
+        );
+        
+        $form['targeted_capture_other'] = array(
+            '#prefix' => '<div class="container-inline">',
+            '#suffix' => '</div>',
+            '#type' => 'textfield',
+            '#title' => t('Other TC Type:'),
+            '#states' => array(
+                'visible' => array(
+                    'select[name="genotype_targeted_capture"]' => array('value' => 'Other'),
+                ),
+            ),
+        );
         
         $form['genotype_SNPs'] = array(
             '#type' => 'managed_file',
@@ -357,7 +443,7 @@ function tppsC_form($form, &$form_state) {
                 ),
             ),
         );
-
+        
         $form['genotype_SSRs'] = array(
             '#type' => 'managed_file',
             '#title' => t('SSRs/cpSSRs File Upload'),
@@ -429,7 +515,7 @@ function tppsC_form($form, &$form_state) {
             
         
         $ref_genome = array(
-            '1' => '--Select--', 
+            '1' => '-Select-', 
             '2' => 'I can provide a URL to my Reference Genome or assembly file(s)' , 
             '3' => 'I can provide a BioProject accession number', 
             '4' => 'I can upload my own assembly file',
@@ -564,9 +650,10 @@ function tppsC_form($form, &$form_state) {
     function environment(&$form, $form_state){
 
         $form['environment_file_upload'] = array(
-            '#type' => 'file',
+            '#type' => 'managed_file',
             '#title' => t('Environment File Upload'),
             '#description' => t('Optional: Upload an excel file of enviornmental data.'),
+            '#upload_validators' => array('file_validate_extensions' => array('txt csv xlsx')),
             '#states' => array(
                 'visible' => array(
                     array(
@@ -676,7 +763,7 @@ function tppsC_form($form, &$form_state) {
                     'State',
                     'County',
                     'District',
-                    'Lattitude',
+                    'Latitude',
                     'Longitude',
                     'Genus',
                     'Species',
@@ -718,10 +805,7 @@ function tppsC_form($form, &$form_state) {
 
             $form['tree_location']['file']['columns'][$item]['#suffix'] .= $display;
         }  
-        $form['treelocation_check'] = array(
-            '#type' => 'checkbox',
-            '#title' => t('My file does not have a header'),
-        );
+        
         return $form;
     }
 
@@ -791,10 +875,9 @@ function tppsC_form_submit($form, &$form_state) {
         'studyLocation' => $studyLocation,
         'studyLocationCoord' => $studyLocationCoord,
         'Reference Genome' => $refGenome,
-        
+    
     );
-
-    drupal_write_record('node', $data);
+    
 }
 
 function tppsC_permission() {
