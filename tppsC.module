@@ -643,7 +643,6 @@ function tppsC_form($form, &$form_state) {
     }
     
     phenotype($form, $form_state);
-
     
     function environment(&$form, $form_state){
 
@@ -724,8 +723,7 @@ function tppsC_form($form, &$form_state) {
         return $form;
     }
     
-    otherStudy($form, $form_state);
-        
+    otherStudy($form, $form_state);  
     
     function tree_location(&$form, $form_state){
         
@@ -855,7 +853,7 @@ function tppsC_form_submit($form, &$form_state) {
         $refGenome = $form_state['values']['genotype_reference_genome_bio'];
     }
     
-    if ($studyLocation == 'WGS 84' or $studyLocation = 'NAD 83' or $studyLocation = 'ETRS 89') {
+    if ($studyLocation == 'WGS 84' or $studyLocation == 'NAD 83' or $studyLocation == 'ETRS 89') {
         $studyLocationCoord = $form_state['values']['study_location_states_exact'];
     }
     elseif ($studyLocation == 'Custom Location') {
@@ -977,7 +975,7 @@ function parse_xlsx($location){
 
 }
 
-function tpps_create_record($table, array $values){
+function tppsC_create_record($table, array $values){
     if (isset($values[0]) and gettype($values[0]) === "array"){
         $is_multi = TRUE;
     }
@@ -989,9 +987,9 @@ function tpps_create_record($table, array $values){
     $insert = NULL;
     
     if ($is_multi){
-        $unique_columns = tpps_get_unique_columns($table);
+        $unique_columns = tppsC_get_unique_columns($table);
         foreach ($values as $key => $record){
-            if (($existing_key = tpps_record_exists($table, $record, $unique_columns))){
+            if (($existing_key = tppsC_record_exists($table, $record, $unique_columns))){
                 unset($values[$key]);
             }
         }
@@ -1001,7 +999,7 @@ function tpps_create_record($table, array $values){
     }
     else{
         //check record exists
-        if (($existing_key = tpps_record_exists($table, $values))){
+        if (($existing_key = tppsC_record_exists($table, $values))){
             //if it does, do not attempt to re-write it.
             //drupal_set_message(t('Error: Record already exists.'), 'error');
             return $existing_key;
@@ -1066,10 +1064,10 @@ function tpps_create_record($table, array $values){
     }
 }
 
-function tpps_record_exists($table, array $values, $unique_columns = NULL){
+function tppsC_record_exists($table, array $values, $unique_columns = NULL){
     
     if (!isset($unique_columns)){
-        $unique_columns = tpps_get_unique_columns($table);
+        $unique_columns = tppsC_get_unique_columns($table);
         if (!isset($unique_columns)){
             return FALSE;
         }
@@ -1090,14 +1088,14 @@ function tpps_record_exists($table, array $values, $unique_columns = NULL){
         ->fetchAssoc();
     
     if ($results){
-        $primary = tpps_get_primary_key($table);
+        $primary = tppsC_get_primary_key($table);
         return $results[$primary];
     }
     
     return FALSE;
 }
 
-function tpps_get_unique_columns($table){
+function tppsC_get_unique_columns($table){
     
     $result = db_query("select indexdef from pg_indexes where tablename = '$table' and schemaname = 'chado' and indexdef LIKE '%UNIQUE%' and indexname NOT LIKE '%_pkey';")
         ->fetchAssoc();
@@ -1112,7 +1110,7 @@ function tpps_get_unique_columns($table){
     }
 }
 
-function tpps_get_primary_key($table){
+function tppsC_get_primary_key($table){
     
     $result = db_query("select indexdef from pg_indexes where tablename = '$table' and schemaname = 'chado' and indexdef LIKE '%UNIQUE%' and indexname LIKE '%_pkey';")
     ->fetchAssoc();
