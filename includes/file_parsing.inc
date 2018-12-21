@@ -130,6 +130,10 @@ function tppsC_file_parsing($form_state){
                 $value = $content[$j][$phenotype_val];
                 $stock_unique = $content[$j][$tree_id_col];
                 
+                if (empty($phenotypes_meta[$name])){
+                    continue;
+                }
+                
                 $attr = db_select('chado.cvterm', 'c')
                     ->fields('c', array('cvterm_id'))
                     ->condition('c.name', db_like($phenotypes_meta[$name]['attr']), 'LIKE')
