@@ -20,6 +20,11 @@ function tppsC_flatten($state){
     else {
         $data['#page_1_cleared'] = FALSE;
     }
+    $data['Publication Title'] = isset($pub['title']) ? $pub['title'] : NULL;
+    $data['Primary Author'] = isset($page_1['primaryAuthor']) ? $page_1['primaryAuthor'] : NULL;
+    $data['Publication Year'] = isset($pub['year']) ? $pub['year'] : NULL;
+    $data['Publication Abstract'] = isset($pub['abstract']) ? $pub['abstract'] : NULL;
+    $data['Publication Journal'] = isset($pub['journal']) ? $pub['journal'] : NULL;
     
     if (isset($org['number'])){
         $data['#number_organisms'] = $org['number'];

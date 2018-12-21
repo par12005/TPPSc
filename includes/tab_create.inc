@@ -41,7 +41,7 @@ function tppsC_tab_create($type, $user, $name = NULL){
         }
     </style>';
     $display = "<label for='tppsC_incomplete_table'>Incomplete Submissions</label><div class='tppsC_profile_tab'><table id='tppsC_incomplete_table' style='width:-webkit-fill-available' border='1'><thead>";
-    $display .= "<tr><th>Title</th><th>Primary Author</th><th>Number of Species</th><th>Abstract</th><th></th></tr>";
+    $display .= "<tr><th>Title</th><th>Primary Author</th><th>Number of Species</th><th>Abstract</th><th>Journal</th><th></th></tr>";
     $display .= "</thead><tbody>";
     
     foreach ($results as $item){
@@ -85,6 +85,14 @@ function tppsC_tab_create($type, $user, $name = NULL){
             $display .= "<td></td>";
         }
         
+        if (isset($state['saved_values'][TPPSC_PAGE_1]['publication']['journal'])){
+            $journal = check_plain($state['saved_values'][TPPSC_PAGE_1]['publication']['journal']);
+            $display .= "<td>$journal</td>";
+        }
+        else {
+            $display .= "<td></td>";
+        }
+        
         if (isset($state['accession'])){
             $display .= "<td style='text-align:center'><input type='submit' id='delete-{$state['accession']}' onclick='";
             $title = (isset($state['saved_values'][TPPSC_PAGE_1]['publication']['title'])) ? ' titled ' . $state['saved_values'][TPPSC_PAGE_1]['publication']['title'] : '';
@@ -116,7 +124,7 @@ function tppsC_tab_create($type, $user, $name = NULL){
         ->execute();
     
     $display = "<label for='tppsC_complete_table'>Complete Submissions</label><div class='tppsC_profile_tab'><table id='tppsC_complete_table' style='width:-webkit-fill-available' border='1'><thead>";
-    $display .= "<tr><th>Title</th><th>Primary Author</th><th>Number of Species</th><th>Abstract</th><th>Status</th></tr>";
+    $display .= "<tr><th>Title</th><th>Primary Author</th><th>Number of Species</th><th>Abstract</th><th>Journal</th><th>Status</th></tr>";
     $display .= "</thead><tbody>";
     
     foreach ($results as $item){
@@ -155,6 +163,14 @@ function tppsC_tab_create($type, $user, $name = NULL){
                 $abstract = check_plain(substr($abstract, 0, 100) . "...");
             }
             $display .= "<td>$abstract</td>";
+        }
+        else {
+            $display .= "<td></td>";
+        }
+        
+        if (isset($state['saved_values'][TPPSC_PAGE_1]['publication']['journal'])){
+            $journal = check_plain($state['saved_values'][TPPSC_PAGE_1]['publication']['journal']);
+            $display .= "<td>$journal</td>";
         }
         else {
             $display .= "<td></td>";

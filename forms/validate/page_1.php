@@ -38,6 +38,12 @@ function page_1_validate_form(&$form, &$form_state){
             
             preg_match('/<dcterms:description>(.*)<\/dcterms:description>/', $response_xml_data, $matches);
             $form_state['values']['publication']['abstract'] = $matches[1];
+            
+            $url = "https://datadryad.org/resource/doi:" . $doi . "/mets.xml?show=full";
+            $response_xml_data = file_get_contents($url);
+            
+            preg_match('/element="publicationName">(.*)<\/dim:field>/', $response_xml_data, $matches);
+            $form_state['values']['publication']['journal'] = $matches[1];
         }
         
         for ($i = 1; $i <= $organism_number; $i++){

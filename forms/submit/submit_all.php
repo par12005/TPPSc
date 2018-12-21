@@ -52,9 +52,10 @@ function tppsC_submit_page_1(&$form_state, $project_id, &$file_rank){
     
     $publication_id = tppsC_create_record('pub', array(
       'title' => $firstpage['publication']['title'],
+      'series_name' => $firstpage['publication']['journal'],
       'type_id' => '229',
       'pyear' => $firstpage['publication']['year'],
-      'uniquename' => "$author_string {$firstpage['publication']['title']}. {$firstpage['publication']['year']} https://doi.org/{$firstpage['doi']}"
+      'uniquename' => "$author_string {$firstpage['publication']['title']}. {$firstpage['publication']['journal']}; {$firstpage['publication']['year']}"
     ));
 
     tppsC_create_record('project_pub', array(
