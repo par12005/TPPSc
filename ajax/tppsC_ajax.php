@@ -1,49 +1,5 @@
 <?php
 
-function tppsC_author_autocomplete($string){
-    $matches = array();
-    $result = db_select('chado.contact', 'contact')
-        ->fields('contact', array('name', 'type_id'))
-        ->condition('name', db_like($string) . '%', 'LIKE')
-        ->condition('type_id', '71', 'LIKE')
-        ->execute();
-    
-    foreach($result as $row){
-        $matches[$row->name] = check_plain($row->name);
-    }
-    
-    drupal_json_output($matches);
-}
-
-function tppsC_organization_autocomplete($string){
-    $matches = array();
-    $result = db_select('chado.contact', 'contact')
-        ->fields('contact', array('name', 'type_id'))
-        ->condition('name', db_like($string) . '%', 'LIKE')
-        ->condition('type_id', '72', 'LIKE')
-        ->execute();
-    
-    foreach($result as $row){
-        $matches[$row->name] = check_plain($row->name);
-    }
-    
-    drupal_json_output($matches);
-}
-
-function tppsC_journal_autocomplete($string){
-    $matches = array();
-    $result = db_select('chado.pub', 'pub')
-        ->fields('pub', array('series_name'))
-        ->condition('series_name', db_like($string) . '%', 'LIKE')
-        ->execute();
-    
-    foreach($result as $row){
-        $matches[$row->series_name] = check_plain($row->series_name);
-    }
-    
-    drupal_json_output($matches);
-}
-
 function tppsC_species_autocomplete($string){
     $matches = array();
     
