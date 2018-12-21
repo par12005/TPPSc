@@ -22,9 +22,7 @@ function tppsC_submit_email($form, $form_state){
     );
     
     $params['author'] = $form_state['saved_values'][TPPSC_PAGE_1]['primaryAuthor'];
-    $params['org'] = $form_state['saved_values'][TPPSC_PAGE_1]['organization'];
     $params['title'] = $form_state['saved_values'][TPPSC_PAGE_1]['publication']['title'];
-    $params['journal'] = $form_state['saved_values'][TPPSC_PAGE_1]['publication']['journal'];
     $params['organisms'] = $form_state['saved_values'][TPPSC_PAGE_1]['organism'];
     $params['study_type'] = $study_options[$form_state['saved_values'][TPPSC_PAGE_2]['studyType']];
     $params['data_type'] = $form_state['saved_values'][TPPSC_PAGE_2]['dataType'];

@@ -22,15 +22,15 @@ function page_1_validate_form(&$form, &$form_state){
             preg_match_all('/<dcterms:creator>(.*)<\/dcterms:creator>/', $response_xml_data, $matches);
             $secondary_authors = array_slice($matches[1], 1);
             $parts = explode(',', $matches[1][0]);
-            $form_state['values']['primaryAuthor'] = implode(" ", array_slice($parts, 1)) . " {$parts[0]}";
+            $form_state['values']['primaryAuthor'] = trim(implode(" ", array_slice($parts, 1)) . " {$parts[0]}");
             if (!empty($secondary_authors)){
                 $form_state['values']['publication']['secondaryAuthors'] = array();
                 foreach ($secondary_authors as $author){
                     $parts = explode(',', $author);
-                    $form_state['values']['publication']['secondaryAuthors'][] = implode(" ", array_slice($parts, 1)) . " {$parts[0]}";
+                    $form_state['values']['publication']['secondaryAuthors'][] = trim(implode(" ", array_slice($parts, 1)) . " {$parts[0]}");
                 }
                 $form_state['values']['publication']['secondaryAuthors']['number'] = count($secondary_authors);
-                $form_state['values']['publication']['secondaryAuthors']['check'] = TRUE;
+                $form_state['values']['publication']['secondaryAuthors']['check'] = FALSE;
             }
             
             preg_match('/<dcterms:available>(.*)<\/dcterms:available>/', $response_xml_data, $matches);

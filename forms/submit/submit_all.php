@@ -2,8 +2,6 @@
 
 function tppsC_submit_all(&$form_state){
     
-    return;
-    
     $values = $form_state['saved_values'];
     $firstpage = $values[TPPSC_PAGE_1];
     $file_rank = 0;
@@ -41,9 +39,9 @@ function tppsC_submit_page_1(&$form_state, $project_id, &$file_rank){
     ));
 
     $author_string = $firstpage['primaryAuthor'];
-    if ($firstpage['publication']['secondaryAuthors']['check'] == 0 and $firstpage['publication']['secondaryAuthors']['number'] != 0){
+    if (!$firstpage['publication']['secondaryAuthors']['check'] and $firstpage['publication']['secondaryAuthors']['number'] != 0){
 
-        for ($i = 1; $i <= $firstpage['publication']['secondaryAuthors']['number']; $i++){
+        for ($i = 0; $i < $firstpage['publication']['secondaryAuthors']['number']; $i++){
             tppsC_create_record('contact', array(
               'name' => $firstpage['publication']['secondaryAuthors'][$i],
               'type_id' => '71'
@@ -51,59 +49,17 @@ function tppsC_submit_page_1(&$form_state, $project_id, &$file_rank){
             $author_string .= "; {$firstpage['publication']['secondaryAuthors'][$i]}";
         }
     }
-    elseif ($firstpage['publication']['secondaryAuthors']['check'] != 0){
-        tppsC_create_record('projectprop', array(
-          'project_id' => $project_id,
-          'type_id' => '2836',
-          'value' => file_create_url(file_load($firstpage['publication']['secondaryAuthors']['file'])->uri),
-          'rank' => $file_rank
-        ));
-        
-        $file = file_load($firstpage['publication']['secondaryAuthors']['file']);
-        $location = drupal_realpath($file->uri);
-        $content = tppsC_parse_xlsx($location);
-        $column_vals = $firstpage['publication']['secondaryAuthors']['file-columns'];
-        
-        foreach ($column_vals as $col => $val){
-            if ($val == '1'){
-                $first_name = $col;
-            }
-            if ($val == '2'){
-                $last_name = $col;
-            }
-            if ($val == '3'){
-                $middle_initial = $col;
-            }
-        }
-        
-        for ($i = 0; $i < count($content) - 1; $i++){
-            tppsC_create_record('contact', array(
-              'name' => "{$content[$i][$last_name]}, {$content[$i][$first_name]} {$content[$i][$middle_initial]}",
-              'type_id' => '71'
-            ));
-            $author_string .= "; {$content[$i][$last_name]}, {$content[$i][$first_name]} {$content[$i][$middle_initial]}";
-        }
-        $file->status = FILE_STATUS_PERMANENT;
-        $file = file_save($file);
-        $file_rank++;
-    }
     
     $publication_id = tppsC_create_record('pub', array(
       'title' => $firstpage['publication']['title'],
-      'series_name' => $firstpage['publication']['journal'],
       'type_id' => '229',
       'pyear' => $firstpage['publication']['year'],
-      'uniquename' => "$author_string {$firstpage['publication']['title']}. {$firstpage['publication']['journal']}; {$firstpage['publication']['year']}"
+      'uniquename' => "$author_string {$firstpage['publication']['title']}. {$firstpage['publication']['year']} https://doi.org/{$firstpage['doi']}"
     ));
 
     tppsC_create_record('project_pub', array(
       'project_id' => $project_id,
       'pub_id' => $publication_id
-    ));
-
-    tppsC_create_record('contact', array(
-      'name' => $firstpage['organization'],
-      'type_id' => '72',
     ));
 
     $names = explode(" ", $firstpage['primaryAuthor']);
@@ -117,8 +73,8 @@ function tppsC_submit_page_1(&$form_state, $project_id, &$file_rank){
       'givennames' => $first_name
     ));
     
-    if ($firstpage['publication']['secondaryAuthors']['check'] == 0 and $firstpage['publication']['secondaryAuthors']['number'] != 0){
-        for ($i = 1; $i <= $firstpage['publication']['secondaryAuthors']['number']; $i++){
+    if (!$firstpage['publication']['secondaryAuthors']['check'] and $firstpage['publication']['secondaryAuthors']['number'] != 0){
+        for ($i = 0; $i < $firstpage['publication']['secondaryAuthors']['number']; $i++){
             $names = explode(" ", $firstpage['publication']['secondaryAuthors'][$i]);
             $first_name = $names[0];
             $last_name = implode(" ", array_slice($names, 1));
@@ -130,39 +86,7 @@ function tppsC_submit_page_1(&$form_state, $project_id, &$file_rank){
             ));
         }
     }
-    elseif ($firstpage['publication']['secondaryAuthors']['check'] != 0){
-        
-        $file = file_load($firstpage['publication']['secondaryAuthors']['file']);
-        $location = drupal_realpath($file->uri);
-        $content = tppsC_parse_xlsx($location);
-        $column_vals = $firstpage['publication']['secondaryAuthors']['file-columns'];
-        $groups = $firstpage['publication']['secondaryAuthors']['file-groups'];
-        
-        if (!empty($firstpage['publication']['secondaryAuthors']['file-no-header'])){
-            tppsC_content_no_header($content);
-        }
-        
-        $first_name = $groups['First Name']['1'];
-        $last_name = $groups['Last Name']['2'];
-        
-        foreach ($column_vals as $col => $val){
-            if ($val == '3'){
-                $middle_initial = $col;
-                break;
-            }
-        }
-        
-        for ($i = 0; $i < count($content) - 1; $i++){
-            $rank = $i + 1;
-            tppsC_create_record('pubauthor', array(
-              'pub_id' => $publication_id,
-              'rank' => "$rank",
-              'surname' => $content[$i][$last_name],
-              'givennames' => $content[$i][$first_name] . " " . $content[$i][$middle_initial]
-            ));
-        }
-    }
-
+    
     $organism_ids = array();
     $organism_number = $firstpage['organism']['number'];
     

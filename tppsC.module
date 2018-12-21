@@ -80,30 +80,6 @@ function tppsC_menu() {
       'file' => 'admin/config.php'
     );
     
-    $items['tppsC-author/autocomplete'] = array(
-      'title' => 'Autocomplete for Authors',
-      'page callback' => 'tppsC_author_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    $items['tppsC-organization/autocomplete'] = array(
-      'title' => 'Autocomplete for Organizations',
-      'page callback' => 'tppsC_organization_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    $items['tppsC-journal/autocomplete'] = array(
-      'title' => 'Autocomplete for Publications',
-      'page callback' => 'tppsC_journal_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
     $items['tppsC-species/autocomplete'] = array(
       'title' => 'Autocomplete for species',
       'page callback' => 'tppsC_species_autocomplete',
@@ -174,9 +150,7 @@ function tppsC_mail($key, &$message, $params){
 
 Your TPPSC submission has been received and is pending approval from a TreeGenes administrator! Here's a brief summary of the information you provided:<ul>
     <li>Primary Author: {$params['author']}</li>
-    <li>Organization: {$params['org']}</li>
     <li>Publication title: {$params['title']}</li>
-    <li>Journal: {$params['journal']}</li>
     <li>Organisms: {$params['organisms']['number']}</li>
 ";
         for ($i = 1; $i <= $params['organisms']['number']; $i++){

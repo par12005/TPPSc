@@ -30,7 +30,7 @@ function tppsC_admin_panel($form, &$form_state){
                 
                 $item = array(
                   'link' => l($state['accession'], "$base_url/tppsC-admin-panel?accession={$state['accession']}"),
-                  'title' => $state['saved_values'][PAGE_1]['publication']['title'],
+                  'title' => $state['saved_values'][TPPSC_PAGE_1]['publication']['title'],
                   'status' => $state['status'],
                 );
                 if ($state['status'] == "Pending Approval"){
@@ -79,13 +79,13 @@ function tppsC_admin_panel($form, &$form_state){
               '#description' => ''
             );
             
-            $orgamism_num = $submission_state['saved_values'][PAGE_1]['organism']['number'];
+            $orgamism_num = $submission_state['saved_values'][TPPSC_PAGE_1]['organism']['number'];
             $show_layers = FALSE;
             for ($i = 1; $i <= $orgamism_num; $i++){
-                if ($submission_state['saved_values'][PAGE_4]["organism-$i"]['environment']['use_layers']){
-                    foreach ($submission_state['saved_values'][PAGE_4]["organism-$i"]['environment']['env_layers'] as $layer => $layer_id){
+                if (!empty($submission_state['saved_values'][TPPSC_PAGE_4]["organism-$i"]['environment']['use_layers'])){
+                    foreach ($submission_state['saved_values'][TPPSC_PAGE_4]["organism-$i"]['environment']['env_layers'] as $layer => $layer_id){
                         if (!empty($layer_id)){
-                            foreach ($submission_state['saved_values'][PAGE_4]["organism-$i"]['environment']['env_params'][$layer] as $param_name => $param_id){
+                            foreach ($submission_state['saved_values'][TPPSC_PAGE_4]["organism-$i"]['environment']['env_params'][$layer] as $param_name => $param_id){
                                 if (!empty($param_id)){
                                     $type = variable_get("tppsC_param_{$param_id}_type", NULL);
                                     if (empty($type)){
@@ -170,17 +170,17 @@ function tppsC_admin_panel_submit($form, &$form_state){
     global $base_url;
 
     $var_name = $form_state['values']['form_table'];
-    $suffix = substr($var_name, 14);
-    $to = substr($var_name, 14, -7);
+    $suffix = substr($var_name, 15);
+    $to = substr($var_name, 15, -7);
     $state = variable_get($var_name);
     $params = array();
 
     $from = variable_get('site_mail', '');
-    $params['subject'] = "TPPSC Submission Rejected: {$state['saved_values'][PAGE_1]['publication']['title']}";
+    $params['subject'] = "TPPSC Submission Rejected: {$state['saved_values'][TPPSC_PAGE_1]['publication']['title']}";
     $params['uid'] = user_load_by_name($to)->uid;
     $params['reject-reason'] = $form_state['values']['reject-reason'];
     $params['base_url'] = $base_url;
-    $params['title'] = $state['saved_values'][PAGE_1]['publication']['title'];
+    $params['title'] = $state['saved_values'][TPPSC_PAGE_1]['publication']['title'];
     $params['body'] = '';
 
     $params['headers'][] = 'MIME-Version: 1.0';
@@ -208,7 +208,7 @@ function tppsC_admin_panel_submit($form, &$form_state){
         $includes = array();
         $includes[] = module_load_include('module', 'tppsC');
         
-        $params['subject'] = "TPPSC Submission Approved: {$state['saved_values'][PAGE_1]['publication']['title']}";
+        $params['subject'] = "TPPSC Submission Approved: {$state['saved_values'][TPPSC_PAGE_1]['publication']['title']}";
         $params['accession'] = $state['accession'];
         
         $state['status'] = 'Approved';
