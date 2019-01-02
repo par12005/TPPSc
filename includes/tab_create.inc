@@ -135,7 +135,7 @@ function tppsC_tab_create($type, $user, $name = NULL){
         
         if (isset($state['saved_values'][TPPSC_PAGE_1]['publication']['title'])){
             $title = check_plain($state['saved_values'][TPPSC_PAGE_1]['publication']['title']);
-            $display .= "<td><a href='$base_url/completed-submission?id={$state['accession']}' style='text-decoration: underline;'>$title</a></td>";
+            $display .= "<td><a href='$base_url/tppsC-completed-submission?id={$state['accession']}' style='text-decoration: underline;'>$title</a></td>";
         }
         else {
             $display .= "<td></td>";

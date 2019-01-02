@@ -69,7 +69,7 @@ function tppsC_menu() {
     /*
      * View a completed tppsC submission.
      */
-    $items['completed-submission'] = array(
+    $items['tppsC-completed-submission'] = array(
       'title' => 'TPPSC Completed Submission',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('tppsC_completed_display'),
@@ -213,7 +213,7 @@ Your TPPSC submission has been received and is pending approval from a TreeGenes
         $message['body'][] = 
 "   <li>Study Type: {$params['study_type']}</li>
     <li>Data Type: {$params['data_type']}</li></ul>
-You can view your submission <a href='{$params['base_url']}/completed-submission?id={$params['accession']}' style='text-decoration: underline;'>here.</a><br>
+You can view your submission <a href='{$params['base_url']}/tppsC-completed-submission?id={$params['accession']}' style='text-decoration: underline;'>here.</a><br>
 If you have any questions about your submission, please feel free to contact us <a href='{$params['base_url']}/contactform'>here</a>.<br><br>";
             
             break;
@@ -253,7 +253,7 @@ The administrator who rejected your submission provided the following reason:<br
 
 You may now refer to your submitted data with accession number {$params['accession']}.<br><br>
 
-You can still view your submission from your <a href=\"{$params['base_url']}/completed-submission?id={$params['accession']}\">TPPSC Completed Submissions</a> tab.<br>
+You can still view your submission from your <a href=\"{$params['base_url']}/tppsC-completed-submission?id={$params['accession']}\">TPPSC Completed Submissions</a> tab.<br>
 Your submission should be public on the <a href=\"{$params['base_url']}/tppsC_details/main\">TPPSC/TGDR Landing Page</a> within the next 24 hours.";
             
             break;
