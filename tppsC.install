@@ -1,18 +1,30 @@
 <?php
 
-function tppsC_install(){
-    
+/**
+ * @file
+ */
+
+/**
+ *
+ */
+function tppsc_install() {
+
 }
 
-function tppsC_uninstall(){
-    
+/**
+ *
+ */
+function tppsc_uninstall() {
+
 }
 
-function tppsC_schema() {
+/**
+ *
+ */
+function tppsc_schema() {
   $schema = array();
-  
+
   // All tables that TPPSC uses are defined in tpps_schema(), which it depends
   // upon.
-
   return $schema;
 }

@@ -1,11 +1,21 @@
 <?php
 
-function ajax_doi_callback(&$form, $form_state){
-    
-    return $form;
+/**
+ * @file
+ */
+
+/**
+ *
+ */
+function ajax_doi_callback(&$form, $form_state) {
+
+  return $form;
 }
 
-function tppsC_organism_callback($form, &$form_state){
-    
-    return $form['organism'];
+/**
+ *
+ */
+function tppsc_organism_callback($form, &$form_state) {
+
+  return $form['organism'];
 }

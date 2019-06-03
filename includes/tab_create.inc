@@ -17,7 +17,7 @@
  * @return string
  *   The HTML of the TPPS user tab.
  */
-function tppsC_tab_create($user) {
+function tppsc_tab_create($user) {
 
   global $base_url;
   $params = drupal_get_query_parameters();
@@ -51,7 +51,7 @@ function tppsC_tab_create($user) {
 
   foreach ($results as $item) {
     $state = unserialize($item->submission_state);
-    $prefix = ($state['tpps_type'] == 'tppsC') ? 'tppsC' : 'tpps';
+    $prefix = ($state['tpps_type'] == 'tppsc') ? 'tppsc' : 'tpps';
 
     $display .= "<tr>";
 

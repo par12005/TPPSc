@@ -1,7 +1,7 @@
-name = tppsC
-description = tppsC is the internal TPPS module.
+name = tppsc
+description = tppsc is the internal TPPS module.
 core = 7.x
 
 ; NEW LINE
-configure = admin/config/content/tppsC
-files[] = tppsC.js
+configure = admin/config/content/tppsc
+files[] = tppsc.js

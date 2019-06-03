@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
     
     if (jQuery(":input[name=\"step\"]").length > 0){
-        jQuery(".tppsC-status-block").prependTo(".region-sidebar-second");
+        jQuery(".tppsc-status-block").prependTo(".region-sidebar-second");
 
         jQuery("#progress").css('font-size', '1.5rem');
         jQuery("#progress").css('margin-bottom', '30px');
@@ -12,9 +12,9 @@ jQuery(document).ready(function ($) {
         }
         
         if (jQuery(":input[name=\"step\"]")[0].value === 'summarypage'){
-            jQuery("#tppsC-status").insertAfter(".tgdrC_form_status");
+            jQuery("#tppsc-status").insertAfter(".tgdrC_form_status");
             jQuery("#edit-next").on('click', function(){
-                jQuery("#tppsC-status").html("<label>Loading... </label><br>This step may take several minutes.");
+                jQuery("#tppsc-status").html("<label>Loading... </label><br>This step may take several minutes.");
             });
         }
     }
