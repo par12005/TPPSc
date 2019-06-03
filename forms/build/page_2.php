@@ -1,46 +1,20 @@
 <?php
 
-require_once 'page_2_ajax.php';
-require_once 'page_2_helper.php';
-
-function page_2_create_form(&$form, $form_state){
+function tppsC_page_2_create_form(&$form, $form_state){
     
-    if (isset($form_state['saved_values'][TPPSC_PAGE_2])){
-        $values = $form_state['saved_values'][TPPSC_PAGE_2];
+    if (isset($form_state['saved_values'][TPPS_PAGE_2])){
+        $values = $form_state['saved_values'][TPPS_PAGE_2];
     }
     else{
         $values = array();
     }
     
-    studyLocation($form, $values, $form_state);
+    $tpps_form = tpps_main(array(), $form_state);
     
-    $form['dataType'] = array(
-      '#type' => 'select',
-      '#title' => t('Data Type: *'),
-      '#options' => array(
-        0 => '- Select -',
-        'Genotype' => 'Genotype',
-        'Phenotype' => 'Phenotype',
-        'Environment' => 'Environment',
-        'Genotype x Phenotype' => 'Genotype x Phenotype',
-        'Genotype x Environment' => 'Genotype x Environment',
-        'Phenotype x Environment' => 'Phenotype x Environment',
-        'Genotype x Phenotype x Environment' => 'Genotype x Phenotype x Environment',
-      ),
-    );
-
-    $form['studyType'] = array(
-      '#type' => 'select',
-      '#title' => t('Study Type: *'),
-      '#options' => array(
-        0 => '- Select -',
-        1 => 'Natural Population (Landscape)',
-        2 => 'Growth Chamber',
-        3 => 'Greenhouse',
-        4 => 'Experimental/Common Garden',
-        5 => 'Plantation',
-      ),
-    );
+    $form['study_location'] = $tpps_form['study_location'];
+    $form['data_type'] = $tpps_form['data_type'];
+    $form['study_type'] = $tpps_form['study_type'];
+    unset($form['study_type']['#ajax']);
     
     $form['Back'] = array(
       '#type' => 'submit',

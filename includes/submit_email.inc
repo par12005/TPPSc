@@ -4,13 +4,13 @@ function tppsC_submit_email($form, $form_state){
     
     global $user;
     global $base_url;
-    $admin = variable_get('tppsC_admin_email', "treegenesdb@gmail.com");
+    $admin = variable_get('tpps_admin_email', "treegenesdb@gmail.com");
     
     $params = array();
     
     $to = $user->mail;
     $from = variable_get('site_mail', '');
-    $params['subject'] = "TPPSC Submission Received: {$form_state['saved_values'][TPPSC_PAGE_1]['publication']['title']}";
+    $params['subject'] = "TPPSC Submission Received: {$form_state['saved_values'][TPPS_PAGE_1]['publication']['title']}";
     
     $study_options = array(
       0 => '- Select -',
@@ -21,11 +21,11 @@ function tppsC_submit_email($form, $form_state){
       5 => 'Plantation',
     );
     
-    $params['author'] = $form_state['saved_values'][TPPSC_PAGE_1]['primaryAuthor'];
-    $params['title'] = $form_state['saved_values'][TPPSC_PAGE_1]['publication']['title'];
-    $params['organisms'] = $form_state['saved_values'][TPPSC_PAGE_1]['organism'];
-    $params['study_type'] = $study_options[$form_state['saved_values'][TPPSC_PAGE_2]['studyType']];
-    $params['data_type'] = $form_state['saved_values'][TPPSC_PAGE_2]['dataType'];
+    $params['author'] = $form_state['saved_values'][TPPS_PAGE_1]['primaryAuthor'];
+    $params['title'] = $form_state['saved_values'][TPPS_PAGE_1]['publication']['title'];
+    $params['organisms'] = $form_state['saved_values'][TPPS_PAGE_1]['organism'];
+    $params['study_type'] = $study_options[$form_state['saved_values'][TPPS_PAGE_2]['studyType']];
+    $params['data_type'] = $form_state['saved_values'][TPPS_PAGE_2]['dataType'];
     $params['accession'] = $form_state['accession'];
     $params['base_url'] = $base_url;
     $params['body'] = '';

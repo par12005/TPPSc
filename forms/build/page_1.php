@@ -4,8 +4,8 @@ require_once 'page_1_ajax.php';
 
 function page_1_create_form(&$form, $form_state){
     
-    if (isset($form_state['saved_values'][TPPSC_PAGE_1])){
-        $values = $form_state['saved_values'][TPPSC_PAGE_1];
+    if (isset($form_state['saved_values'][TPPS_PAGE_1])){
+        $values = $form_state['saved_values'][TPPS_PAGE_1];
     }
     else{
         $values = array();
@@ -26,10 +26,10 @@ function page_1_create_form(&$form, $form_state){
     
     if (!empty($form_state['values']['doi'])){
         $doi = $form_state['values']['doi'];
-        $form_state['saved_values'][TPPSC_PAGE_1]['doi'] = $form_state['values']['doi'];
+        $form_state['saved_values'][TPPS_PAGE_1]['doi'] = $form_state['values']['doi'];
     }
-    elseif (!empty($form_state['saved_values'][TPPSC_PAGE_1]['doi'])){
-        $doi = $form_state['saved_values'][TPPSC_PAGE_1]['doi'];
+    elseif (!empty($form_state['saved_values'][TPPS_PAGE_1]['doi'])){
+        $doi = $form_state['saved_values'][TPPS_PAGE_1]['doi'];
     }
     elseif (!empty($form_state['complete form']['doi']['#value'])) {
         $doi = $form_state['complete form']['doi']['#value'];

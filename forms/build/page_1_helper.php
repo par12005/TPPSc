@@ -13,8 +13,8 @@ function organism(&$form, &$form_state, $defaults){
     }
     $org_number = isset($form_state['values']['organism']['number']) ? $form_state['values']['organism']['number'] : NULL;
 
-    if (!isset($org_number) and isset($form_state['saved_values'][TPPSC_PAGE_1]['organism']['number'])){
-        $org_number = $form_state['saved_values'][TPPSC_PAGE_1]['organism']['number'];
+    if (!isset($org_number) and isset($form_state['saved_values'][TPPS_PAGE_1]['organism']['number'])){
+        $org_number = $form_state['saved_values'][TPPS_PAGE_1]['organism']['number'];
     }
     if (!isset($org_number)){
         $org_number = 1;
@@ -63,7 +63,7 @@ function organism(&$form, &$form_state, $defaults){
 
         $form['organism']["$i"] = array(
           '#type' => 'textfield',
-          '#title' => t("Species $i: *"),
+          '#title' => t("Species @num: *", array('@num' => $i)),
           '#autocomplete_path' => "species/autocomplete",
           '#attributes' => array(
             'data-toggle' => array('tooltip'),
@@ -72,8 +72,8 @@ function organism(&$form, &$form_state, $defaults){
           )
         );
         
-        if (!empty($form_state['saved_values'][TPPSC_PAGE_1]['organism']["$i"])) {
-            $form['organism']["$i"]['#default_value'] = $form_state['saved_values'][TPPSC_PAGE_1]['organism']["$i"];
+        if (!empty($form_state['saved_values'][TPPS_PAGE_1]['organism']["$i"])) {
+            $form['organism']["$i"]['#default_value'] = $form_state['saved_values'][TPPS_PAGE_1]['organism']["$i"];
         }
         elseif (!empty($defaults[$i - 1])){
             $form['organism']["$i"]['#value'] = $defaults[$i - 1];

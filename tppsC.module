@@ -1,37 +1,9 @@
 <?php
 // Define path to JavaScript file and page names. 
 define("TPPSC_JS_PATH", '/js/tppsC.js');
-define("TPPSC_PAGE_1", 1);
-define("TPPSC_PAGE_2", 2);
-define("TPPSC_PAGE_3", 3);
-define("TPPSC_PAGE_4", 4);
 // Require additional files with helper functions.
-require_once 'includes/create_record.inc';
-require_once 'includes/flatten.inc';
-require_once 'includes/init_project.inc';
-require_once 'includes/tab_create.inc';
-require_once 'includes/completed_display.inc';
-require_once 'includes/table_display.inc';
-require_once 'includes/compare_files.inc';
-require_once 'includes/standard_coord.inc';
-require_once 'includes/validate_columns.inc';
-require_once 'includes/refresh_landing_page.inc';
-require_once 'includes/parse_xlsx.inc';
-require_once 'includes/content_no_header.inc';
-require_once 'includes/custom_cvterm.inc';
 require_once 'includes/submit_email.inc';
-require_once 'includes/status_bar.inc';
-require_once 'includes/save_file_columns.inc';
-require_once 'includes/file_parsing.inc';
-require_once 'includes/accession_coordinates.inc';
-
-/**
- * Implements hook_init().
- */
-function tppsC_init() {
-
-//    drupal_set_message("Hello");
-}
+require_once 'includes/tab_create.inc';
 
 /**
  * Implements hook_menu().
@@ -55,121 +27,28 @@ function tppsC_menu() {
     );
     
     /*
-     * tppsC tab on user profile.
-     */
-    $items['user/%user/tppsC'] = array(
-      'title' => 'TPPSC Submissions',
-      'page callback' => 'tppsC_tab_create',
-      'page arguments' => array('user', 1),
-      'access callback' => 'user_access',
-      'access arguments' => array('access administration pages'),
-      'type' => MENU_LOCAL_TASK
-    );
-    
-    /*
-     * View a completed tppsC submission.
-     */
-    $items['tppsC-completed-submission'] = array(
-      'title' => 'TPPSC Completed Submission',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('tppsC_completed_display'),
-      'access callback' => 'user_access',
-      'access arguments' => array('access administration pages'),
-      'type' => MENU_NORMAL_ITEM
-    );
-    
-    /*
-     * Admin panel for approving/rejecting pending submisisons.
-     */
-    $items['tppsC-admin-panel'] = array(
-      'title' => 'TPPSC Admin Panel',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('tppsC_admin_panel'),
-      'access callback' => 'user_access',
-      'access arguments' => array('access administration pages'),
-      'type' => MENU_NORMAL_ITEM,
-      'file' => 'admin/panel.php'
-    );
-    
-    /*
      * tppsC settings.
      */
     $items['admin/config/content/tppsC'] = array(
       'title' => 'TPPSC Settings',
       'description' => 'Configuration for TPPSC module',
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('tppsC_admin_settings'),
+      'page arguments' => array('tpps_admin_settings'),
       'access arguments' => array('access administration pages'),
       'type' => MENU_NORMAL_ITEM,
+      'file path' => drupal_get_path('module', 'tpps'),
       'file' => 'admin/config.php'
     );
     
-    /*
-     * Ajax Callback.
-     */
-    $items['tppsC-species/autocomplete'] = array(
-      'title' => 'Autocomplete for species',
-      'page callback' => 'tppsC_species_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    /*
-     * Ajax Callback.
-     */
-    $items['tppsC-phenotype/autocomplete'] = array(
-      'title' => 'Autocomplete for Phenotype Name',
-      'page callback' => 'tppsC_phenotype_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    /*
-     * Ajax Callback.
-     */
-    $items['tppsC-attribute/autocomplete'] = array(
-      'title' => 'Autocomplete for Phenotype Attribute',
-      'page callback' => 'tppsC_attribute_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    /*
-     * Ajax Callback.
-     */
-    $items['tppsC-units/autocomplete'] = array(
-      'title' => 'Autocomplete for Phenotype Units',
-      'page callback' => 'tppsC_units_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    /*
-     * Ajax Callback.
-     */
-    $items['tppsC-structure/autocomplete'] = array(
-      'title' => 'Autocomplete for Phenotype Structure',
-      'page callback' => 'tppsC_structure_autocomplete',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-      'file' => 'ajax/tppsC_ajax.php'
-    );
-    
-    /*
-     * Ajax Callback for accession coordinates.
-     */
-    $items['tppsC-accession'] = array(
-      'title' => 'TPPSC Accession coordinates',
-      'page callback' => 'tppsC_accession_coordinates',
-      'access arguments' => array('access content'),
-      'type' => MENU_CALLBACK,
-    );
-    
     return $items;
+}
+
+/**
+ * 
+ * @param array $items
+ */
+function tppsC_menu_alter(&$items){
+    $items['user/%user/tpps']['page callback'] = 'tppsC_tab_create';
 }
 
 /**
@@ -200,33 +79,27 @@ function tppsC_mail($key, &$message, $params){
             // When the user completes their submission, just provide them with 
             // a brief list of the organisms they submitted.
             $message['body'][] = "Congratulations!<br><br>
+            Your TPPSC submission has been received and is pending approval from a TreeGenes administrator! Here's a brief summary of the information you provided:<ul>
+            <li>Primary Author: {$params['author']}</li>
+            <li>Publication title: {$params['title']}</li>
+            <li>Organisms: {$params['organisms']['number']}</li>";
+            for ($i = 1; $i <= $params['organisms']['number']; $i++){
+                $message['body'][] = "   <li>Organism $i: {$params['organisms'][$i]}</li>";
+            }
 
-Your TPPSC submission has been received and is pending approval from a TreeGenes administrator! Here's a brief summary of the information you provided:<ul>
-    <li>Primary Author: {$params['author']}</li>
-    <li>Publication title: {$params['title']}</li>
-    <li>Organisms: {$params['organisms']['number']}</li>
-";
-        for ($i = 1; $i <= $params['organisms']['number']; $i++){
-            $message['body'][] = "   <li>Organism $i: {$params['organisms'][$i]}</li>";
-        }
-
-        $message['body'][] = 
-"   <li>Study Type: {$params['study_type']}</li>
-    <li>Data Type: {$params['data_type']}</li></ul>
-You can view your submission <a href='{$params['base_url']}/tppsC-completed-submission?id={$params['accession']}' style='text-decoration: underline;'>here.</a><br>
-If you have any questions about your submission, please feel free to contact us <a href='{$params['base_url']}/contactform'>here</a>.<br><br>";
-            
+            $message['body'][] = 
+            "<li>Study Type: {$params['study_type']}</li>
+            <li>Data Type: {$params['data_type']}</li></ul>
+            You can view your submission <a href='{$params['base_url']}/completed-submission?id={$params['accession']}' style='text-decoration: underline;'>here.</a><br>
+            If you have any questions about your submission, please feel free to contact us <a href='{$params['base_url']}/contactform'>here</a>.<br><br>";
             break;
         
         case 'admin_recieved':
             // When the user completes their submission, notify the admin, and 
             // provide them with a link to access the admin panel.
-            $message['body'][] = "
-Attention:<br><br>
-
-User {$params['user_mail']} has completed a TPPSC Submission, titled {$params['title']}.<br>
-Click <a href='{$params['base_url']}/tppsC-admin-panel?accession={$params['accession']}' style='text-decoration: underline;'>here</a> to manage or approve this submission.";
-            
+            $message['body'][] = "Attention:<br><br>
+            User {$params['user_mail']} has completed a TPPSC Submission, titled {$params['title']}.<br>
+            Click <a href='{$params['base_url']}/tpps-admin-panel?accession={$params['accession']}' style='text-decoration: underline;'>here</a> to manage or approve this submission.";
             break;
             
         case 'user_rejected':
@@ -235,27 +108,22 @@ Click <a href='{$params['base_url']}/tppsC-admin-panel?accession={$params['acces
             // provide them with the reason the admin included as to why their 
             // submission was rejected.
             $message['body'][] = 
-"To whom it may concern:<br><br>
-
-Unfortunately, your submission to TPPSC has been rejected. If you would like, you can log into the TreeGenes website and edit your submission <a href='{$params['base_url']}/user/{$params['uid']}/TPPSC'>here</a><br><br>
-
-The administrator who rejected your submission provided the following reason:<br>
-<blockquote>
-{$params['reject-reason']}
-</blockquote>";
+            "To whom it may concern:<br><br>
+            Unfortunately, your submission to TPPSC has been rejected. If you would like, you can log into the TreeGenes website and edit your submission <a href='{$params['base_url']}/user/{$params['uid']}/TPPSC'>here</a><br><br>
+            The administrator who rejected your submission provided the following reason:<br>
+            <blockquote>
+            {$params['reject-reason']}
+            </blockquote>";
             break;
         
         case 'user_approved':
             // When the user's submission is approved, notify them and provide 
             // them with the link to view the completed submission.
             $message['body'][] = 
-"Congratulations! Your submission to TPPSC has been approved!<br><br>
-
-You may now refer to your submitted data with accession number {$params['accession']}.<br><br>
-
-You can still view your submission from your <a href=\"{$params['base_url']}/tppsC-completed-submission?id={$params['accession']}\">TPPSC Completed Submissions</a> tab.<br>
-Your submission should be public on the <a href=\"{$params['base_url']}/tppsC_details/main\">TPPSC/TGDR Landing Page</a> within the next 24 hours.";
-            
+            "Congratulations! Your submission to TPPSC has been approved!<br><br>
+            You may now refer to your submitted data with accession number {$params['accession']}.<br><br>
+            You can still view your submission from your <a href=\"{$params['base_url']}/completed-submission?id={$params['accession']}\">TPPSC Completed Submissions</a> tab.<br>
+            Your submission should be public on the <a href=\"{$params['base_url']}/tppsC_details/main\">TPPSC/TGDR Landing Page</a> within the next 24 hours.";
             break;
 
         default:
@@ -301,139 +169,12 @@ function tppsC_managed_file_process($element, &$form_state, $form){
         // Only make changes to $element if it is part of the tppsC_main form.
         return $element;
     }
-    
-    // If the element doesn't have a 'columns' child, then it is probably not
-    // meant to have all the data definition information attached.
-    if (isset($element['columns'])){
-        $fid = $element['#value']['fid'];
-        $wrapper = substr($element['#id'], 0, -7) . '-ajax-wrapper';
-
-        $saved_value_parents = $no_header_parents = $element['#parents'];
-        $no_header_parents[] = '#value';
-        $no_header_parents[] = 'no-header';
-        
-        // See if no-header element is checked in the completed form.
-        $no_header = drupal_array_get_nested_value($form_state['complete form'], $no_header_parents);
-        // See which callback function is being used, if there is one.
-        $callback = isset($form_state['triggering_element']['#ajax']['callback']) ? $form_state['triggering_element']['#ajax']['callback'] : NULL;
-        // If no-header element is not checked in the complete form, check 
-        // if it is checked in the saved values.
-        if (!$no_header and ($callback != 'tppsC_no_header_callback')){
-            $end = array_pop($saved_value_parents);
-            $saved_value_parents[] = $end . "-no-header";
-            $no_header = drupal_array_get_nested_value($form_state['saved_values'][$form_state['stage']], $saved_value_parents);
-        }
-        
-        // Create no-header checkbox field.
-        $element['no-header'] = array(
-          '#type' => 'checkbox',
-          '#title' => 'My file has no header row',
-          '#ajax' => array(
-            'wrapper' => $wrapper,
-            'callback' => 'tppsC_no_header_callback'
-          ),
-          '#states' => isset($element['#states']) ? $element['#states'] : NULL,
-          '#default_value' => $no_header ? $no_header : NULL,
-        );
-        
-        // If you can successfully load the file, construct the "Define Data" section.
-        if (!empty($fid) and ($file = file_load($fid))){
-            
-            $saved_vals = $form_state['saved_values'][$form_state['stage']];
-            // Add types and data to columns element.
-            $element['columns']['#type'] = 'fieldset';
-            $element['columns']['#title'] = t('<div class="fieldset-title">Define Data</div>');
-            $element['columns']['#collapsible'] = TRUE;
-            
-            // Get the path to the file.
-            $file_name = $file->uri;
-            
-            // Stop using the file so it can be deleted if the user clicks 'remove'.
-            file_usage_delete($file, 'tppsC', 'tppsC_project', substr($form_state['accession'], 4));
-            
-            // Get the full file path.
-            $location = drupal_realpath("$file_name");
-            // Parse the file so it can be displayed with the columns.
-            $content = tppsC_parse_xlsx($location);
-            
-            // If no-header was checked, adjust the content from the file accordingly.
-            if (!empty($no_header)){
-                tppsC_content_no_header($content);
-            }
-            
-            // Get the column options defined earlier.
-            $options = $element['columns-options']['#value'];
-            
-            $first = TRUE;
-            
-            // Actually create each of the column drop-downs.
-            foreach ($content['headers'] as $item){
-                $item_parents = $element['#parents'];
-                array_pop($item_parents);
-                $item_parents[] = end($element['#parents']) . '-columns';
-                $item_parents[] = $item;
-                
-                // If there were saved values, load them into the table.
-                $default = drupal_array_get_nested_value($saved_vals, $item_parents);
-                
-                // Column drop-down element.
-                $element['columns'][$item] = array(
-                  '#type' => 'select',
-                  '#title' => t($item),
-                  '#options' => $options,
-                  '#default_value' => $default,
-                  '#prefix' => "<td>",
-                  '#suffix' => "</td>",
-                  '#attributes' => array(
-                    'data-toggle' => array('tooltip'),
-                    'data-placement' => array('left'),
-                    'title' => array("Select the type of data the '$item' column holds")
-                  )
-                );
-
-                // If we're creating the first column element, prefix it with the
-                // table element tags and wrappers.
-                if ($first){
-                    $first = FALSE;
-                    $element['columns'][$item]['#prefix'] = "<div style='overflow-x:auto'><table border='1'><tbody><tr>" . $element['columns'][$item]['#prefix'];
-                }
-
-                // If no-header was checked, the title should be left blank, and
-                // the tooltip should be changed accordingly.
-                if (!empty($no_header)){
-                    $element['columns'][$item]['#title'] = '';
-                    $element['columns'][$item]['#attributes']['title'] = array("Select the type of data column $item holds");
-                }
-            }
-            
-            // Display first 3 rows of the table.
-            $display = "</tr>";
-            for ($j = 0; $j < 3; $j++){
-                if (isset($content[$j])){
-                    $display .= "<tr>";
-                    foreach ($content['headers'] as $item){
-                        $display .= "<th>{$content[$j][$item]}</th>";
-                    }
-                    $display .= "</tr>";
-                }
-            }
-            // Closing table element and wrapper tags.
-            $display .= "</tbody></table></div>";
-
-            // Display the sample data right below the last column drop-down.
-            $element['columns'][$item]['#suffix'] .= $display;
-        }
+    else {
+        $form_state['build_info']['form_id'] = 'tpps_main';
+        $element = tpps_managed_file_process($element, $form_state, $form);
+        $form_state['build_info']['form_id'] = 'tppsC_main';
+        return $element;
     }
-    
-    if (isset($element['empty'])){
-        // Add some extra data and types to the 'empty' element.
-        $element['empty']['#type'] = 'textfield';
-        $element['empty']['#title'] = t('File Upload empty field:');
-        $element['empty']['#states'] = isset($element['#states']) ? $element['#states'] : NULL;
-        $element['empty']['#description'] = 'By default, TPPSC will treat cells with the value "NA" as empty. If you used a different empty value indicator, please provide it here.';
-    }
-    
-    return $element;
 }
 
 /**
@@ -457,78 +198,20 @@ function tppsC_form_alter(&$form, &$form_state, $form_id){
         }
         
         // Initialize default values for each of the leaves in the form tree.
-        tppsC_leaves($form, $form_state['values'], $form_state['saved_values'][$stage]);
+        tpps_leaves($form, $form_state['values'], $form_state['saved_values'][$stage]);
     }
-}
-
-/**
- * Initializes default values for each of the leaves in a form element tree.
- * 
- * Initializes the default value for all of the standard element types within the
- * current element, then calls itself on all of the nested fieldsets.
- * 
- * @param array $elements The fieldset of elements, or the form element on the first call.
- * @param array $vals The form state values for the associated form.
- * @param array $saved_vals The form state saved values for the associated form.
- */
-function tppsC_leaves(&$elements, $vals, $saved_vals){
-    // Iterate through each of the elments in the element array.
-    foreach($elements as $key => &$element){
-        // If the key is not an attribute of the parent array and the value has
-        // an element type:
-        if ($key[0] != '#' and isset($element['#type'])){
-            // Initialize the parents attribute.
-            $element['#parents'] = array_merge($elements['#parents'], array($key));
-            
-            // Standard element types that should be loading some default value.
-            $load_defaults = array(
-              'textfield',
-              'textarea',
-              'checkbox',
-              'select',
-              'managed_file',
-            );
-            // If element is a type that should pull from 'saved_values' and 
-            // doesn't already have a default value, try to load the old value.
-            if (in_array($element['#type'], $load_defaults) and !isset($element['#default_value']) and isset($saved_vals[$key])){
-                $element['#default_value'] = $saved_vals[$key];
-            }
-            // If element is a select type and still has no default value, then 
-            // there is no saved value, so the default should be 0.
-            elseif ($element['#type'] == 'select' and !isset($element['#default_value'])){
-                $element['#default_value'] = 0;
-            }
-            
-            // Checkboxes elements work a little differently in terms of default 
-            // values, so do them separately.
-            if ($element['#type'] == 'checkboxes'){
-                // Get checkboxes options
-                $options = $element['#options'];
-                foreach ($options as $option){
-                    // If the option does not yet have a default, try to pull it
-                    // from 'saved_values'.
-                    if (!isset($element[$option]['#default_value']) and isset($saved_vals[$key][$option])){
-                        $element[$option]['#default_value'] = $saved_vals[$key][$option];
-                    }
-                }
-            }
-            
-            // If the element is a fieldset, call gttn_tpps_leaves() on the
-            // current element.
-            if ($element['#type'] == 'fieldset'){
-                // Initialize the saved_values array if necessary.
-                if (!isset($saved_vals[$key])){
-                    $saved_vals[$key] = array();
-                }
-                // Initialize the values array if necessary.
-                if (!isset($vals[$key])){
-                    $vals[$key] = array();
-                }
-                tppsC_leaves($element, $vals[$key], $saved_vals[$key]);
+    elseif ($form['#form_id'] == 'tpps_admin_panel'){
+        $params = drupal_get_query_parameters();
+        $accession = isset($params['accession']) ? $params['accession'] : NULL;
+        if (!empty($accession)){
+            $submission_state = tpps_load_submission($accession);
+            if (!empty($submission_state['tpps_type']) and $submission_state['tpps_type'] == 'tppsC'){
+                unset($form['#submit']);
+                $form['#submit'][] = 'tppsC_admin_panel_submit';
+                module_load_include('php', 'tppsC', 'admin/panel');
             }
         }
     }
-    return;
 }
 
 /**
@@ -551,7 +234,7 @@ function tppsC_page_build(&$page){
     $step = $page['content']['system_main']['step']['#default_value'];
     // Do not add the side bar if we are on the front page, the first page, or 
     // the summary page.
-    if ($step != 'frontpage' and $step != TPPSC_PAGE_1 and $step != 'summarypage'){
+    if ($step != 'frontpage' and $step != TPPS_PAGE_1 and $step != 'summarypage'){
         // Load the existing block.
         $blockObject = block_load('views', 'tppsC_status');
         // Add a title.
@@ -588,8 +271,6 @@ function tppsC_main($form, &$form_state){
     // Get the query parameters from the url.
     $params = drupal_get_query_parameters();
     
-    // If the user is not logged in and the form step has not yet been set, then
-    // set the step to frontpage.
     if (!isset($user->mail) and !isset($form_state['stage'])){
         $form_state['stage'] = 'frontpage';
     
@@ -601,31 +282,18 @@ function tppsC_main($form, &$form_state){
         
         return $form;
     }
-    // If the user is still not logged in and is trying to access GTTN-TPPS beyond
-    // the front page, then require them to login first.
     elseif (!isset($user->mail)){
         $destination = drupal_get_destination();
-        // Require the user to login, once they do, bring them back to GTTN-TPPS.
         drupal_goto('user/login', array('query' => $destination));
     }
-    // If the user is logged in and has a specific accession number in their link,
-    // then load the incomplete form associated with their username and the
-    // provided accesison number.
     elseif (isset($params['accession']) and !isset($form_state['stage'])) {
-        // Get form state based on username and provided accession number.
-        $old_form_state = variable_get('tppsC_incomplete_' . $user->mail . $params['accession']);
-        // Load saved values, step, accession, and dbxref_id from old form state
-        // into new form state.
+        $old_form_state = tpps_load_submission($params['accession']);
         $form_state['saved_values'] = $old_form_state['saved_values'];
         $form_state['stage'] = $old_form_state['stage'];
         $form_state['accession'] = $old_form_state['accession'];
         $form_state['dbxref_id'] = $old_form_state['dbxref_id'];
     }
-    // If the user is logged in with a plain link, then we need to check if they
-    // are trying to load the front page or a different page.
     else {
-        // If the user is trying to load the front page, then set the step to 
-        // front page and create the front page.
         if (!isset($form_state['stage'])){
             $form_state['stage'] = 'frontpage';
     
@@ -637,25 +305,13 @@ function tppsC_main($form, &$form_state){
 
             return $form;
         }
-        // If the user is trying to load a different page, then the accession 
-        // must have been set in the front page step. Load the form associated 
-        // with that accession number and the user's username, then create the 
-        // appropriate page.
         else {
-            // If there is no form associated with both the username and the 
-            // accession number, then initialize a new project and create the 
-            // new persistant variable in the database so that it can be loaded.
             if (!isset($form_state['saved_values']['frontpage']['accession']) or (isset($form_state['saved_values']['frontpage']['accession']) and $form_state['saved_values']['frontpage']['accession'] === 'new')){
                 // Initialize project.
-                tppsC_init_project($form, $form_state);
-                // Create new persistant variable in the database to load later.
-                variable_set('tppsC_incomplete_' . $user->mail . $form_state['saved_values']['frontpage']['accession'], $form_state);
+                tpps_init_project($form_state);
+                tpps_create_submission($form_state, $user->uid);
             }
-            // Load the persistant variable from the database based on the username
-            // and accession number from the front page.
-            $old_form_state = variable_get('tppsC_incomplete_' . $user->mail . $form_state['saved_values']['frontpage']['accession']);
-            // Load saved values, step, accession, and dbxref_id from old form 
-            // state into new form state.
+            $old_form_state = tpps_load_submission($form_state['saved_values']['frontpage']['accession']);
             $form_state['saved_values'] = $old_form_state['saved_values'];
             $form_state['stage'] = $old_form_state['stage'];
             $form_state['accession'] = $old_form_state['accession'];
@@ -676,34 +332,31 @@ function tppsC_main($form, &$form_state){
       '#value' => $form_state['accession'],
     );
     
-    // If for some reason the dbxref_id or the accession number are still not 
-    // set, then initialize the project.
     if (!isset($form_state['dbxref_id']) or !isset($form_state['accession'])){
-        tppsC_init_project($form, $form_state);
+        tpps_init_project($form, $form_state);
     }
     
-    // Add the overhead status bar to the form.
-    tppsC_status_bar($form, $form_state);
+    $form_state['tpps_type'] = 'tppsC';
+    status_bar($form, $form_state);
     
-    // Create the appropriate page based on the form stage.
     switch ($form_state['stage']){
-        case TPPSC_PAGE_1:
+        case TPPS_PAGE_1:
             require_once('forms/build/page_1.php');
             page_1_create_form($form, $form_state);
             break;
         
-        case TPPSC_PAGE_2:
+        case TPPS_PAGE_2:
             require_once('forms/build/page_2.php');
-            page_2_create_form($form, $form_state);
+            tppsC_page_2_create_form($form, $form_state);
             break;
         
-        case TPPSC_PAGE_3:
-            require_once('forms/build/page_3.php');
+        case TPPS_PAGE_3:
+            module_load_include('php', 'tpps', 'forms/build/page_3');
             page_3_create_form($form, $form_state);
             break;
         
-        case TPPSC_PAGE_4:
-            require_once('forms/build/page_4.php');
+        case TPPS_PAGE_4:
+            module_load_include('php', 'tpps', 'forms/build/page_4');
             page_4_create_form($form, $form_state);
             break;
         
@@ -713,7 +366,7 @@ function tppsC_main($form, &$form_state){
             break;
         
         default:
-            dpm('Invalid form stage.', 'error');
+            drupal_set_message(t('Invalid form stage.'), 'error');
             break;
     }
     
@@ -757,32 +410,32 @@ function tppsC_main_validate(&$form, &$form_state){
     // make sure to save the column data for the managed_file elements. The rest 
     // of the validation function does not need to be completed.
     if ($form_state['triggering_element']['#value'] == 'Back' or $form_state['triggering_element']['#value'] == 'Save'){
-        tppsC_save_file_columns($form, $form_state);
+        save_file_columns($form, $form_state);
         return;
     }
     
     // Call the appropriate validation function based on the form stage. 
     switch ($form_state['stage']){
-        case TPPSC_PAGE_1:
+        case TPPS_PAGE_1:
             require_once('forms/validate/page_1.php');
             page_1_validate_form($form, $form_state);
             drupal_add_js(drupal_get_path('module', 'tppsC') . TPPSC_JS_PATH);
             break;
         
-        case TPPSC_PAGE_2:
+        case TPPS_PAGE_2:
             require_once('forms/validate/page_2.php');
             page_2_validate_form($form, $form_state);
             drupal_add_js(drupal_get_path('module', 'tppsC') . TPPSC_JS_PATH);
             break;
         
-        case TPPSC_PAGE_3:
-            require_once('forms/validate/page_3.php');
+        case TPPS_PAGE_3:
+            module_load_include('php', 'tpps', 'forms/validate/page_3');
             page_3_validate_form($form, $form_state);
             drupal_add_js(drupal_get_path('module', 'tppsC') . TPPSC_JS_PATH);
             break;
         
-        case TPPSC_PAGE_4:
-            require_once('forms/validate/page_4.php');
+        case TPPS_PAGE_4:
+            module_load_include('php', 'tpps', 'forms/validate/page_4');
             page_4_validate_form($form, $form_state);
             drupal_add_js(drupal_get_path('module', 'tppsC') . TPPSC_JS_PATH);
             break;
@@ -816,95 +469,33 @@ function tppsC_main_validate(&$form, &$form_state){
  * @param array $form_state The associated state of the form being submitted.
  */
 function tppsC_main_submit($form, &$form_state){
-    
-    // Get the user object.
-    global $user;
-    
-    // Add the form values for this page to the form saved values array.
-    $form_state['saved_values'][$form_state['stage']] = $form_state['values'];
-    $persist = TRUE;
-    
-    // If the form is just being saved, then sync the form build ids, rebuild 
-    // the form, and set the persistant variable in the database, then return.
-    if ($form_state['triggering_element']['#value'] == 'Save'){
-        // Notify the user that their save succeeded.
-        dpm('Your information has been saved!');
+  
+    if ($form_state['stage'] != 'summarypage'){
+        tpps_main_submit($form, $form_state);
+    }
+    else {
+        $form_state['saved_values'][$form_state['stage']] = $form_state['values'];
+        $persist = TRUE;
         
-        // Sync form build ids between the values and saved values arrays.
+        if ($form_state['triggering_element']['#value'] == 'Back'){
+            $form_state['stage'] = TPPS_PAGE_4;
+        }
+        else{
+            $form_state['status'] = 'Pending Approval';
+            tpps_update_submission($form_state, array('status' => 'Pending Approval'));
+            tppsC_submit_email($form, $form_state);
+            return;
+        }
+        
         if (isset($form_state['saved_values']['form_build_id'])){
             $form_state['values']['form_build_id'] = $form_state['saved_values']['form_build_id'];
         }
         $form_state['saved_values']['form_build_id'] = $form_state['values']['form_build_id'];
-        // Rebuild the form.
         $form_state['rebuild'] = TRUE;
-        
-        // Set the persistant variable in the database.
-        variable_set('tppsC_incomplete_' . $user->mail . $form_state['accession'], $form_state);
-        return;
-    }
-    
-    // Set the next form stage based on the current stage. If the back button
-    // was pressed, then set the form stage back one instead of forward.
-    switch ($form_state['stage']){
-        case 'frontpage':
-            $persist = FALSE;
-            $form_state['stage'] = TPPSC_PAGE_1;
-            break;
-        
-        case TPPSC_PAGE_4:
-            if ($form_state['triggering_element']['#value'] == 'Back'){
-                $form_state['stage'] = TPPSC_PAGE_3;
-            }
-            else{
-                $form_state['stage'] = 'summarypage';
-            }
-            break;
-            
-        case 'summarypage':
-            if ($form_state['triggering_element']['#value'] == 'Back'){
-                $form_state['stage'] = TPPSC_PAGE_4;
-            }
-            else{
-                // If the summarypage is being submitted and is not going backwards, 
-                // then remove the gttn_tpps_incomplete_ variable from the database 
-                // and add it as a gttn_tpps_complete_ variable. 
-                variable_del('tppsC_incomplete_' . $user->mail . $form_state['accession']);
-                // Set the form status to Pending Approval so that the admin panel
-                // can decide whether to create an approval/rejection form for it
-                // later.
-                $form_state['status'] = 'Pending Approval';
-                variable_set('tppsC_complete_' . $user->mail . $form_state['accession'], $form_state);
-                // Notify the user that their submission was received.
-                tppsC_submit_email($form, $form_state);
-                // We don't need to sync the form build ids, rebuild the form, 
-                // or set the incomplete variable once the summarypage has been 
-                // submitted.
-                return;
-            }
-            break;
-        
-        default:
-            if ($form_state['triggering_element']['#value'] == 'Back'){
-                $form_state['stage']--;
-            }
-            else{
-                $form_state['stage']++;
-            }
-            break;
-    }
-    
-    // Sync the form build ids between the saved values and values arrays.
-    if (isset($form_state['saved_values']['form_build_id'])){
-        $form_state['values']['form_build_id'] = $form_state['saved_values']['form_build_id'];
-    }
-    $form_state['saved_values']['form_build_id'] = $form_state['values']['form_build_id'];
-    // Rebuild the form.
-    $form_state['rebuild'] = TRUE;
-    
-    // If we are submitting any page except the front page, then save the new 
-    // tppsC_incomplete_ variable in the database.
-    if ($persist){
-        variable_set('tppsC_incomplete_' . $user->mail . $form_state['accession'], $form_state);
+
+        if ($persist) {
+          tpps_update_submission($form_state);
+        }
     }
 }
 
@@ -933,177 +524,13 @@ function tppsC_block_info() {
  * @param stdObject $block the block object being altered.
  */
 function tppsC_block_view_alter(&$data, $block) {
-    // Get the base url.
+    
     global $base_url;
-    // Only add the tppsC data if the delta property is 'tppsC_status'.
     switch ($block->delta) {
         case 'tppsC_status':
-            
-            // CSS for some extra spacing around images within the status block.
-            $css = "
-            .tgdrC_status_block img {
-                    vertical-align: middle;
-                    margin-bottom: 4px;
-                    margin-right: 2px;
-            }		
-            ";
-            // Add image spacing CSS.
-            drupal_add_css($css, 'inline');
-
-            // Set the block subject.
-            $data['subject'] = t('TPPSC Status');
-            // Initialize the content that will be added to the block.
-            $content = "<div class='tgdrC_status_block'>";
-            // Get the user object.
-            global $user;
-            // Try to retrieve the accession number from the http request. If you
-            // can, then load the form state based on the username and accession.
-            if (isset($_REQUEST['accession'])){
-                $accession = $_REQUEST['accession'];
-                // Load the form state.
-                $form_state = variable_get('tppsC_incomplete_' . $user->mail . $accession);
-            }
-            else {
-                // If the accession could be loaded, then close the content that 
-                // will be added to the block and stop here.
-                $content .= '</div>';
-                $data['content'] = t($content);
-                break;
-            }
-            // Checkmark icon.
-            $ok = "<img src='$base_url/misc/message-16-ok.png'>";
-            // Get the standardized data array from the form state.
-            $flat = tppsC_flatten($form_state);
-            
-            // Iterate through the field => value pairs in the standardized data array.
-            foreach ($flat as $item => $val){
-                // Fields starting with '#' are metadata that shouldn't actually
-                // be shown in the block.
-                if ($item[0] !== '#'){
-                    // Filter the field and value strings into html-friendly strings.
-                    $item_str = filter_xss(check_plain($item));
-                    $val_str = filter_xss(check_plain($val));
-                    // If the field is a file, then load the file and create a 
-                    // link to it.
-                    if (preg_match('/File/', $item) and ($file_name = file_load($val)->filename)){
-                        // Get file path.
-                        $file_url = check_plain(file_create_url(file_load($val)->uri));
-                        // Change the value display to the name of the file with
-                        // the full link to its location.
-                        $val_str = "<a href='$file_url' target='blank'>$file_name</a>";
-                        if (preg_match('/^(.*)Accession File/', $item, $matches)){
-                            
-                            if ($matches[1] != "Tree "){
-                                $parts = explode(" ", $matches[1]);
-                                $name = implode("_", $parts);
-                                
-                                $val_str .= "<div id=\"{$name}map_wrapper\"></div>"
-                                . "<input id=\"{$name}map_button\" type=\"button\" value=\"Click here to view trees on map!\"></input>"
-                                . "<div id=\"{$name}accession_fid\" style=\"display:none;\">$val</div>";
-                            }
-                            else {
-                                $val_str .= "<div id=\"map_wrapper\"></div>"
-                                . "<input id=\"map_button\" type=\"button\" value=\"Click here to view trees on map!\"></input>"
-                                . "<div id=\"accession_fid\" style=\"display:none;\">$val</div>";
-                            }
-                        }
-                    }
-                    // If the field is a month, we want to display it along with
-                    // the associated year, so skip to the next field.
-                    elseif (preg_match('/Month/', $item)){
-                        continue;
-                    }
-                    // If the field is a year, then the previous field was a month
-                    // field, so we want to find that value and display them
-                    // together.
-                    elseif (preg_match('/^(.*)Year/', $item, $matches)){
-                        // The match from the regular expression above is the prefix
-                        // for the month field in the standardized data array. We
-                        // can use this to get the associated month value from the
-                        // array, and display it along with the year.
-                        if (isset($flat[$matches[1] . 'Month'])){
-                            // Display both parts as the "<prefix> Date" field.
-                            $item_str = $matches[1] . 'Date';
-                            // The value is of the form "<month> <year>".
-                            $val_str = "{$flat[$matches[1] . 'Month']} $val_str";
-                        }
-                        else {
-                            // If the month could not be retrieved from the standardized
-                            // data array, then skip this field altogether.
-                            continue;
-                        }
-                    }
-                    // Add map button after study location.
-                    elseif (preg_match('/Study Location/', $item) and isset($flat['#location_type']) and $flat['#location_type']){
-                        // If location type is custom, the query will just be 
-                        // the plain text provided as the location.
-                        if ($flat['#location_type'] == '2'){
-                            $query = $val_str;
-                        }
-                        // Otherwise, we need the standardized coordinates.
-                        elseif ($flat['#location_type'] != '2' and ($standard = tppsC_standard_coord($val_str))){
-                            $query = $standard;
-                        }
-                        // Create the link object that will display the map.
-                        $val_str = "<a id=\"sidebar_map\" style=\"cursor:pointer\">$val_str</a>";
-                        // If we have a valid query, add the map iframe.
-                        if (isset($query)){
-                            $map = "<iframe frameborder=\\\"0\\\" style=\\\"border:0;width:100%;height:100%\\\" src=\\\"https://www.google.com/maps?q=$query&output=embed&key=AIzaSyDkeQ6KN6HEBxrIoiSCrCHFhIbipycqouY&z=5\\\" allowfullscreen> </iframe></div>";
-                            $js = "jQuery(document).ready(function ($) {
-                                jQuery(\"#sidebar_map\").click(function() {
-                                    jQuery(\"#sidebar_map_wrapper\").remove();
-                                    jQuery(\"#sidebar_map\").after( \"<br><div id=\\\"sidebar_map_wrapper\\\">$map</div>\" );
-                                });
-                            });";
-                            drupal_add_js($js, 'inline');
-                        }
-                    }
-                    // Add the checkmark, the html-friendly field string, and the
-                    // html-friendly value string to the content string.
-                    $content .= "$ok $item_str: $val_str <br />";
-                }
-                // If the field starts with '#' and is a page cleared tag, then
-                // we might want to create a new section for the next page.
-                elseif (preg_match('/#page_(.)_cleared/', $item, $matches)){
-                    // If the page is, in fact, cleared, then add the break 
-                    // between the page sections.
-                    if ($val){
-                        $step_arr = array(
-                          1 => 'Author and Species Information',
-                          2 => 'Experimental Conditions',
-                          3 => 'Tree Accession',
-                          4 => 'Submit Data'
-                        );
-                        if ($matches[1] > 1){
-                            $content .= '<br />';
-                        }
-                        // Add the checkmark, Step number, step title, and separating
-                        // bar to the content string.
-                        $content .= "$ok Step {$matches[1]} - Complete<br />{$step_arr[$matches[1]]}<br /><hr />";
-                    }
-                    else {
-                        // If the page was not cleared, then do not display any 
-                        // remaining form state data.
-                        break;
-                    }
-                }
-                elseif (preg_match('/^#(.*)accession_(.*)/', $item, $matches)){
-                    $val_str = filter_xss(check_plain($val));
-                    $parts = explode(" ", substr($matches[0], 1));
-                    $item_id = implode("_", $parts);
-                    $content .= "<div id=\"$item_id\" style=\"display:none;\">$val_str</div>";
-                }
-            }
-            // Close out the content wrapper.
-            if ($flat['#page_3_cleared']){
-                $content .= "<script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyDkeQ6KN6HEBxrIoiSCrCHFhIbipycqouY&callback=initMap\"
-                async defer></script>";
-            }
-            $content .= "</div>";
-            // Add the content to the block.
-            $data['content'] = t($content);
-
-            break;
+            $block->delta = 'tpps_status';
+            tpps_block_view_alter($data, $block);
+            $block->delta = 'tppsC_status';
         default:
             break;
     }

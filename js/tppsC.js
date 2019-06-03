@@ -142,7 +142,7 @@ function getCoordinates(){
         return;
     }
     
-    var request = jQuery.post('tppsC-accession', {
+    var request = jQuery.post('tpps-accession', {
         fid: fid,
         no_header: no_header,
         id_col: id_col,
