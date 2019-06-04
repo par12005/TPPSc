@@ -10,7 +10,7 @@ TPPSc is a [Drupal](https://www.drupal.org/) module built to extend the function
 
 # Installation
 1. At the top of this page, find the drop-down menu next to the URL with options 'SSH' and 'HTTPS'. Select 'HTTPS', then click 'Copy URL to clipboard'. Download this module by running ```git clone <URL> ``` on command line. 
-2. Place the cloned module folder "TPPSc" inside your /sites/all/modules/custom. Then enable the module by running ```drush en tppsC``` (for more instructions, read the [Drupal documentation page](https://www.drupal.org/node/120641)).
+2. Place the cloned module folder "TPPSc" inside your /sites/all/modules/custom. Then enable the module by running ```drush en tppsc``` (for more instructions, read the [Drupal documentation page](https://www.drupal.org/node/120641)).
 
 # Features
 - Support for genotype, phenotype, and environmental data and metadata
