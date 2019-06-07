@@ -109,7 +109,7 @@ function tppsc_mail($key, &$message, $params) {
       // submission was rejected.
       $message['body'][] =
             "To whom it may concern:<br><br>
-            Unfortunately, your submission to TPPSC has been rejected. If you would like, you can log into the TreeGenes website and edit your submission <a href='{$params['base_url']}/user/{$params['uid']}/TPPSC'>here</a><br><br>
+            Unfortunately, your submission to TPPSC has been rejected. If you would like, you can log into the TreeGenes website and edit your submission <a href='{$params['base_url']}/user/{$params['uid']}/tpps'>here</a><br><br>
             The administrator who rejected your submission provided the following reason:<br>
             <blockquote>
             {$params['reject-reason']}
@@ -122,8 +122,8 @@ function tppsc_mail($key, &$message, $params) {
       $message['body'][] =
             "Congratulations! Your submission to TPPSC has been approved!<br><br>
             You may now refer to your submitted data with accession number {$params['accession']}.<br><br>
-            You can still view your submission from your <a href=\"{$params['base_url']}/completed-submission?id={$params['accession']}\">TPPSC Completed Submissions</a> tab.<br>
-            Your submission should be public on the <a href=\"{$params['base_url']}/tppsc_details/main\">TPPSC/TGDR Landing Page</a> within the next 24 hours.";
+            You can still view your submission from your <a href=\"{$params['base_url']}/completed-submission?id={$params['accession']}\">TPPS Completed Submissions</a> tab.<br>
+            Your submission should be public on the <a href=\"{$params['base_url']}/tpps_details/main\">TPPSC/TGDR Landing Page</a> within the next 24 hours.";
       break;
 
     default:
