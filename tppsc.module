@@ -8,6 +8,7 @@
 define("TPPSC_JS_PATH", '/js/tppsc.js');
 require_once 'includes/submit_email.inc';
 require_once 'includes/tab_create.inc';
+require_once 'includes/save_doi_pub.inc';
 
 /**
  * Implements hook_menu().
@@ -424,6 +425,10 @@ function tppsc_main_validate(&$form, &$form_state) {
   // make sure to save the column data for the managed_file elements. The rest
   // of the validation function does not need to be completed.
   if ($form_state['triggering_element']['#value'] == 'Back' or $form_state['triggering_element']['#value'] == 'Save') {
+    if ($form_state['stage'] == TPPS_PAGE_1){
+      tppsc_save_doi_pub($form_state);
+      tpps_update_submission($form_state);
+    }
     save_file_columns($form, $form_state);
     return;
   }
