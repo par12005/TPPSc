@@ -54,7 +54,7 @@ function tppsc_admin_panel_submit($form, &$form_state) {
     drupal_mail('tppsc', 'user_approved', $to, user_preferred_language(user_load_by_name($to)), $params, $from, TRUE);
 
     $state['status'] = 'Approved';
-    tpps_update_submission($state);
+    tpps_update_submission($state, array('status' => 'Approved'));
     if ($state['saved_values']['summarypage']['release']) {
       tppsc_submit_all($accession);
     }
