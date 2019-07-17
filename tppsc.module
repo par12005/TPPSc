@@ -350,6 +350,7 @@ function tppsc_main($form, &$form_state) {
   }
 
   $form_state['tpps_type'] = 'tppsc';
+  tpps_update_submission($form_state);
   status_bar($form, $form_state);
 
   switch ($form_state['stage']) {
@@ -382,7 +383,6 @@ function tppsc_main($form, &$form_state) {
       drupal_set_message(t('Invalid form stage.'), 'error');
       break;
   }
-  unset($form_state['saved_values'][TPPS_PAGE_1]['organization']);
 
   // Bootstrap tooltip functionality.
   $suffix = '
