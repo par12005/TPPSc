@@ -18,7 +18,6 @@ function tppsc_page_2_create_form(&$form, $form_state) {
 
   $tpps_form = tpps_main(array(), $form_state);
 
-  $form['study_location'] = $tpps_form['study_location'];
   $form['data_type'] = $tpps_form['data_type'];
   $form['study_type'] = $tpps_form['study_type'];
   unset($form['study_type']['#ajax']);

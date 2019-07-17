@@ -159,51 +159,6 @@ function tppsc_submit_page_2(&$form_state, $project_id, &$file_rank) {
 
   $secondpage = $form_state['saved_values'][TPPS_PAGE_2];
 
-  if ($secondpage['study_location']['type'] !== '2') {
-    $standard_coordinate = explode(',', tpps_standard_coord($secondpage['study_location']['coordinates']));
-    $latitude = $standard_coordinate[0];
-    $longitude = $standard_coordinate[1];
-
-    tpps_chado_insert_record('projectprop', array(
-      'project_id' => $project_id,
-      'type_id' => array(
-        'cv_id' => array(
-          'name' => 'local',
-        ),
-        'name' => 'gps_latitude',
-        'is_obsolete' => 0,
-      ),
-      'value' => $latitude,
-    ));
-
-    tpps_chado_insert_record('projectprop', array(
-      'project_id' => $project_id,
-      'type_id' => array(
-        'cv_id' => array(
-          'name' => 'local',
-        ),
-        'name' => 'gps_longitude',
-        'is_obsolete' => 0,
-      ),
-      'value' => $longitude,
-    ));
-  }
-  else {
-    $location = $secondpage['study_location']['custom'];
-
-    tpps_chado_insert_record('projectprop', array(
-      'project_id' => $project_id,
-      'type_id' => array(
-        'cv_id' => array(
-          'name' => 'local',
-        ),
-        'name' => 'experiment_location',
-        'is_obsolete' => 0,
-      ),
-      'value' => $location,
-    ));
-  }
-
   tpps_chado_insert_record('projectprop', array(
     'project_id' => $project_id,
     'type_id' => array(
