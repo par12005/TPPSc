@@ -7,7 +7,6 @@
 
 define("TPPSC_JS_PATH", '/js/tppsc.js');
 require_once 'includes/submit_email.inc';
-require_once 'includes/tab_create.inc';
 require_once 'includes/save_doi_pub.inc';
 
 /**
@@ -38,14 +37,6 @@ function tppsc_menu() {
   );
 
   return $items;
-}
-
-/**
- *
- * @param array $items
- */
-function tppsc_menu_alter(&$items) {
-  $items['user/%user/tpps']['page callback'] = 'tppsc_tab_create';
 }
 
 /**
