@@ -9,35 +9,38 @@
  */
 function tppsc_submit_all($accession) {
 
-  $form_state = tpps_load_submission($accession);
-  $uid = $form_state['submitting_uid'];
-  $values = $form_state['saved_values'];
-  $firstpage = $values[TPPS_PAGE_1];
-  $file_rank = 0;
+  $transaction = db_transaction();
 
-  $project_id = tpps_chado_insert_record('project', array(
-    'name' => $firstpage['publication']['title'],
-    'description' => $firstpage['publication']['abstract'],
-  ));
+  try {
+    $form_state = tpps_load_submission($accession);
+    $uid = $form_state['submitting_uid'];
+    $values = $form_state['saved_values'];
+    $firstpage = $values[TPPS_PAGE_1];
+    $file_rank = 0;
 
-  $organism_ids = tppsc_submit_page_1($form_state, $project_id, $file_rank);
+    $project_id = tpps_chado_insert_record('project', array(
+      'name' => $firstpage['publication']['title'],
+      'description' => $firstpage['publication']['abstract'],
+    ));
 
-  tppsc_submit_page_2($form_state, $project_id, $file_rank);
+    $organism_ids = tppsc_submit_page_1($form_state, $project_id, $file_rank);
 
-  tppsc_submit_page_3($form_state, $project_id, $file_rank, $organism_ids);
+    tppsc_submit_page_2($form_state, $project_id, $file_rank);
 
-  tppsc_submit_page_4($form_state, $project_id, $file_rank, $organism_ids);
+    tppsc_submit_page_3($form_state, $project_id, $file_rank, $organism_ids);
 
-  tpps_update_submission($form_state, array('status' => 'Approved'));
+    tppsc_submit_page_4($form_state, $project_id, $file_rank, $organism_ids);
 
-  // For simplicity and efficiency, all fourth page submissions take place in
-  // the TPPSC File Parsing Tripal Job.
-  $includes = array();
-  $includes[] = module_load_include('module', 'tpps');
-  $args = array($form_state['accession']);
-  $jid = tripal_add_job("TPPSC File Parsing - {$form_state['accession']}", 'tpps', 'tpps_file_parsing', $args, $uid, 10, $includes, TRUE);
-  $form_state['job_id'] = $jid;
-  tpps_update_submission($form_state);
+    tpps_update_submission($form_state);
+
+    tpps_file_parsing($accession);
+    $form_state['status'] = 'Approved'
+    tpps_update_submission($form_state, array('status' => 'Approved'));
+  }
+  catch (Exception $e) {
+    $transaction->rollback();
+    watchdog_exception('tppsc', $e);
+  }
 }
 
 /**
