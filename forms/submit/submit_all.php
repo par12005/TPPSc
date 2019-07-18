@@ -49,6 +49,7 @@ function tppsc_submit_all($accession) {
  */
 function tppsc_submit_page_1(&$form_state) {
 
+  $project_id = $form_state['ids']['project_id'];
   $dbxref_id = $form_state['dbxref_id'];
   $firstpage = $form_state['saved_values'][TPPS_PAGE_1];
 
@@ -161,6 +162,7 @@ function tppsc_submit_page_1(&$form_state) {
  */
 function tppsc_submit_page_2(&$form_state) {
 
+  $project_id = $form_state['ids']['project_id'];
   $secondpage = $form_state['saved_values'][TPPS_PAGE_2];
 
   tpps_chado_insert_record('projectprop', array(
