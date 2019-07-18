@@ -16,25 +16,26 @@ function tppsc_submit_all($accession) {
     $uid = $form_state['submitting_uid'];
     $values = $form_state['saved_values'];
     $firstpage = $values[TPPS_PAGE_1];
-    $file_rank = 0;
+    $form_state['file_rank'] = 0;
+    $form_state['ids'] = array();
 
-    $project_id = tpps_chado_insert_record('project', array(
+    $form_state['ids']['project_id'] = tpps_chado_insert_record('project', array(
       'name' => $firstpage['publication']['title'],
       'description' => $firstpage['publication']['abstract'],
     ));
 
-    $organism_ids = tppsc_submit_page_1($form_state, $project_id, $file_rank);
+    tppsc_submit_page_1($form_state);
 
-    tppsc_submit_page_2($form_state, $project_id, $file_rank);
+    tppsc_submit_page_2($form_state);
 
-    tppsc_submit_page_3($form_state, $project_id, $file_rank, $organism_ids);
+    tppsc_submit_page_3($form_state);
 
-    tppsc_submit_page_4($form_state, $project_id, $file_rank, $organism_ids);
+    tppsc_submit_page_4($form_state);
 
     tpps_update_submission($form_state);
 
     tpps_file_parsing($accession);
-    $form_state['status'] = 'Approved'
+    $form_state['status'] = 'Approved';
     tpps_update_submission($form_state, array('status' => 'Approved'));
   }
   catch (Exception $e) {
@@ -46,7 +47,7 @@ function tppsc_submit_all($accession) {
 /**
  *
  */
-function tppsc_submit_page_1(&$form_state, $project_id, &$file_rank) {
+function tppsc_submit_page_1(&$form_state) {
 
   $dbxref_id = $form_state['dbxref_id'];
   $firstpage = $form_state['saved_values'][TPPS_PAGE_1];
@@ -152,13 +153,13 @@ function tppsc_submit_page_1(&$form_state, $project_id, &$file_rank) {
       'project_id' => $project_id,
     ));
   }
-  return $organism_ids;
+  $form_state['ids']['organism_ids'] = $organism_ids;
 }
 
 /**
  *
  */
-function tppsc_submit_page_2(&$form_state, $project_id, &$file_rank) {
+function tppsc_submit_page_2(&$form_state) {
 
   $secondpage = $form_state['saved_values'][TPPS_PAGE_2];
 
@@ -199,17 +200,17 @@ function tppsc_submit_page_2(&$form_state, $project_id, &$file_rank) {
 /**
  *
  */
-function tppsc_submit_page_3(&$form_state, $project_id, &$file_rank, $organism_ids) {
+function tppsc_submit_page_3(&$form_state) {
 
   module_load_include('php', 'tpps', 'forms/submit/submit_all');
-  tpps_submit_page_3($form_state, $project_id, $file_rank, $organism_ids);
+  tpps_submit_page_3($form_state);
 }
 
 /**
  *
  */
-function tppsc_submit_page_4(&$form_state, $project_id, &$file_rank, $organism_ids) {
+function tppsc_submit_page_4(&$form_state) {
 
   module_load_include('php', 'tpps', 'forms/submit/submit_all');
-  tpps_submit_page_4($form_state, $project_id, $file_rank, $organism_ids);
+  tpps_submit_page_4($form_state);
 }
