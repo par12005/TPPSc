@@ -498,6 +498,7 @@ function tppsc_main_submit($form, &$form_state) {
       $form_state['status'] = 'Pending Approval';
       tpps_update_submission($form_state, array('status' => 'Pending Approval'));
       tppsc_submit_email($form, $form_state);
+      drupal_goto('completed-submission', array('query' => array('id' => $form_state['accession'])));
       return;
     }
 
