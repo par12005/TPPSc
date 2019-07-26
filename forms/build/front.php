@@ -17,22 +17,30 @@ function tppsc_front_create_form(&$form, $form_state) {
     $options_arr = array();
     $options_arr['new'] = 'Create new TPPSC Submission';
 
+    $and = db_and()
+      ->condition('status', 'Incomplete')
+      ->condition('uid', $user->uid);
     $results = db_select('tpps_submission', 's')
       ->fields('s')
-      ->condition('status', 'Incomplete')
+      ->condition($and)
       ->execute();
 
     foreach ($results as $item) {
       $state = tpps_load_submission($item->accession);
 
-      if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
-        $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
-        $tgdrC_id = $state['accession'];
-        $options_arr["$tgdrC_id"] = "$title";
-      }
-      else {
-        if (isset($state) and !isset($state['saved_values'][TPPS_PAGE_1])) {
-          tpps_delete_submission($item->accession);
+      if (!empty($state['tpps_type']) and $state['tpps_type'] == 'tppsc') {
+        if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
+          $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
+          $tgdrC_id = $state['accession'];
+          if (strlen($title) > 97) {
+            $title = substr($title, 0, 97) . '...';
+          }
+          $options_arr["$tgdrC_id"] = $title;
+        }
+        else {
+          if (isset($state) and !isset($state['saved_values'][TPPS_PAGE_1])) {
+            tpps_delete_submission($item->accession, FALSE);
+          }
         }
       }
     }
