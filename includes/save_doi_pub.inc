@@ -16,9 +16,11 @@ function tppsc_save_doi_pub(&$form_state){
     $form_state['values']['primaryAuthor'] = trim(implode(" ", array_slice($parts, 1)) . " {$parts[0]}");
     if (!empty($secondary_authors)) {
       $form_state['values']['publication']['secondaryAuthors'] = array();
+      $index = 1;
       foreach ($secondary_authors as $author) {
         $parts = explode(',', $author);
-        $form_state['values']['publication']['secondaryAuthors'][] = trim(implode(" ", array_slice($parts, 1)) . " {$parts[0]}");
+        $form_state['values']['publication']['secondaryAuthors'][$index] = trim(implode(" ", array_slice($parts, 1)) . " {$parts[0]}");
+        $index++;
       }
       $form_state['values']['publication']['secondaryAuthors']['number'] = count($secondary_authors);
       $form_state['values']['publication']['secondaryAuthors']['check'] = FALSE;
