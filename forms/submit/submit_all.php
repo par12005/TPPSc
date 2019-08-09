@@ -9,6 +9,9 @@
  */
 function tppsc_submit_all($accession) {
 
+  $form_state = tpps_load_submission($accession);
+  $form_state['status'] = 'Submission Job Running';
+  tpps_update_submission($form_state, array('status' => 'Submission Job Running'));
   $transaction = db_transaction();
 
   try {
@@ -23,6 +26,8 @@ function tppsc_submit_all($accession) {
       'name' => $firstpage['publication']['title'],
       'description' => $firstpage['publication']['abstract'],
     ));
+
+    tpps_tripal_entity_publish('Project', array($firstpage['publication']['title'], $form_state['ids']['project_id']));
 
     tppsc_submit_page_1($form_state);
 
@@ -40,6 +45,9 @@ function tppsc_submit_all($accession) {
   }
   catch (Exception $e) {
     $transaction->rollback();
+    $form_state = tpps_load_submission($accession);
+    $form_state['status'] = 'Pending Approval';
+    tpps_update_submission($form_state, array('status' => 'Pending Approval'));
     watchdog_exception('tppsc', $e);
   }
 }
@@ -100,6 +108,7 @@ function tppsc_submit_page_1(&$form_state) {
     'pyear' => $firstpage['publication']['year'],
     'uniquename' => "$author_string {$firstpage['publication']['title']}. {$firstpage['publication']['journal']}; {$firstpage['publication']['year']}",
   ));
+  tpps_tripal_entity_publish('Publication', array($firstpage['publication']['title'], $publication_id));
 
   tpps_chado_insert_record('project_pub', array(
     'project_id' => $project_id,
@@ -131,7 +140,6 @@ function tppsc_submit_page_1(&$form_state) {
     }
   }
 
-  $organism_ids = array();
   $organism_number = $firstpage['organism']['number'];
 
   for ($i = 1; $i <= $organism_number; $i++) {
@@ -144,17 +152,17 @@ function tppsc_submit_page_1(&$form_state) {
     else {
       $infra = NULL;
     }
-    $organism_ids[$i] = tpps_chado_insert_record('organism', array(
+    $form_state['ids']['organism_ids'][$i] = tpps_chado_insert_record('organism', array(
       'genus' => $genus,
       'species' => $species,
       'infraspecific_name' => $infra,
     ));
     tpps_chado_insert_record('project_organism', array(
-      'organism_id' => $organism_ids[$i],
+      'organism_id' => $form_state['ids']['organism_ids'][$i],
       'project_id' => $project_id,
     ));
+    tpps_tripal_entity_publish('Organism', array("$genus $species", $form_state['ids']['organism_ids'][$i]));
   }
-  $form_state['ids']['organism_ids'] = $organism_ids;
 }
 
 /**
