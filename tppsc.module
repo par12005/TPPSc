@@ -209,14 +209,16 @@ function tppsc_form_alter(&$form, &$form_state, $form_id) {
     tpps_leaves($form, $form_state['values'], $form_state['saved_values'][$stage]);
   }
   elseif ($form['#form_id'] == 'tpps_admin_panel') {
-    $params = drupal_get_query_parameters();
-    $accession = isset($params['accession']) ? $params['accession'] : NULL;
-    if (!empty($accession)) {
-      $submission_state = tpps_load_submission($accession);
-      if (!empty($submission_state['tpps_type']) and $submission_state['tpps_type'] == 'tppsc') {
-        unset($form['#submit']);
-        $form['#submit'][] = 'tppsc_admin_panel_submit';
-        module_load_include('php', 'tppsc', 'admin/panel');
+    $params = drupal_get_query_parameters(NULL, array());
+    if (preg_match('/tpps-admin-panel\/(TGDR.*)/', $params['q'], $matches)) {
+      $accession = $matches[1];
+      if (!empty($accession)) {
+        $submission_state = tpps_load_submission($accession);
+        if (!empty($submission_state['tpps_type']) and $submission_state['tpps_type'] == 'tppsc') {
+          unset($form['#submit']);
+          $form['#submit'][] = 'tppsc_admin_panel_submit';
+          module_load_include('php', 'tppsc', 'admin/panel');
+        }
       }
     }
   }
