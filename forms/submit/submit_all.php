@@ -27,6 +27,7 @@ function tppsc_submit_all($accession) {
       'description' => $firstpage['publication']['abstract'],
     ));
 
+    module_load_include('php', 'tpps', 'forms/submit/submit_all');
     tpps_tripal_entity_publish('Project', array($firstpage['publication']['title'], $form_state['ids']['project_id']));
 
     tppsc_submit_page_1($form_state);
