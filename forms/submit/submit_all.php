@@ -81,7 +81,7 @@ function tppsc_submit_page_1(&$form_state) {
   $author_string = $firstpage['primaryAuthor'];
   if (!$firstpage['publication']['secondaryAuthors']['check'] and $firstpage['publication']['secondaryAuthors']['number'] != 0) {
 
-    for ($i = 0; $i < $firstpage['publication']['secondaryAuthors']['number']; $i++) {
+    for ($i = 1; $i <= $firstpage['publication']['secondaryAuthors']['number']; $i++) {
       tpps_chado_insert_record('contact', array(
         'name' => $firstpage['publication']['secondaryAuthors'][$i],
         'type_id' => array(
