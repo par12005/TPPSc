@@ -128,7 +128,7 @@ function tppsc_submit_page_1(&$form_state) {
   ));
 
   if (!$firstpage['publication']['secondaryAuthors']['check'] and $firstpage['publication']['secondaryAuthors']['number'] != 0) {
-    for ($i = 0; $i < $firstpage['publication']['secondaryAuthors']['number']; $i++) {
+    for ($i = 1; $i <= $firstpage['publication']['secondaryAuthors']['number']; $i++) {
       $names = explode(" ", $firstpage['publication']['secondaryAuthors'][$i]);
       $first_name = $names[0];
       $last_name = implode(" ", array_slice($names, 1));
