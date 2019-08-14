@@ -42,7 +42,7 @@ function tppsc_admin_panel_submit($form, &$form_state) {
     drupal_set_message(t('Submission Rejected. Message has been sent to user.'), 'status');
     drupal_goto('<front>');
   }
-  else {
+  elseif ($form_state['triggering_element']['#value'] == 'Approve') {
     module_load_include('php', 'tppsc', 'forms/submit/submit_all');
     global $user;
     $uid = $user->uid;
@@ -76,5 +76,9 @@ function tppsc_admin_panel_submit($form, &$form_state) {
         variable_set('tpps_delayed_submissions', $delayed_submissions);
       }
     }
+  }
+  else {
+    $state['status'] = $form_state['values']['state-status'];
+    tpps_update_submission($state);
   }
 }
