@@ -153,11 +153,21 @@ function tppsc_submit_page_1(&$form_state) {
     else {
       $infra = NULL;
     }
-    $form_state['ids']['organism_ids'][$i] = tpps_chado_insert_record('organism', array(
+    $record = array(
       'genus' => $genus,
       'species' => $species,
       'infraspecific_name' => $infra,
-    ));
+    );
+
+    if (preg_match('/ x /', $species)) {
+      $record['type_id'] = array(
+        'name' => 'speciesaggregate',
+        'cv_id' => array(
+          'name' => 'taxonomic_rank',
+        ),
+      );
+    }
+    $form_state['ids']['organism_ids'][$i] = tpps_chado_insert_record('organism', $record);
     tpps_chado_insert_record('project_organism', array(
       'organism_id' => $form_state['ids']['organism_ids'][$i],
       'project_id' => $project_id,
