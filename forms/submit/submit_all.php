@@ -183,14 +183,10 @@ function tppsc_submit_page_2(&$form_state) {
 
   $project_id = $form_state['ids']['project_id'];
   $secondpage = $form_state['saved_values'][TPPS_PAGE_2];
-  $local_db = variable_get('tpps_local_db');
 
   tpps_chado_insert_record('projectprop', array(
     'project_id' => $project_id,
     'type_id' => array(
-      'cv_id' => array(
-        'name' => $local_db->name,
-      ),
       'name' => 'association_results_type',
       'is_obsolete' => 0,
     ),
@@ -209,9 +205,6 @@ function tppsc_submit_page_2(&$form_state) {
   tpps_chado_insert_record('projectprop', array(
     'project_id' => $project_id,
     'type_id' => array(
-      'cv_id' => array(
-        'name' => $local_db->name,
-      ),
       'name' => 'study_type',
       'is_obsolete' => 0,
     ),
