@@ -353,7 +353,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
   $form_state['tpps_type'] = 'tppsc';
   tpps_update_submission($form_state);
-  status_bar($form, $form_state);
+  tpps_status_bar($form, $form_state);
 
   switch ($form_state['stage']) {
     case TPPS_PAGE_1:
@@ -432,7 +432,7 @@ function tppsc_main_validate(&$form, &$form_state) {
       tppsc_save_doi_pub($form_state);
       tpps_update_submission($form_state);
     }
-    save_file_columns($form, $form_state);
+    tpps_save_file_columns($form, $form_state);
     return;
   }
 
