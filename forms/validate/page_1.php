@@ -7,7 +7,7 @@
 /**
  *
  */
-function page_1_validate_form(&$form, &$form_state) {
+function tppsc_page_1_validate_form(&$form, &$form_state) {
 
   if ($form_state['submitted'] == '1') {
 

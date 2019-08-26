@@ -7,7 +7,7 @@
 /**
  *
  */
-function organism(&$form, &$form_state, $defaults) {
+function tppsc_organism(&$form, &$form_state, $defaults) {
 
   if (isset($form_state['values']['organism']['number']) and $form_state['triggering_element']['#name'] == "Add Organism") {
     $form_state['values']['organism']['number']++;

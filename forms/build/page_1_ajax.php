@@ -7,7 +7,7 @@
 /**
  *
  */
-function ajax_doi_callback(&$form, $form_state) {
+function tppsc_ajax_doi_callback(&$form, $form_state) {
 
   return $form;
 }

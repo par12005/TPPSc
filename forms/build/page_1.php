@@ -10,7 +10,7 @@ require_once 'page_1_ajax.php';
 /**
  *
  */
-function page_1_create_form(&$form, $form_state) {
+function tppsc_page_1_create_form(&$form, $form_state) {
 
   if (isset($form_state['saved_values'][TPPS_PAGE_1])) {
     $values = $form_state['saved_values'][TPPS_PAGE_1];
@@ -23,7 +23,7 @@ function page_1_create_form(&$form, $form_state) {
     '#type' => 'textfield',
     '#title' => t('DOI: *'),
     '#ajax' => array(
-      'callback' => 'ajax_doi_callback',
+      'callback' => 'tppsc_ajax_doi_callback',
       'wrapper' => "doi-wrapper",
     ),
     '#description' => 'Example: 123.456/dryad.789',
@@ -65,7 +65,7 @@ function page_1_create_form(&$form, $form_state) {
     }
   }
 
-  organism($form, $form_state, $species);
+  tppsc_organism($form, $form_state, $species);
 
   $form['Save'] = array(
     '#type' => 'submit',

@@ -358,7 +358,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
   switch ($form_state['stage']) {
     case TPPS_PAGE_1:
       require_once 'forms/build/page_1.php';
-      page_1_create_form($form, $form_state);
+      tppsc_page_1_create_form($form, $form_state);
       break;
 
     case TPPS_PAGE_2:
@@ -368,12 +368,12 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
     case TPPS_PAGE_3:
       module_load_include('php', 'tpps', 'forms/build/page_3');
-      page_3_create_form($form, $form_state);
+      tpps_page_3_create_form($form, $form_state);
       break;
 
     case TPPS_PAGE_4:
       module_load_include('php', 'tpps', 'forms/build/page_4');
-      page_4_create_form($form, $form_state);
+      tpps_page_4_create_form($form, $form_state);
       break;
 
     case 'summarypage':
@@ -440,25 +440,25 @@ function tppsc_main_validate(&$form, &$form_state) {
   switch ($form_state['stage']) {
     case TPPS_PAGE_1:
       require_once 'forms/validate/page_1.php';
-      page_1_validate_form($form, $form_state);
+      tppsc_page_1_validate_form($form, $form_state);
       drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_2:
       require_once 'forms/validate/page_2.php';
-      page_2_validate_form($form, $form_state);
+      tppsc_page_2_validate_form($form, $form_state);
       drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_3:
       module_load_include('php', 'tpps', 'forms/validate/page_3');
-      page_3_validate_form($form, $form_state);
+      tpps_page_3_validate_form($form, $form_state);
       drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_4:
       module_load_include('php', 'tpps', 'forms/validate/page_4');
-      page_4_validate_form($form, $form_state);
+      tpps_page_4_validate_form($form, $form_state);
       drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
