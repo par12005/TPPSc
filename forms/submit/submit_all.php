@@ -15,6 +15,7 @@ function tppsc_submit_all($accession) {
   $transaction = db_transaction();
 
   try {
+    tpps_submission_clear_db($accession);
     $form_state = tpps_load_submission($accession);
     $uid = $form_state['submitting_uid'];
     $values = $form_state['saved_values'];
@@ -41,6 +42,8 @@ function tppsc_submit_all($accession) {
     tpps_update_submission($form_state);
 
     tpps_file_parsing($accession);
+
+    tpps_submission_rename_files($accession);
     $form_state = tpps_load_submission($accession);
     $form_state['status'] = 'Approved';
     tpps_update_submission($form_state, array('status' => 'Approved'));
