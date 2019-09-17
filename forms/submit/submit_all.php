@@ -12,12 +12,11 @@ function tppsc_submit_all($accession) {
   $form_state = tpps_load_submission($accession);
   $form_state['status'] = 'Submission Job Running';
   tpps_update_submission($form_state, array('status' => 'Submission Job Running'));
+  tpps_submission_clear_db($accession);
   $transaction = db_transaction();
 
   try {
-    tpps_submission_clear_db($accession);
     $form_state = tpps_load_submission($accession);
-    $uid = $form_state['submitting_uid'];
     $values = $form_state['saved_values'];
     $firstpage = $values[TPPS_PAGE_1];
     $form_state['file_rank'] = 0;
