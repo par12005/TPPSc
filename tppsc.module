@@ -286,6 +286,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
   // Get the query parameters from the url.
   $params = drupal_get_query_parameters();
 
+  // User not logged in, trying to access front page.
   if (!isset($user->mail) and !isset($form_state['stage'])) {
     $form_state['stage'] = 'frontpage';
 
@@ -297,10 +298,12 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
     return $form;
   }
+  // User not logged in, trying to access non-front page.
   elseif (!isset($user->mail)) {
     $destination = drupal_get_destination();
     drupal_goto('user/login', array('query' => $destination));
   }
+  // User logged in, trying to load form from existing accession.
   elseif (isset($accession) and !isset($form_state['stage'])) {
     $old_form_state = tpps_load_submission($accession);
     $form_state['saved_values'] = $old_form_state['saved_values'];
@@ -308,6 +311,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
     $form_state['accession'] = $old_form_state['accession'];
     $form_state['dbxref_id'] = $old_form_state['dbxref_id'];
   }
+  // User logged in, no accession provided.
   else {
     if (!isset($form_state['stage'])) {
       $form_state['stage'] = 'frontpage';
@@ -432,6 +436,12 @@ function tppsc_main_validate(&$form, &$form_state) {
 
   // Call the appropriate validation function based on the form stage.
   switch ($form_state['stage']) {
+    case 'frontpage':
+      if ($form_state['values']['use_old_tgdr'] and !$form_state['values']['old_tgdr']) {
+        form_set_error('old_tgdr', 'Existing TGDR number: field is required.');
+      }
+      break;
+
     case TPPS_PAGE_1:
       require_once 'forms/validate/page_1.php';
       tppsc_page_1_validate_form($form, $form_state);
@@ -488,6 +498,20 @@ function tppsc_main_validate(&$form, &$form_state) {
  *   The associated state of the form being submitted.
  */
 function tppsc_main_submit($form, &$form_state) {
+  global $user;
+
+  if ($form_state['stage'] == 'frontpage' and $form_state['values']['use_old_tgdr']) {
+    $form_state['dbxref_id'] = $form_state['values']['old_tgdr'];
+    $form_state['accession'] = chado_select_record('dbxref', array('accession'), array(
+      'dbxref_id' => $form_state['dbxref_id'],
+    ))[0]->accession;
+    $form_state['values']['accession'] = $form_state['accession'];
+    $form_state['status'] = 'Incomplete';
+    tpps_create_submission($form_state, $user->uid);
+    tpps_main_submit($form, $form_state);
+    tpps_update_submission($form_state);
+    return;
+  }
 
   if ($form_state['stage'] != 'summarypage') {
     tpps_main_submit($form, $form_state);

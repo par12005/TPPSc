@@ -54,6 +54,34 @@ function tppsc_front_create_form(&$form, $form_state) {
         '#default_value' => isset($form_state['saved_values']['frontpage']['accession']) ? $form_state['saved_values']['frontpage']['accession'] : 'new',
       );
     }
+
+    $form['use_old_tgdr'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('I would like to use an existing TGDR number'),
+    );
+
+    $tgdr_options = array('- Select -');
+
+    $tgdr_query = chado_query('SELECT dbxref_id, accession '
+      . 'FROM chado.dbxref '
+      . 'WHERE accession LIKE \'TGDR%\' '
+        . 'AND accession NOT IN (SELECT accession FROM tpps_submission) '
+      . 'ORDER BY accession;');
+
+    foreach ($tgdr_query as $item) {
+      $tgdr_options[$item->dbxref_id] = $item->accession;
+    }
+
+    $form['old_tgdr'] = array(
+      '#type' => 'select',
+      '#title' => t('Existing TGDR number'),
+      '#options' => $tgdr_options,
+      '#states' => array(
+        'visible' => array(
+          ':input[name="use_old_tgdr"]' => array('checked' => TRUE),
+        ),
+      ),
+    );
   }
 
   $form['Next'] = array(
@@ -61,11 +89,9 @@ function tppsc_front_create_form(&$form, $form_state) {
     '#value' => t('Continue to TPPSC'),
   );
 
-  $prefix_text =
-  "<div>
-Welcome to TPPSC!<br><br>
-If you would like to submit your data, you can click the button 'Continue to TPPSC' below!<br><br>
-</div>";
+  $prefix_text = "<div>Welcome to TPPSC!<br><br>"
+    . "If you would like to submit your data, you can click the button 'Continue to TPPSC' below!<br><br>"
+    . "</div>";
 
   if (isset($form['accession'])) {
     $form['accession']['#prefix'] = $prefix_text;
