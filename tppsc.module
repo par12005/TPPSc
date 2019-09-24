@@ -394,18 +394,12 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
         });
         </script>';
 
-  // Add tooltip functionality to the end of suffix.
-  if (isset($form['#suffix'])) {
-    $form['#suffix'] .= $suffix;
-  }
-  // If the suffix didn't already exist, then initialize it and add the
-  // tooltip functionality.
-  else {
-    $form['#suffix'] = $suffix;
-  }
+  $form['#suffix'] = isset($form['#suffix']) ? $form['#suffix'] . $suffix : $suffix;
 
   // Add JavaScript.
   drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
+  // Add CSS.
+  drupal_add_css(drupal_get_path('module', 'tpps') . TPPS_CSS_PATH);
 
   return $form;
 }
