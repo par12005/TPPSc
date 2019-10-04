@@ -14,4 +14,5 @@ Welcome to TPPSc - Internal TPPS Pipeline's documentation!
 
    intro
    features
+   install
 
