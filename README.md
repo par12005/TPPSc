@@ -7,3 +7,6 @@ TPPSc is a [Drupal](https://www.drupal.org/) module built to extend the function
 # Documentation
 Documentation for TPPSc can be found [here](http://tppsc.rtfd.io).
 
+# Tutorial
+A detailed tutorial for TPPSc can be found [here](https://tppsc.readthedocs.io/en/latest/tutorial.html). The tutorial features screenshots and information about how to interact with the TPPSc form.
+

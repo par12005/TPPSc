@@ -13,6 +13,7 @@ Welcome to TPPSc - Internal TPPS Pipeline's documentation!
    :numbered:
 
    intro
+   tutorial
    features
    install
 
