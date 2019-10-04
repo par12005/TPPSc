@@ -1,4 +1,4 @@
-# TPPSc:Tripal Plant PopGen Submit - Curate
+# TPPSc: Tripal Plant PopGen Submit - Curate
 [![Documentation Status](https://readthedocs.org/projects/tppsc/badge/?version=latest)](https://tppsc.readthedocs.io/en/latest/?badge=latest)
 
 # Introduction
