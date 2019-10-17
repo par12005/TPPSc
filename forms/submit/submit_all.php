@@ -14,6 +14,7 @@ function tppsc_submit_all($accession) {
   tpps_update_submission($form_state, array('status' => 'Submission Job Running'));
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
     tpps_submission_clear_db($accession);
+    $project_id = $form_state['ids']['project_id'];
   }
   $transaction = db_transaction();
 
@@ -25,6 +26,7 @@ function tppsc_submit_all($accession) {
     $form_state['ids'] = array();
 
     $form_state['ids']['project_id'] = tpps_chado_insert_record('project', array(
+      'project_id' => $project_id ?? NULL,
       'name' => $firstpage['publication']['title'],
       'description' => $firstpage['publication']['abstract'],
     ));
