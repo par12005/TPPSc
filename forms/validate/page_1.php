@@ -43,6 +43,11 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
           }
         }
       }
+
+      if (!form_get_errors()) {
+        $form_state['stats']['author_count'] = $secondary_authors_number + 1;
+        $form_state['stats']['species_count'] = $organism_number;
+      }
     }
   }
 }
