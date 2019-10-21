@@ -6,11 +6,6 @@ jQuery(document).ready(function ($) {
     jQuery("#progress").css('font-size', '1.5rem');
     jQuery("#progress").css('margin-bottom', '30px');
 
-    if (jQuery(":input[name=\"step\"]")[0].value == 3){
-      accessionButtons();
-      jQuery("#edit-tree-accession-check").on('click', accessionButtons);
-    }
-
     if (jQuery(":input[name=\"step\"]")[0].value === 'summarypage'){
       jQuery("#tppsc-status").insertAfter(".tgdrC_form_status");
       jQuery("#edit-next").on('click', function(){
@@ -28,23 +23,6 @@ jQuery(document).ready(function ($) {
 });
 
 var maps = {};
-
-function accessionButtons(){
-  var acc_check = jQuery("#edit-tree-accession-check");
-  jQuery('div').filter(function() { return this.id.match(/map_wrapper/); }).hide();
-  if (typeof acc_check[0] !== 'undefined' && acc_check[0].checked){
-    jQuery("#map_button").hide();
-    jQuery.each(jQuery('input').filter(function() { return (this.id.match(/_map_button/)); }), function() {
-      jQuery(this).show();
-    });
-  }
-  else {
-    jQuery("#map_button").show();
-    jQuery.each(jQuery('input').filter(function() { return (this.id.match(/_map_button/)); }), function() {
-      jQuery(this).hide();
-    });
-  }
-}
 
 function initMap() {
   var mapElements = jQuery('div').filter(function() { return this.id.match(/map_wrapper/); });
