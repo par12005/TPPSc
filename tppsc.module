@@ -475,6 +475,9 @@ function tppsc_main_validate(&$form, &$form_state) {
   // bar know that those fields are cleared to be shown.
   if (!form_get_errors()) {
     $form_state['values']['#cleared'] = TRUE;
+    if ($form_state['submitted'] == '1') {
+      tpps_submission_update_stats($form_state);
+    }
   }
   // Otherwise, do not show the values for this page.
   else {
