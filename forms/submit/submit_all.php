@@ -14,8 +14,8 @@ function tppsc_submit_all($accession) {
   tpps_update_submission($form_state, array('status' => 'Submission Job Running'));
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
     tpps_submission_clear_db($accession);
-    $project_id = $form_state['ids']['project_id'];
   }
+  $project_id = $form_state['ids']['project_id'] ?? NULL;
   $transaction = db_transaction();
 
   try {
@@ -25,11 +25,14 @@ function tppsc_submit_all($accession) {
     $form_state['file_rank'] = 0;
     $form_state['ids'] = array();
 
-    $form_state['ids']['project_id'] = tpps_chado_insert_record('project', array(
-      'project_id' => $project_id ?? NULL,
+    $project_record = array(
       'name' => $firstpage['publication']['title'],
       'description' => $firstpage['publication']['abstract'],
-    ));
+    );
+    if (!empty($project_id)) {
+      $project_record['project_id'] = $project_id;
+    }
+    $form_state['ids']['project_id'] = tpps_chado_insert_record('project', $project_record);
 
     module_load_include('php', 'tpps', 'forms/submit/submit_all');
     tpps_tripal_entity_publish('Project', array($firstpage['publication']['title'], $form_state['ids']['project_id']));
