@@ -234,36 +234,8 @@ function tppsc_submit_page_1(&$form_state) {
  *
  */
 function tppsc_submit_page_2(&$form_state) {
-
-  $project_id = $form_state['ids']['project_id'];
-  $secondpage = $form_state['saved_values'][TPPS_PAGE_2];
-
-  tpps_chado_insert_record('projectprop', array(
-    'project_id' => $project_id,
-    'type_id' => array(
-      'name' => 'association_results_type',
-      'is_obsolete' => 0,
-    ),
-    'value' => $secondpage['data_type'],
-  ));
-
-  $studytype_options = array(
-    0 => '- Select -',
-    1 => 'Natural Population (Landscape)',
-    2 => 'Growth Chamber',
-    3 => 'Greenhouse',
-    4 => 'Experimental/Common Garden',
-    5 => 'Plantation',
-  );
-
-  tpps_chado_insert_record('projectprop', array(
-    'project_id' => $project_id,
-    'type_id' => array(
-      'name' => 'study_type',
-      'is_obsolete' => 0,
-    ),
-    'value' => $studytype_options[$secondpage['study_type']],
-  ));
+  module_load_include('php', 'tpps', 'forms/submit/submit_all');
+  tpps_submit_page_2($form_state);
 }
 
 /**
