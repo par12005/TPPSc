@@ -124,7 +124,7 @@ function tppsc_page_1_create_form(&$form, $form_state) {
       . 'WHERE stock_id IN ('
         . 'SELECT stock_id '
         . 'FROM chado.project_stock '
-        . 'WHERE project_id = :project_id));', array(':project_id' => 45));
+        . 'WHERE project_id = :project_id));', array(':project_id' => $form_state['ids']['project_id']));
 
   $form['primaryAuthor'] = array(
     '#type' => 'textfield',
