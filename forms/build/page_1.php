@@ -10,7 +10,7 @@ require_once 'page_1_ajax.php';
 /**
  *
  */
-function tppsc_page_1_create_form(&$form, $form_state) {
+function tppsc_page_1_create_form(&$form, &$form_state) {
 
   if (isset($form_state['saved_values'][TPPS_PAGE_1])) {
     $values = $form_state['saved_values'][TPPS_PAGE_1];
