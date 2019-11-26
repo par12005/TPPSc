@@ -51,8 +51,8 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       $url = "http://api.datadryad.org/mn/object/doi:" . $doi;
       $response_xml_data = file_get_contents($url);
   
-      preg_match('/<dcterms:title>(.*)<\/dcterms:title>/', $response_xml_data, $matches);
-      $title = $matches[1];
+      preg_match('/<dcterms:title>(Data from: )?(.*)<\/dcterms:title>/', $response_xml_data, $matches);
+      $title = $matches[2];
       if (!empty($title)) {
         $form['doi']['#suffix'] = "The publication has been successfully loaded from Dryad:<br>";
         $form['doi']['#suffix'] .= "Title: $title<br><br>";

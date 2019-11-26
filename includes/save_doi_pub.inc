@@ -7,8 +7,8 @@ function tppsc_save_doi_pub(&$form_state){
     $url = "http://api.datadryad.org/mn/object/doi:" . $doi;
     $response_xml_data = file_get_contents($url);
   
-    preg_match('/<dcterms:title>(.*)<\/dcterms:title>/', $response_xml_data, $matches);
-    $form_state['values']['publication']['title'] = $matches[1];
+    preg_match('/<dcterms:title>(Data from: )?(.*)<\/dcterms:title>/', $response_xml_data, $matches);
+    $form_state['values']['publication']['title'] = $matches[2];
   
     preg_match_all('/<dcterms:creator>(.*)<\/dcterms:creator>/', $response_xml_data, $matches);
     $secondary_authors = array_slice($matches[1], 1);
