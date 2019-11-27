@@ -19,10 +19,17 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
 
     if (empty($old_tgdr)) {
       if (!$doi) {
-        form_set_error("DOI: field is required.");
+        form_set_error('doi', "DOI: field is required.");
       }
-      else {
-        tppsc_save_doi_pub($form_state);
+
+      if (!$form_values['primaryAuthor']) {
+        form_set_error('primaryAuthor', 'Primary Author: field is required.');
+      }
+      if (!$form_values['publication']['title']) {
+        form_set_error('publication][title', 'Title of Publication: field is required.');
+      }
+      if (!$form_values['publication']['year']) {
+        form_set_error('publication][year', 'Year of Publication: field is required.');
       }
 
       for ($i = 1; $i <= $organism_number; $i++) {
