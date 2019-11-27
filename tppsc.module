@@ -298,6 +298,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
     $form_state['dbxref_id'] = $old_form_state['dbxref_id'];
     $form_state['stats'] = $old_form_state['stats'] ?? NULL;
     $form_state['ids'] = $old_form_state['ids'] ?? NULL;
+    $form_state['tpps_type'] = $old_form_state['tpps_type'] ?? NULL;
   }
   // User logged in, no accession provided.
   else {
@@ -325,6 +326,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
       $form_state['dbxref_id'] = $old_form_state['dbxref_id'];
       $form_state['stats'] = $old_form_state['stats'] ?? NULL;
       $form_state['ids'] = $old_form_state['ids'] ?? NULL;
+      $form_state['tpps_type'] = $old_form_state['tpps_type'] ?? NULL;
     }
   }
 
