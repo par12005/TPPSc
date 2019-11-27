@@ -29,51 +29,70 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       ),
       '#description' => 'Example: 123.456/dryad.789',
     );
-  
-    $form['#prefix'] = '<div id="doi-wrapper">' . $form['#prefix'];
-    $form['#suffix'] = (!empty($form['#suffix'])) ? $form['#suffix'] . '</div>' : '</div>';
-  
-    if (!empty($form_state['values']['doi'])) {
-      $doi = $form_state['values']['doi'];
-      $form_state['saved_values'][TPPS_PAGE_1]['doi'] = $form_state['values']['doi'];
-    }
-    elseif (!empty($form_state['saved_values'][TPPS_PAGE_1]['doi'])) {
-      $doi = $form_state['saved_values'][TPPS_PAGE_1]['doi'];
-    }
-    elseif (!empty($form_state['complete form']['doi']['#value'])) {
-      $doi = $form_state['complete form']['doi']['#value'];
-    }
+
+    $doi = tpps_get_ajax_value($form_state, array('doi'));
   
     $species = array();
-  
+    $form['primaryAuthor'] = array(
+      '#type' => 'hidden',
+      '#disabled' => TRUE,
+    );
+    $form['organization'] = array(
+      '#type' => 'hidden',
+      '#disabled' => TRUE,
+    );
+    $form['publication'] = array(
+      '#type' => 'hidden',
+    );
+    $form['organism'] = array(
+      '#type' => 'fieldset',
+    );
     if (!empty($doi)) {
-  
-      $url = "http://api.datadryad.org/mn/object/doi:" . $doi;
-      $response_xml_data = file_get_contents($url);
-  
-      preg_match('/<dcterms:title>(Data from: )?(.*)<\/dcterms:title>/', $response_xml_data, $matches);
-      $title = $matches[2];
-      if (!empty($title)) {
-        $form['doi']['#suffix'] = "The publication has been successfully loaded from Dryad:<br>";
-        $form['doi']['#suffix'] .= "Title: $title<br><br>";
-  
-        preg_match_all('/<dcterms:creator>(.*)<\/dcterms:creator>/', $response_xml_data, $matches);
-        $primary_author = $matches[1][0];
-        $form['doi']['#suffix'] .= "Primary Author: $primary_author<br><br>";
-  
-        preg_match_all('/<dwc:scientificName>(.*)<\/dwc:scientificName>/', $response_xml_data, $matches);
-        $species = $matches[1];
+      module_load_include('php', 'tpps', 'forms/build/page_1');
+      $doi_info = tppsc_doi_info($doi);
+      $species = $doi_info['species'] ?? array();
+
+      $form_state['saved_values'][TPPS_PAGE_1]['publication']['status'] = 'Published';
+      $tpps_form = array();
+      $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
+      $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
+      $form['organization'] = $tpps_form['organization'];
+      $form['publication'] = $tpps_form['publication'];
+
+      $form['organization']['#title'] = t('Organization:');
+      $form['publication']['journal']['#title'] = t('Journal:');
+      $form['publication']['status']['#title'] = t('Publication Status:');
+      $form['publication']['status']['#disabled'] = TRUE;
+
+      $form['doi']['#suffix'] = "The publication has been successfully loaded from Dryad<br>";
+      $form['primaryAuthor']['#default_value'] = $doi_info['primary'] ?? "";
+      $form['publication']['title']['#default_value'] = $doi_info['title'] ?? "";
+      $form['publication']['abstract']['#default_value'] = $doi_info['abstract'] ?? "";
+      $form['publication']['journal']['#default_value'] = $doi_info['journal'] ?? "";
+      $form['publication']['year']['#default_value'] = $doi_info['year'] ?? "";
+    }
+
+    $org_number = tpps_get_ajax_value($form_state, array('organism', 'number'));
+    if (!isset($org_number) and !empty($species)) {
+      $org_number = $form_state['complete form']['organism']['number']['#value'] = count($species);
+    }
+    for ($i = 1; $i <= $org_number; $i++) {
+      $org = tpps_get_ajax_value($form_state, array('organism', $i));
+      if (empty($org) and !empty($species[$i - 1])) {
+        $form_state['complete form']['organism'][$i]['#value'] = $species[$i - 1];
       }
     }
-  
-    tppsc_organism($form, $form_state, $species);
-  
+    tppsc_organism($form, $form_state);
+
+    $form['#prefix'] = '<div id="doi-wrapper">' . $form['#prefix'];
+    $form['#suffix'] = (!empty($form['#suffix'])) ? $form['#suffix'] . '</div>' : '</div>';
+
     $form['Save'] = array(
       '#type' => 'submit',
       '#value' => t('Save'),
       '#prefix' => '<div class="input-description">* : Required Field</div>',
     );
-  
+
     $form['Next'] = array(
       '#type' => 'submit',
       '#value' => t('Next'),
