@@ -74,12 +74,12 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
 
     $org_number = tpps_get_ajax_value($form_state, array('organism', 'number'));
     if (!isset($org_number) and !empty($species)) {
-      $org_number = $form_state['complete form']['organism']['number']['#value'] = count($species);
+      $org_number = $form_state['values']['organism']['number'] = count($species);
     }
     for ($i = 1; $i <= $org_number; $i++) {
       $org = tpps_get_ajax_value($form_state, array('organism', $i));
       if (empty($org) and !empty($species[$i - 1])) {
-        $form_state['complete form']['organism'][$i]['#value'] = $species[$i - 1];
+        $form_state['values']['organism'][$i] = $species[$i - 1];
       }
     }
     tppsc_organism($form, $form_state);
