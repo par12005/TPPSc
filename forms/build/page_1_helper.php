@@ -55,7 +55,7 @@ function tppsc_organism(&$form, &$form_state) {
     $form['organism']["$i"] = array(
       '#type' => 'textfield',
       '#title' => t("Species @num: *", array('@num' => $i)),
-      '#autocomplete_path' => "species/autocomplete",
+      '#autocomplete_path' => "tpps/autocomplete/species",
       '#attributes' => array(
         'data-toggle' => array('tooltip'),
         'data-placement' => array('left'),
