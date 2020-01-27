@@ -244,7 +244,11 @@ function tppsc_page_build(&$page) {
     // Get the block as a renderable array.
     $block = _block_get_renderable_array(_block_render_blocks(array($blockObject)));
     // Wrap the block.
+    $content = drupal_get_region_content('sidebar_second');
     $tppsc_status = "<div class='block block-system contextual-links-region block-menu tppsc-status-block'>{$block['views_tppsc_status']['#markup']}</div>";
+    if (empty($content)) {
+      $tppsc_status = "<div class=\"region region-sidebar-second col-md-3\">$tppsc_status</div>";
+    }
     // Add the block to the sidebar.
     drupal_add_region_content('sidebar_second', $tppsc_status);
   }
