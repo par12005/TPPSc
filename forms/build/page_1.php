@@ -12,12 +12,7 @@ require_once 'page_1_ajax.php';
  */
 function tppsc_page_1_create_form(&$form, &$form_state) {
 
-  if (isset($form_state['saved_values'][TPPS_PAGE_1])) {
-    $values = $form_state['saved_values'][TPPS_PAGE_1];
-  }
-  else {
-    $values = array();
-  }
+  $saved_values = $form_state['saved_values'][TPPS_PAGE_1] ?? array();
 
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
     $form['doi'] = array(
@@ -101,6 +96,12 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
     return $form;
   }
 
+  module_load_include('php', 'tpps', 'forms/build/page_1');
+
+  $form_state['saved_values'][TPPS_PAGE_1]['publication']['status'] = 'Published';
+  $tpps_form = array();
+  $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
+
   $form_state['ids']['project_id'] = chado_select_record('project_dbxref', array('project_id'), array(
     'dbxref_id' => $form_state['dbxref_id'],
   ))[0]->project_id;
@@ -112,6 +113,8 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
   $pub = chado_select_record('pub', array('*'), array(
     'pub_id' => $pub_id,
   ))[0];
+  $title_default = $saved_values['publication']['title'] ?? $pub->title;
+  $year_default = $saved_values['publication']['year'] ?? $pub->pyear;
 
   $abstract = chado_select_record('pubprop', array('value'), array(
     'pub_id' => $pub_id,
@@ -122,11 +125,13 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       ),
     ),
   ))[0]->value;
+  $abs_default = $saved_values['publication']['abstract'] ?? $abstract;
 
   $primary_author = chado_select_record('pubauthor', array('givennames', 'surname'), array(
     'pub_id' => $pub_id,
     'rank' => 0,
   ))[0];
+  $primary_default = $saved_values['primaryAuthor'] ?? "$primary_author->givennames $primary_author->surname";
 
   $secondary_authors = chado_select_record('pubauthor', array('givennames', 'surname'), array(
     'pub_id' => $pub_id,
@@ -145,74 +150,37 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         . 'FROM chado.project_stock '
         . 'WHERE project_id = :project_id));', array(':project_id' => $form_state['ids']['project_id']));
 
-  $form['primaryAuthor'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Primary Author:'),
-    '#value' => "$primary_author->givennames $primary_author->surname",
-    '#disabled' => TRUE,
-  );
+  $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
+  $form['primaryAuthor']['#default_value'] = $primary_default;
 
-  $form['publication'] = array(
-    '#type' => 'fieldset',
-    '#tree' => TRUE,
-    'title' => array(
-      '#type' => 'textfield',
-      '#title' => t('Publication Title:'),
-      '#value' => $pub->title,
-    ),
-    'year' => array(
-      '#type' => 'textfield',
-      '#title' => t('Publication Year:'),
-      '#value' => $pub->pyear,
-    ),
-    'abstract' => array(
-      '#type' => 'textarea',
-      '#title' => t('Publication Abstract:'),
-      '#value' => $abstract,
-    ),
-    'secondaryAuthors' => array(
-      '#type' => 'fieldset',
-      'number' => array(
-        '#type' => 'hidden',
-        '#value' => count($secondary_authors),
-      ),
-      'check' => array(
-        '#type' => 'hidden',
-        '#value' => FALSE,
-      ),
-    ),
-    '#disabled' => TRUE,
-  );
+  $form['organization'] = $tpps_form['organization'];
+
+  $form['publication'] = $tpps_form['publication'];
+  $form['publication']['title']['#default_value'] = $title_default;
+  $form['publication']['year']['#default_value'] = $year_default;
+  $form['publication']['abstract']['#default_value'] = $abs_default;
+
+  $form['organism'] = $tpps_form['organism'];
+
+  $form['organization']['#title'] = t('Organization:');
+  $form['publication']['journal']['#title'] = t('Journal:');
+  $form['publication']['status']['#title'] = t('Publication Status:');
+  $form['publication']['status']['#disabled'] = TRUE;
 
   $i = 1;
   foreach ($secondary_authors as $author) {
-    $form['publication']['secondaryAuthors'][$i] = array(
-      '#type' => 'textfield',
-      '#title' => t('Secondary Author @i', array('@i' => $i)),
-      '#value' => "$author->givennames $author->surname",
-    );
-
+    $form['publication']['secondaryAuthors'][$i]['#default_value'] = $saved_values['publication']['secondaryAuthors'][$i] ?? "$author->givennames $author->surname";
     $i++;
   }
 
-  $form['organism'] = array(
-    '#type' => 'fieldset',
-    '#tree' => TRUE,
-    '#disabled' => TRUE,
-  );
-
   $i = 1;
   foreach ($organisms as $org) {
-    $form['organism'][$i] = array(
-      '#type' => 'textfield',
-      '#title' => t('Species @num', array('@num' => $i)),
-      '#value' => "$org->genus $org->species",
-    );
+    $form['organism'][$i]['#default_value'] = $saved_values['organism'][$i] ?? "$org->genus $org->species";
     $i++;
   }
   $form['organism']['number'] = array(
     '#type' => 'hidden',
-    '#value' => $i - 1,
+    '#value' => tpps_get_ajax_value($form_state, array('organism', 'number'), $i - 1),
   );
 
   $form['Save'] = array(
