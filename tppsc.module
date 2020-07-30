@@ -5,7 +5,6 @@
  * Core of the TPPSC module.
  */
 
-define("TPPSC_JS_PATH", '/js/tppsc.js');
 require_once 'includes/submit_email.inc';
 require_once 'includes/doi.inc';
 
@@ -228,26 +227,10 @@ function tppsc_page_build(&$page) {
     return $page;
   }
 
-  // Get the step we are on.
-  $step = $page['content']['system_main']['step']['#default_value'];
-  // Do not add the side bar if we are on the front page, the first page, or
-  // the summary page.
-  if ($step != 'frontpage' and $step != TPPS_PAGE_1 and $step != 'summarypage') {
-    // Load the existing block.
-    $blockObject = block_load('views', 'tppsc_status');
-    // Add a title.
-    $blockObject->title = 'TPPSC Status';
-    // Add a subject.
-    $blockObject->subject = '';
-    // Render the block in the content region.
-    $blockObject->region = 'Content';
-    // Get the block as a renderable array.
-    $block = _block_get_renderable_array(_block_render_blocks(array($blockObject)));
-    // Wrap the block.
-    $tppsc_status = "<div class='block block-system contextual-links-region block-menu tppsc-status-block'>{$block['views_tppsc_status']['#markup']}</div>";
-    // Add the block to the sidebar.
-    drupal_add_region_content('sidebar_second', $tppsc_status);
-  }
+  // Load side bar from TPPS.
+  $page['content']['system_main']['#form_id'] = 'tpps_main';
+  $page = tpps_page_build($page);
+  $page['content']['system_main']['#form_id'] = 'tppsc_main';
 
   return $page;
 }
@@ -280,7 +263,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
     tppsc_front_create_form($form, $form_state);
 
     // Add JavaScript.
-    drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
+    drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
 
     return $form;
   }
@@ -303,7 +286,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
       tppsc_front_create_form($form, $form_state);
 
       // Add JavaScript.
-      drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
+      drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
 
       return $form;
     }
@@ -381,7 +364,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
   $form['#suffix'] = isset($form['#suffix']) ? $form['#suffix'] . $suffix : $suffix;
 
   // Add JavaScript.
-  drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
+  drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
   // Add CSS.
   drupal_add_css(drupal_get_path('module', 'tpps') . TPPS_CSS_PATH);
 
@@ -421,30 +404,27 @@ function tppsc_main_validate(&$form, &$form_state) {
     case TPPS_PAGE_1:
       require_once 'forms/validate/page_1.php';
       tppsc_page_1_validate_form($form, $form_state);
-      drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_2:
       require_once 'forms/validate/page_2.php';
       tppsc_page_2_validate_form($form, $form_state);
-      drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_3:
       module_load_include('php', 'tpps', 'forms/validate/page_3');
       tpps_page_3_validate_form($form, $form_state);
-      drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     case TPPS_PAGE_4:
       module_load_include('php', 'tpps', 'forms/validate/page_4');
       tpps_page_4_validate_form($form, $form_state);
-      drupal_add_js(drupal_get_path('module', 'tppsc') . TPPSC_JS_PATH);
       break;
 
     default:
       break;
   }
+  drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
 
   // If there were no errors in validating the input, then let the form status
   // bar know that those fields are cleared to be shown.
@@ -520,44 +500,5 @@ function tppsc_main_submit($form, &$form_state) {
     if ($persist) {
       tpps_update_submission($form_state);
     }
-  }
-}
-
-/**
- * Adds the tppsc_status block to the blocks array.
- *
- * @return array The blocks array with the tppsc_status block added.
- */
-function tppsc_block_info() {
-  $blocks['tppsc_status'] = array(
-    'info' => t('TPPSC Status'),
-  );
-
-  return $blocks;
-}
-
-/**
- * Implements hook_block_view_alter().
- *
- * This function adds the formatted version of the already submitted and cleared
- * data to the tppsc sidebar.
- *
- * @global string $base_url The base url of the site.
- * @global stdObject $user The user submitting the form.
- * @param array $data
- *   The data associated with the form.
- * @param stdObject $block
- *   the block object being altered.
- */
-function tppsc_block_view_alter(&$data, $block) {
-
-  global $base_url;
-  switch ($block->delta) {
-    case 'tppsc_status':
-      $block->delta = 'tpps_status';
-      tpps_block_view_alter($data, $block);
-      $block->delta = 'tppsc_status';
-    default:
-      break;
   }
 }

@@ -4,4 +4,3 @@ core = 7.x
 
 ; NEW LINE
 configure = admin/config/content/tppsc
-files[] = tppsc.js
