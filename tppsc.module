@@ -303,7 +303,7 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
   // Hidden form step (AKA stage) element.
   $form['step'] = array(
-    '#type' => 'hidden',
+    '#type' => 'textfield',
     '#disabled' => TRUE,
     '#default_value' => $form_state['stage'],
   );
