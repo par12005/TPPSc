@@ -24,6 +24,14 @@ function tppsc_doi_info($doi) {
     return FALSE;
   }
 
+  $query = db_select('chado.dbxref', 'd')
+    ->condition('accession', $doi)
+    ->execute();
+  if (count($query->fetchAll()) > 0) {
+    drupal_set_message(t('This DOI is already in use for another submission.'), 'warning');
+    return FALSE;
+  }
+
   $result = array();
   $url = "http://datadryad.org/api/v2/datasets/doi%3A" . urlencode($doi);
   $response_json_data = json_decode(file_get_contents($url));
