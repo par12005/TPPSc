@@ -19,6 +19,19 @@ function tppsc_doi_info($doi) {
     return FALSE;
   }
 
+  if (!preg_match(tppsc_doi_regex(), $doi)) {
+    drupal_set_message(t('Invalid DOI format. Example DOI: 123.456/dryad.789'), 'warning');
+    return FALSE;
+  }
+
+  $query = db_select('chado.dbxref', 'd')
+    ->condition('accession', $doi)
+    ->execute();
+  if (count($query->fetchAll()) > 0) {
+    drupal_set_message(t('This DOI is already in use for another submission.'), 'warning');
+    return FALSE;
+  }
+
   $result = array();
   $url = "http://datadryad.org/api/v2/datasets/doi%3A" . urlencode($doi);
   $response_json_data = json_decode(file_get_contents($url));
@@ -48,4 +61,14 @@ function tppsc_doi_info($doi) {
     }
   }
   return $result;
+}
+
+/**
+ * Returns expression for matching DOIs.
+ *
+ * @return string
+ *   The regular expression pattern for DOIs.
+ */
+function tppsc_doi_regex() {
+  return '/^10\.\d{4,9}[\-._;()\/:A-Za-z0-9]+$/';
 }

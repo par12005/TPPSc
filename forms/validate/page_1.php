@@ -21,6 +21,9 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
       if (!$doi) {
         form_set_error('doi', "DOI: field is required.");
       }
+      elseif (!preg_match(tppsc_doi_regex(), $doi)) {
+        form_set_error('doi', "DOI: invalid format. Example DOI: \"123.456/dryad.789\".");
+      }
     }
 
     if (!$form_values['primaryAuthor']) {
