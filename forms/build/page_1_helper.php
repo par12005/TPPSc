@@ -52,7 +52,7 @@ function tppsc_organism(&$form, &$form_state) {
 
   for ($i = 1; $i <= $org_number; $i++) {
 
-    $form['organism']["$i"] = array(
+    $form['organism']["$i"]['name'] = array(
       '#type' => 'textfield',
       '#title' => t("Species @num: *", array('@num' => $i)),
       '#autocomplete_path' => "tpps/autocomplete/species",
@@ -62,8 +62,14 @@ function tppsc_organism(&$form, &$form_state) {
         'title' => array('If your species is not in the autocomplete list, don\'t worry about it! We will create a new organism entry in the database for you.'),
       ),
     );
-    $org = tpps_get_ajax_value($form_state, array('organism', $i));
-    $form['organism'][$i]['#attributes']['value'] = $org ?? NULL;
+    $org = tpps_get_ajax_value($form_state, array('organism', $i, 'name'));
+    $form['organism'][$i]['name']['#attributes']['value'] = $org ?? NULL;
+
+    $form['organism']["$i"]['is_tree'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('This species is a tree.'),
+      '#default_value' => 1,
+    );
   }
 
   return $form;
