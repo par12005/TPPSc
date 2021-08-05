@@ -29,7 +29,7 @@ function tppsc_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('tppsc_main', 1),
     'access callback' => 'tpps_access',
-    'access arguments' => array('access tpps form'),
+    'access arguments' => array('access tpps form', 1),
     'type' => MENU_NORMAL_ITEM,
   );
 
