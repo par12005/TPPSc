@@ -19,8 +19,8 @@ function tppsc_menu() {
     'title' => 'Internal TPPS pipeline',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('tppsc_main'),
-    'access callback' => 'user_access',
-    'access arguments' => array('access administration pages'),
+    'access callback' => 'tpps_access',
+    'access arguments' => array('access tpps form'),
     'type' => MENU_NORMAL_ITEM,
   );
 
@@ -28,8 +28,8 @@ function tppsc_menu() {
     'title' => 'Internal TPPS pipeline',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('tppsc_main', 1),
-    'access callback' => 'user_access',
-    'access arguments' => array('access administration pages'),
+    'access callback' => 'tpps_access',
+    'access arguments' => array('access tpps form'),
     'type' => MENU_NORMAL_ITEM,
   );
 
