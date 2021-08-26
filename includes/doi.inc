@@ -38,6 +38,9 @@ function tppsc_doi_info($doi) {
 
   if (!empty($response_json_data)) {
     $result['title'] = $response_json_data->title;
+    if (substr($result['title'], 0, 11) == 'Data from: ') {
+      $result['title'] = substr($result['title'], 11);
+    }
 
     $authors = $response_json_data->authors;
     $result['primary'] = trim(implode(" ", array($authors[0]->firstName, $authors[0]->lastName)));
