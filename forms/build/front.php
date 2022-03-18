@@ -16,7 +16,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     // Logged in.
     $options_arr = array();
     $options_arr['new'] = 'Create new TPPSC Submission';
-
+    // dpm($user->uid);
     $and = db_and()
       ->condition('status', 'Incomplete')
       ->condition('uid', $user->uid);
@@ -27,7 +27,6 @@ function tppsc_front_create_form(&$form, $form_state) {
 
     foreach ($results as $item) {
       $state = tpps_load_submission($item->accession);
-
       if (!empty($state['tpps_type']) and $state['tpps_type'] == 'tppsc') {
         if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
           $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
