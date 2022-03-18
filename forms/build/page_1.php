@@ -23,6 +23,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         'wrapper' => "doi-wrapper",
       ),
       '#description' => 'Example: 123.456/dryad.789',
+      '#prefix' => '<div style="text-align: right;"></div>',
     );
 
     $doi = tpps_get_ajax_value($form_state, array('doi'));
