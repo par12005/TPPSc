@@ -46,26 +46,39 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
     if (!empty($doi)) {
       module_load_include('php', 'tpps', 'forms/build/page_1');
       $doi_info = tppsc_doi_info($doi);
-      $species = $doi_info['species'] ?? array();
+      if(!empty($doi_info)) {
+        // dpm('DOI info contains pub info');
+        $species = $doi_info['species'] ?? array();
 
-      $form_state['saved_values'][TPPS_PAGE_1]['publication']['status'] = 'Published';
-      $tpps_form = array();
-      $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
-      $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
-      $form['organization'] = $tpps_form['organization'];
-      $form['publication'] = $tpps_form['publication'];
+        $form_state['saved_values'][TPPS_PAGE_1]['publication']['status'] = 'Published';
+        $tpps_form = array();
+        $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
+        $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
+        $form['organization'] = $tpps_form['organization'];
+        $form['publication'] = $tpps_form['publication'];
 
-      $form['organization']['#title'] = t('Organization:');
-      $form['publication']['journal']['#title'] = t('Journal:');
-      $form['publication']['status']['#title'] = t('Publication Status:');
-      $form['publication']['status']['#disabled'] = TRUE;
+        $form['organization']['#title'] = t('Organization:');
+        $form['publication']['journal']['#title'] = t('Journal:');
+        $form['publication']['status']['#title'] = t('Publication Status:');
+        $form['publication']['status']['#disabled'] = TRUE;
 
-      $form['doi']['#suffix'] = "The publication has been successfully loaded from Dryad<br>";
-      $form['primaryAuthor']['#default_value'] = $doi_info['primary'] ?? "";
-      $form['publication']['title']['#default_value'] = $doi_info['title'] ?? "";
-      $form['publication']['abstract']['#default_value'] = $doi_info['abstract'] ?? "";
-      $form['publication']['journal']['#default_value'] = $doi_info['journal'] ?? "";
-      $form['publication']['year']['#default_value'] = $doi_info['year'] ?? "";
+        $form['doi']['#suffix'] = "The publication has been successfully loaded from Dryad<br>";
+        $form['primaryAuthor']['#default_value'] = $doi_info['primary'] ?? "";
+        $form['publication']['title']['#default_value'] = $doi_info['title'] ?? "";
+        $form['publication']['abstract']['#default_value'] = $doi_info['abstract'] ?? "";
+        $form['publication']['journal']['#default_value'] = $doi_info['journal'] ?? "";
+        $form['publication']['year']['#default_value'] = $doi_info['year'] ?? "";
+      }
+      else {
+        // dpm('DOI Info is empty');
+        $tpps_form = array();
+        $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
+        $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
+        $form['organization'] = $tpps_form['organization'];
+        $form['publication'] = $tpps_form['publication'];
+        // dpm($tpps_form);
+        // dpm($form_state['saved_values']);
+      }
     }
 
     $org_number = tpps_get_ajax_value($form_state, array('organism', 'number'));
