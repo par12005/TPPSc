@@ -61,11 +61,16 @@ function tppsc_front_create_form(&$form, $form_state) {
 
     $tgdr_options = array('- Select -');
 
+    // $tgdr_query = chado_query('SELECT dbxref_id, accession '
+    //   . 'FROM chado.dbxref '
+    //   . 'WHERE accession LIKE \'TGDR%\' '
+    //     . 'AND accession NOT IN (SELECT accession FROM tpps_submission) '
+    //   . 'ORDER BY accession;');
+
     $tgdr_query = chado_query('SELECT dbxref_id, accession '
       . 'FROM chado.dbxref '
       . 'WHERE accession LIKE \'TGDR%\' '
-        . 'AND accession NOT IN (SELECT accession FROM tpps_submission) '
-      . 'ORDER BY accession;');
+      . 'ORDER BY accession;');      
 
     foreach ($tgdr_query as $item) {
       $tgdr_options[$item->dbxref_id] = $item->accession;
