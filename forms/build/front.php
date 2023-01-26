@@ -16,6 +16,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     // Logged in.
     $options_arr = array();
     $options_arr['new'] = 'Create new TPPSC Submission';
+    $options_arr["placeholder1"] = '------------------------- YOUR STUDIES -------------------------';
     // dpm($user->uid);
     $and = db_and()
       ->condition('status', 'Incomplete')
@@ -34,7 +35,7 @@ function tppsc_front_create_form(&$form, $form_state) {
           if (strlen($title) > 97) {
             $title = substr($title, 0, 97) . '...';
           }
-          $options_arr["$tgdrC_id"] = $title;
+          $options_arr["$tgdrC_id"] = $tgdrC_id . ' - ' . $title;
         }
         else {
           if (isset($state) and !isset($state['saved_values'][TPPS_PAGE_1])) {
@@ -43,6 +44,34 @@ function tppsc_front_create_form(&$form, $form_state) {
         }
       }
     }
+
+    $options_arr["placeholder2"] = '-------------------- OTHER USER STUDIES --------------------';
+    $and = db_and()
+      ->condition('status', 'Incomplete')
+      ->condition('uid', $user->uid, '<>');
+    $results = db_select('tpps_submission', 's')
+      ->fields('s')
+      ->condition($and)
+      ->execute();
+
+    foreach ($results as $item) {
+      $state = tpps_load_submission($item->accession);
+      if (!empty($state['tpps_type']) and $state['tpps_type'] == 'tppsc') {
+        if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
+          $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
+          $tgdrC_id = $state['accession'];
+          if (strlen($title) > 97) {
+            $title = substr($title, 0, 97) . '...';
+          }
+          $options_arr["$tgdrC_id"] = $tgdrC_id . ' - ' . $title;
+        }
+        else {
+          if (isset($state) and !isset($state['saved_values'][TPPS_PAGE_1])) {
+            tpps_delete_submission($item->accession, FALSE);
+          }
+        }
+      }
+    }    
 
     if (count($options_arr) > 1) {
       // Has submissions.
