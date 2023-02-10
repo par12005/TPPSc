@@ -24,6 +24,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     $results = db_select('tpps_submission', 's')
       ->fields('s')
       ->condition($and)
+      ->orderBy('accession')
       ->execute();
 
     foreach ($results as $item) {
@@ -52,6 +53,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     $results = db_select('tpps_submission', 's')
       ->fields('s')
       ->condition($and)
+      ->orderBy('accession')
       ->execute();
 
     foreach ($results as $item) {
