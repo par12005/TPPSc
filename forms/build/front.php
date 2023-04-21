@@ -58,7 +58,8 @@ function tppsc_front_create_form(&$form, $form_state) {
 
     foreach ($results as $item) {
       $state = tpps_load_submission($item->accession);
-      if (!empty($state['tpps_type']) and $state['tpps_type'] == 'tppsc') {
+      // and $state['tpps_type'] == 'tppsc'
+      //if (!empty($state['tpps_type'])) {
         if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
           $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
           $tgdrC_id = $state['accession'];
@@ -72,7 +73,7 @@ function tppsc_front_create_form(&$form, $form_state) {
             tpps_delete_submission($item->accession, FALSE);
           }
         }
-      }
+      //}
     }    
 
     if (count($options_arr) > 1) {
