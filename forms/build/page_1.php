@@ -2,56 +2,57 @@
 
 /**
  * @file
+ * Step 1.
  */
 
 require_once 'page_1_helper.php';
 require_once 'page_1_ajax.php';
 
 /**
- *
+ * Shows Step 1 form.
  */
 function tppsc_page_1_create_form(&$form, &$form_state) {
 
-  $saved_values = $form_state['saved_values'][TPPS_PAGE_1] ?? array();
+  $saved_values = $form_state['saved_values'][TPPS_PAGE_1] ?? [];
 
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
-    $form['doi'] = array(
+    // [VS]
+    $form['doi'] = [
       '#type' => 'textfield',
-      '#title' => t('DOI: *'),
-      '#ajax' => array(
+      '#title' => t('Dataset DOI: *'),
+      '#ajax' => [
         'callback' => 'tppsc_ajax_doi_callback',
         'wrapper' => "doi-wrapper",
-      ),
+      ],
       '#description' => 'Example: 123.456/dryad.789',
       '#prefix' => '<div style="text-align: right;"></div>',
-    );
+    ];
+    $form['publication_doi'] = [
+      '#type' => 'textfield',
+      '#title' => t('Publication DOI:'),
+      //'#ajax' => [
+      //  'callback' => 'tppsc_ajax_doi_callback',
+      //  'wrapper' => "publication_doi-wrapper",
+      //],
+      '#description' => 'Example: 123.456/dryad.789',
+      '#prefix' => '<div style="text-align: right;"></div>',
+    ];
 
-    $doi = tpps_get_ajax_value($form_state, array('doi'));
-  
-    $species = array();
-    $form['primaryAuthor'] = array(
-      '#type' => 'hidden',
-      '#disabled' => TRUE,
-    );
-    $form['organization'] = array(
-      '#type' => 'hidden',
-      '#disabled' => TRUE,
-    );
-    $form['publication'] = array(
-      '#type' => 'hidden',
-    );
-    $form['organism'] = array(
-      '#type' => 'fieldset',
-    );
+    $doi = tpps_get_ajax_value($form_state, ['doi']);
+
+    $species = [];
+    $form['primaryAuthor'] = ['#type' => 'hidden', '#disabled' => TRUE];
+    $form['publication'] = ['#type' => 'hidden'];
+    $form['organism'] = ['#type' => 'fieldset'];
     if (!empty($doi)) {
       module_load_include('php', 'tpps', 'forms/build/page_1');
       $doi_info = tppsc_doi_info($doi);
-      if(!empty($doi_info)) {
+      if (!empty($doi_info)) {
         // dpm('DOI info contains pub info');
-        $species = $doi_info['species'] ?? array();
+        $species = $doi_info['species'] ?? [];
 
         $form_state['saved_values'][TPPS_PAGE_1]['publication']['status'] = 'Published';
-        $tpps_form = array();
+        $tpps_form = [];
         $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
         $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
         $form['organization'] = $tpps_form['organization'];
@@ -71,16 +72,14 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       }
       else {
         // dpm('DOI Info is empty');
-        $tpps_form = array();
+        $tpps_form = [];
         $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
         $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
         $form['organization'] = $tpps_form['organization'];
         $form['publication'] = $tpps_form['publication'];
-        // dpm($tpps_form);
-        // dpm($form_state['saved_values']);
       }
     }
-
+    // [/VS]
     $org_number = tpps_get_ajax_value($form_state, array('organism', 'number'));
     if (!isset($org_number) and !empty($species)) {
       $org_number = $form_state['values']['organism']['number'] = count($species);
@@ -166,7 +165,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
 
   $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
   $form['primaryAuthor']['#default_value'] = $primary_default;
-
   $form['organization'] = $tpps_form['organization'];
 
   $form['publication'] = $tpps_form['publication'];
