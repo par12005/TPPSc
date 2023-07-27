@@ -24,7 +24,9 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         'callback' => 'tppsc_ajax_doi_callback',
         'wrapper' => "doi-wrapper",
       ],
-      '#description' => 'Example: 123.456/dryad.789',
+      '#description' => 'Example: '
+        . '<a href"#" class="tpps-suggestion">123.456/dryad.789</a>, '
+        . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
     $form['publication_doi'] = [
@@ -34,9 +36,24 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       //  'callback' => 'tppsc_ajax_doi_callback',
       //  'wrapper' => "publication_doi-wrapper",
       //],
-      '#description' => 'Example: 123.456/dryad.789',
+      '#description' => 'Examples: '
+        . '<a href"#" class="tpps-suggestion">123.456/dryad.789</a>, '
+        . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
+
+    // This code allows to click on DOI number to fill DOI text field.
+    drupal_add_js('
+      (function ($) { $(document).ready(function () {
+        jQuery(".tpps-suggestion").on("click", function(e) {
+          $(this).parents(".form-item").find("input.form-text")
+            .val($(this).text()).blur();
+          e.preventDefault();
+
+        });
+      }); })(jQuery);',
+      'inline'
+    );
 
     $doi = tpps_get_ajax_value($form_state, ['doi']);
 
