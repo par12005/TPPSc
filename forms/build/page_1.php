@@ -59,10 +59,8 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         $tpps_form = [];
         $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
         $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
-        $form['organization'] = $tpps_form['organization'];
         $form['publication'] = $tpps_form['publication'];
 
-        $form['organization']['#title'] = t('Organization:');
         $form['publication']['journal']['#title'] = t('Journal:');
         $form['publication']['status']['#title'] = t('Publication Status:');
         $form['publication']['status']['#disabled'] = TRUE;
@@ -79,7 +77,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         $tpps_form = [];
         $tpps_form = tpps_page_1_create_form($tpps_form, $form_state);
         $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
-        $form['organization'] = $tpps_form['organization'];
         $form['publication'] = $tpps_form['publication'];
       }
     }
@@ -169,7 +166,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
 
   $form['primaryAuthor'] = $tpps_form['primaryAuthor'];
   $form['primaryAuthor']['#default_value'] = $primary_default;
-  $form['organization'] = $tpps_form['organization'];
 
   $form['publication'] = $tpps_form['publication'];
   $form['publication']['title']['#default_value'] = $title_default;
@@ -178,7 +174,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
 
   $form['organism'] = $tpps_form['organism'];
 
-  $form['organization']['#title'] = t('Organization:');
   $form['publication']['journal']['#title'] = t('Journal:');
   $form['publication']['status']['#title'] = t('Publication Status:');
   $form['publication']['status']['#disabled'] = TRUE;
