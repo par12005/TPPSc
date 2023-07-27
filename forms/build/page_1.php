@@ -42,19 +42,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
 
-    // This code allows to click on DOI number to fill DOI text field.
-    drupal_add_js('
-      (function ($) { $(document).ready(function () {
-        jQuery(".tpps-suggestion").on("click", function(e) {
-          $(this).parents(".form-item").find("input.form-text")
-            .val($(this).text()).blur();
-          e.preventDefault();
-
-        });
-      }); })(jQuery);',
-      'inline'
-    );
-
     $doi = tpps_get_ajax_value($form_state, ['doi']);
 
     $species = [];
