@@ -61,6 +61,10 @@ function tppsc_organism(&$form, &$form_state) {
         'data-placement' => array('left'),
         'title' => array('If your species is not in the autocomplete list, don\'t worry about it! We will create a new organism entry in the database for you.'),
       ),
+      // [VS]
+      '#description' => 'Example: '
+        . '<a href"#" class="tpps-suggestion">Arabidopsis thaliana</a>.',
+      // [/VS]
     );
     $org = tpps_get_ajax_value($form_state, array('organism', $i, 'name'));
     $form['organism'][$i]['name']['#attributes']['value'] = $org ?? NULL;
