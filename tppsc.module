@@ -260,9 +260,10 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
     // Create front page.
     tppsc_front_create_form($form, $form_state);
 
-    // Add JavaScript.
-    drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
-
+    // [VS].
+    $module_path = drupal_get_path('module', 'tpps');
+    $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
+    // [/VS].
     return $form;
   }
   // User not logged in, trying to access non-front page.
@@ -282,10 +283,10 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
       // Create the front page.
       tppsc_front_create_form($form, $form_state);
-
-      // Add JavaScript.
-      drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
-
+      // [VS].
+      $module_path = drupal_get_path('module', 'tpps');
+      $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
+      // [/VS].
       return $form;
     }
     else {
@@ -353,12 +354,11 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
         </script>';
 
   $form['#suffix'] = isset($form['#suffix']) ? $form['#suffix'] . $suffix : $suffix;
-
-  // Add JavaScript.
-  drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
-  // Add CSS.
-  drupal_add_css(drupal_get_path('module', 'tpps') . TPPS_CSS_PATH);
-
+  // [VS].
+  $module_path = drupal_get_path('module', 'tpps');
+  $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
+  $form['#attached']['css'][] = $module_path . TPPS_CSS_PATH;
+  // [/VS].
   return $form;
 }
 
@@ -415,8 +415,10 @@ function tppsc_main_validate(&$form, &$form_state) {
     default:
       break;
   }
-  drupal_add_js(drupal_get_path('module', 'tpps') . TPPS_JS_PATH);
-
+  // [VS].
+  $module_path = drupal_get_path('module', 'tpps');
+  $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
+  // [/VS].
   // If there were no errors in validating the input, then let the form status
   // bar know that those fields are cleared to be shown.
   if (!form_get_errors()) {
