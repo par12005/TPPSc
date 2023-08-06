@@ -13,8 +13,6 @@ require_once 'includes/doi.inc';
  */
 function tppsc_menu() {
 
-  $items = array();
-
   $items['tppsc'] = array(
     'title' => 'Internal TPPS pipeline',
     'page callback' => 'drupal_get_form',

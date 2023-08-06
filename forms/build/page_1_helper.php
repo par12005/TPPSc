@@ -44,7 +44,7 @@ function tppsc_organism(&$form, &$form_state) {
     ),
   );
 
-  $doi = tpps_get_ajax_value($form_state, array('doi'));
+  $doi = tpps_get_ajax_value($form_state, ['doi']);
   $form['organism']['number'] = array(
     '#type' => 'hidden',
     '#value' => !empty($doi) ? $org_number : NULL,

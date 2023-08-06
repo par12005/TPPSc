@@ -17,6 +17,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
 
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
     // [VS]
+    // @TODO Minor. Rename field to 'dataset_doi'.
     $form['doi'] = [
       '#type' => 'textfield',
       '#title' => t('Dataset DOI: *'),
