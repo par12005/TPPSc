@@ -13,6 +13,7 @@ require_once 'page_1_ajax.php';
  */
 function tppsc_page_1_create_form(&$form, &$form_state) {
 
+
   $saved_values = $form_state['saved_values'][TPPS_PAGE_1] ?? [];
 
   if (empty($form_state['saved_values']['frontpage']['use_old_tgdr'])) {
@@ -26,7 +27,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         'wrapper' => "doi-wrapper",
       ],
       '#description' => 'Example: '
-        . '<a href"#" class="tpps-suggestion">123.456/dryad.789</a>, '
+        . '<a href"#" class="tpps-suggestion">10.1111/dryad.111</a>, '
         . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
@@ -38,7 +39,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
       //  'wrapper' => "publication_doi-wrapper",
       //],
       '#description' => 'Examples: '
-        . '<a href"#" class="tpps-suggestion">123.456/dryad.789</a>, '
+        . '<a href"#" class="tpps-suggestion">10.1111/dryad.111</a>, '
         . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
@@ -92,6 +93,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         $form_state['values']['organism'][$i] = $species[$i - 1];
       }
     }
+
     tppsc_organism($form, $form_state);
 
     $form['#prefix'] = '<div id="doi-wrapper">' . $form['#prefix'];

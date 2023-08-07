@@ -23,10 +23,10 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
         form_set_error('doi', "DOI: field is required.");
       }
       elseif (!preg_match(tppsc_doi_regex(), $doi)) {
-        form_set_error('doi', 'Dataset DOI: invalid format. Example DOI: "123.456/dryad.789".');
+        form_set_error('doi', 'Dataset DOI: invalid format. Example DOI: "10.1111/dryad.111".');
       }
       if ($publication_doi && !preg_match(tppsc_doi_regex(), $publication_doi)) {
-        form_set_error('publication_doi', ';Publication DOI: invalid format. Example DOI: "123.456/dryad.789".');
+        form_set_error('publication_doi', 'Publication DOI: invalid format. Example DOI: "10.1111/dryad.111".');
       }
     }
 

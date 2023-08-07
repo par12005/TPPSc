@@ -20,7 +20,7 @@ function tppsc_doi_info($doi) {
   }
 
   if (!preg_match(tppsc_doi_regex(), $doi)) {
-    drupal_set_message(t('Invalid DOI format. Example DOI: 123.456/dryad.789'), 'warning');
+    drupal_set_message(t('Invalid DOI format. Example DOI: 10.1111/dryad.111'), 'warning');
     return FALSE;
   }
 
