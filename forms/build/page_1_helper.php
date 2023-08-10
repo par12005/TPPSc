@@ -69,11 +69,19 @@ function tppsc_organism(&$form, &$form_state) {
     $org = tpps_get_ajax_value($form_state, array('organism', $i, 'name'));
     $form['organism'][$i]['name']['#attributes']['value'] = $org ?? NULL;
 
-    $form['organism']["$i"]['is_tree'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('This species is a tree.'),
-      '#default_value' => 1,
-    );
+    // [VS] #8669py203.
+    $form['organism']["$i"]['is_tree'] =
+    [
+      '#type' => 'select',
+      '#title' => t('This species is a tree:'),
+      '#options' => [
+        '1' => t('Yes'),
+        '0' => t('No'),
+        '-1' => t("I don't know"),
+      ],
+      '#default_value' => $form_state['saved_values'][TPPS_PAGE_1]['is_tree'] ?? '1',
+    ];
+    // [/VS].
   }
 
   return $form;
