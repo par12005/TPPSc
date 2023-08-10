@@ -1,2 +1,6 @@
 /nbproject/
 docs/build
+tags
+cscope.files
+cscope.out
+.vimrc
