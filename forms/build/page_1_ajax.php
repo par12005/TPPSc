@@ -29,9 +29,6 @@ function tppsc_ajax_doi_callback(&$form, $form_state) {
       $form['doi']['#prefix'] = "<div style='text-align: right; color: red;'>WARNING: DOI is already used by " . $found_doi_accession . "</div>";
     }
   }
-
-  // dpm($form);
-
   $form['doi']['#suffix'] = "<div></div>";
   return $form;
 }
