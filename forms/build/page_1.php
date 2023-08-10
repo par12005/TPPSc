@@ -21,7 +21,7 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
     // @TODO Minor. Rename field to 'dataset_doi'.
     $form['doi'] = [
       '#type' => 'textfield',
-      '#title' => t('Dataset DOI: *'),
+      '#title' => t('Publication DOI: *'),
       '#ajax' => [
         'callback' => 'tppsc_ajax_doi_callback',
         'wrapper' => "doi-wrapper",
@@ -31,13 +31,9 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
         . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',
       '#prefix' => '<div style="text-align: right;"></div>',
     ];
-    $form['publication_doi'] = [
+    $form['dataset_doi'] = [
       '#type' => 'textfield',
-      '#title' => t('Publication DOI:'),
-      //'#ajax' => [
-      //  'callback' => 'tppsc_ajax_doi_callback',
-      //  'wrapper' => "publication_doi-wrapper",
-      //],
+      '#title' => t('Dataset DOI:'),
       '#description' => 'Examples: '
         . '<a href"#" class="tpps-suggestion">10.1111/dryad.111</a>, '
         . '<a href"#" class="tpps-suggestion">10.25338/B8864J</a>',

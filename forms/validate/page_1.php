@@ -13,7 +13,7 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
   if ($form_state['submitted'] == '1') {
     $form_values = $form_state['values'];
     $doi = $form_values['doi'] ?? NULL;
-    $publication_doi = $form_values['publication_doi'] ?? NULL;
+    $dataset_doi = $form_values['dataset_doi'] ?? NULL;
     $organism = $form_values['organism'];
     $organism_number = $form_values['organism']['number'];
     $old_tgdr = $form_state['saved_values']['frontpage']['old_tgdr'] ?? NULL;
@@ -23,10 +23,10 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
         form_set_error('doi', "DOI: field is required.");
       }
       elseif (!preg_match(tppsc_doi_regex(), $doi)) {
-        form_set_error('doi', 'Dataset DOI: invalid format. Example DOI: "10.1111/dryad.111".');
+        form_set_error('doi', 'Publication DOI: invalid format. Example DOI: "10.1111/dryad.111".');
       }
-      if ($publication_doi && !preg_match(tppsc_doi_regex(), $publication_doi)) {
-        form_set_error('publication_doi', 'Publication DOI: invalid format. Example DOI: "10.1111/dryad.111".');
+      if ($dataset_doi && !preg_match(tppsc_doi_regex(), $dataset_doi)) {
+        form_set_error('dataset_doi', 'Dataset DOI: invalid format. Example DOI: "10.1111/dryad.111".');
       }
     }
 
