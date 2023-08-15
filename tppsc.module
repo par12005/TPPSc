@@ -236,15 +236,15 @@ function tppsc_page_build(&$page) {
 /**
  * Provides the form based on which step the user is on.
  *
- * @global stdObject $user The user submitting the form.
  * @param array $form
  *   The form to be created.
  * @param array $form_state
  *   The state of the form to be created.
  *
- * @return array The completed form.
+ * @return array
+ *   Returns the completed form.
  */
-function tppsc_main($form, &$form_state, $accession = NULL) {
+function tppsc_main(array $form, array &$form_state, $accession = NULL) {
   // Require the front page file if it hasn't already been loaded.
   require_once 'forms/build/front.php';
 
@@ -290,7 +290,13 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
       return $form;
     }
     else {
-      if (!isset($form_state['saved_values']['frontpage']['accession']) or (isset($form_state['saved_values']['frontpage']['accession']) and $form_state['saved_values']['frontpage']['accession'] === 'new')) {
+      if (
+        !isset($form_state['saved_values']['frontpage']['accession'])
+        or (
+          isset($form_state['saved_values']['frontpage']['accession'])
+          and $form_state['saved_values']['frontpage']['accession'] === 'new'
+        )
+      ) {
         // Initialize project.
         tpps_init_project($form_state);
         tpps_create_submission($form_state, $user->uid);
