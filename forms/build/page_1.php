@@ -5,7 +5,6 @@
  * TPPSc Page 1. Creates the Publication/Species Information page.
  */
 
-require_once 'page_1_helper.php';
 require_once 'page_1_ajax.php';
 
 /**
