@@ -4,3 +4,4 @@ tags
 cscope.files
 cscope.out
 .vimrc
+*.sw*
