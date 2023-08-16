@@ -193,16 +193,6 @@ function tppsc_page_1_create_form(&$form, &$form_state) {
     '#value' => tpps_get_ajax_value($form_state, array('organism', 'number'), $i - 1),
   );
 
-  $form['Save'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save'),
-    '#prefix' => '<div class="input-description">* : Required Field</div>',
-  );
-
-  $form['Next'] = array(
-    '#type' => 'submit',
-    '#value' => t('Next'),
-  );
-
+  tpps_add_buttons($form, 'page_1');
   return $form;
 }
