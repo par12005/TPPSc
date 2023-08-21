@@ -28,7 +28,7 @@ function tppsc_submit_email($form, $form_state) {
     5 => 'Plantation',
   );
 
-  $params['author'] = $form_state['saved_values'][TPPS_PAGE_1]['primaryAuthor'];
+  $params['author'] = $form_state['saved_values'][TPPS_PAGE_1]['publication']['primaryAuthor'];
   $params['title'] = $form_state['saved_values'][TPPS_PAGE_1]['publication']['title'];
   $params['organisms'] = $form_state['saved_values'][TPPS_PAGE_1]['organism'];
   $params['study_type'] = $study_options[$form_state['saved_values'][TPPS_PAGE_2]['study_type']];

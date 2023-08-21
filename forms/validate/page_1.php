@@ -30,8 +30,8 @@ function tppsc_page_1_validate_form(&$form, &$form_state) {
       }
     }
 
-    if (!$form_values['primaryAuthor']) {
-      form_set_error('primaryAuthor', 'Primary Author: field is required.');
+    if (!$form_values['publication']['primaryAuthor']) {
+      form_set_error('publication][primaryAuthor', 'Primary Author: field is required.');
     }
     if (!$form_values['publication']['title']) {
       form_set_error('publication][title', 'Title of Publication: field is required.');
