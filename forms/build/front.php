@@ -74,7 +74,7 @@ function tppsc_front_create_form(&$form, $form_state) {
           }
         }
       //}
-    }    
+    }
 
     if (count($options_arr) > 1) {
       // Has submissions.
@@ -102,7 +102,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     $tgdr_query = chado_query('SELECT dbxref_id, accession '
       . 'FROM chado.dbxref '
       . 'WHERE accession LIKE \'TGDR%\' '
-      . 'ORDER BY accession;');      
+      . 'ORDER BY accession;');
 
     foreach ($tgdr_query as $item) {
       $tgdr_options[$item->dbxref_id] = $item->accession;
@@ -135,6 +135,10 @@ function tppsc_front_create_form(&$form, $form_state) {
   else {
     $form['Next']['#prefix'] = $prefix_text;
   }
+
+  $module_path = drupal_get_path('module', 'tpps');
+  $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
+  $form['#attached']['css'][] = $module_path . TPPS_CSS_PATH;
 
   return $form;
 }
