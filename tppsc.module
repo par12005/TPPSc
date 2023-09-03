@@ -75,15 +75,16 @@ function tppsc_mail($key, &$message, $params) {
     case 'user_recieved':
       // When the user completes their submission, just provide them with
       // a brief list of the organisms they submitted.
+      // @TODO [VS] Use theme('item_list') to build the HTML list.
       $message['body'][] = "Congratulations!<br><br>
             Your TPPSC submission has been received and is pending approval from a TreeGenes administrator! Here's a brief summary of the information you provided:<ul>
             <li>Primary Author: {$params['author']}</li>
             <li>Publication title: {$params['title']}</li>
             <li>Organisms: {$params['organisms']['number']}</li>";
       for ($i = 1; $i <= $params['organisms']['number']; $i++) {
-        $message['body'][] = "   <li>Organism $i: {$params['organisms'][$i]}</li>";
+        $message['body'][] =
+          "   <li>Organism $i: " . check_plain($params['organisms'][$i]['name']) . "</li>";
       }
-
       $message['body'][] =
             "<li>Study Type: {$params['study_type']}</li>
             <li>Data Type: {$params['data_type']}</li></ul>
