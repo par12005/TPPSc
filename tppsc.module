@@ -409,8 +409,8 @@ function tppsc_main_validate(&$form, &$form_state) {
       break;
 
     case TPPS_PAGE_2:
-      require_once 'forms/validate/page_2.php';
-      tppsc_page_2_validate_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/validate/page_2');
+      tpps_page_2_validate_form($form, $form_state);
       break;
 
     case TPPS_PAGE_3:
