@@ -403,9 +403,8 @@ function tppsc_main_validate(&$form, &$form_state) {
       break;
 
     case TPPS_PAGE_1:
-      // @todo [VS] Move to TGDR module all the validation functions.
-      require_once 'forms/validate/page_1.php';
-      tppsc_page_1_validate_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/validate/page_1');
+      tpps_page_1_validate_form($form, $form_state);
       break;
 
     case TPPS_PAGE_2:
