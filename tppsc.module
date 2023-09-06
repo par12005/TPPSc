@@ -6,7 +6,6 @@
  */
 
 require_once 'includes/submit_email.inc';
-require_once 'includes/doi.inc';
 
 /**
  * Implements hook_menu().
