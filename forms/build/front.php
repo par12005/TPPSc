@@ -15,38 +15,19 @@ function tppsc_front_create_form(&$form, $form_state) {
   if (isset($user->mail)) {
     // Logged in.
     $options_arr = array();
-    $options_arr['new'] = 'Create new TPPSC Submission';
-    $options_arr["placeholder1"] = '------------------------- YOUR STUDIES -------------------------';
-
-    $options_arr = tpps_submission_get_accession_list([
-      ['status', 'Incomplete'],
+    $options_arr = [
+      'new' => 'Create new TPPSC Submission',
+      'placeholder1' => '------------------------- YOUR STUDIES -------------------------',
+    ];
+    $options_arr = $options_arr + tpps_submission_get_accession_list([
+      ['status', 'Incomplete', '='],
       ['uid', $user->uid, '='],
     ]);
-    $options_arr["placeholder2"] = '-------------------- OTHER USER STUDIES --------------------';
-    $options_arr = tpps_submission_get_accession_list([
+    $options_arr['placeholder2'] = '-------------------- OTHER USER STUDIES --------------------';
+    $options_arr = $options_arr + tpps_submission_get_accession_list([
       ['status', 'Incomplete'],
       ['uid', $user->uid, '<>'],
     ]);
-
-    foreach ($results as $item) {
-      $state = tpps_load_submission($item->accession);
-      // and $state['tpps_type'] == 'tppsc'
-      //if (!empty($state['tpps_type'])) {
-        if ($state != NULL and isset($state['saved_values'][TPPS_PAGE_1]['publication']['title'])) {
-          $title = ($state['saved_values'][TPPS_PAGE_1]['publication']['title'] != NULL) ? $state['saved_values'][TPPS_PAGE_1]['publication']['title'] : "No Title";
-          $tgdrC_id = $state['accession'];
-          if (strlen($title) > 97) {
-            $title = substr($title, 0, 97) . '...';
-          }
-          $options_arr["$tgdrC_id"] = $tgdrC_id . ' - ' . $title;
-        }
-        else {
-          if (isset($state) and !isset($state['saved_values'][TPPS_PAGE_1])) {
-            tpps_delete_submission($item->accession, FALSE);
-          }
-        }
-      //}
-    }
 
     if (count($options_arr) > 1) {
       // Has submissions.
@@ -74,7 +55,7 @@ function tppsc_front_create_form(&$form, $form_state) {
     $tgdr_query = chado_query('SELECT dbxref_id, accession '
       . 'FROM chado.dbxref '
       . 'WHERE accession LIKE \'TGDR%\' '
-      . 'ORDER BY accession;');
+      . 'ORDER BY accession DESC;');
 
     foreach ($tgdr_query as $item) {
       $tgdr_options[$item->dbxref_id] = $item->accession;
