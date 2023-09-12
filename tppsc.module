@@ -245,10 +245,6 @@ function tppsc_page_build(&$page) {
  *   Returns the completed form.
  */
 function tppsc_main(array $form, array &$form_state, $accession = NULL) {
-  // Require the front page file if it hasn't already been loaded.
-  require_once 'forms/build/front.php';
-
-  // Get the user object.
   global $user;
   // Get the query parameters from the url.
   $params = drupal_get_query_parameters();
@@ -258,7 +254,8 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
     $form_state['stage'] = 'frontpage';
 
     // Create front page.
-    tppsc_front_create_form($form, $form_state);
+    module_load_include('php', 'tpps', 'forms/build/front');
+    tpps_front_create_form($form, $form_state);
 
     // [VS].
     $module_path = drupal_get_path('module', 'tpps');
@@ -282,7 +279,8 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
       $form_state['stage'] = 'frontpage';
 
       // Create the front page.
-      tppsc_front_create_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/build/front');
+      tpps_front_create_form($form, $form_state);
       // [VS].
       $module_path = drupal_get_path('module', 'tpps');
       $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
