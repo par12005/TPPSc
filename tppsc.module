@@ -256,11 +256,6 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
     // Create front page.
     module_load_include('php', 'tpps', 'forms/build/front');
     tpps_front_create_form($form, $form_state);
-
-    // [VS].
-    $module_path = drupal_get_path('module', 'tpps');
-    $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-    // [/VS].
     return $form;
   }
   // User not logged in, trying to access non-front page.
@@ -281,10 +276,6 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
       // Create the front page.
       module_load_include('php', 'tpps', 'forms/build/front');
       tpps_front_create_form($form, $form_state);
-      // [VS].
-      $module_path = drupal_get_path('module', 'tpps');
-      $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-      // [/VS].
       return $form;
     }
     else {
