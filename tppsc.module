@@ -319,7 +319,7 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
 
   $form_state['tpps_type'] = 'tppsc';
   tpps_update_submission($form_state);
-  tpps_status_bar($form, $form_state);
+  tppsc_status_bar($form, $form_state);
 
   switch ($form_state['stage']) {
     case TPPS_PAGE_1:
