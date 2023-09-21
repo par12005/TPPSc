@@ -249,6 +249,14 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
   // Get the query parameters from the url.
   $params = drupal_get_query_parameters();
 
+  // [VS].
+  tpps_add_css_js($form);
+  // Add class to apply CSS rules differntly for TPPS and TPPSc Forms
+  // CSS form id is changing because of AJAX requests so we use form's class
+  // in CSS rules instead of form's id with regex.
+  $form['#attributes']['class'][] = 'tppsc-form';
+  // [/VS].
+
   // User not logged in, trying to access front page.
   if (!isset($user->mail) and !isset($form_state['stage'])) {
     $form_state['stage'] = 'frontpage';
@@ -344,20 +352,6 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
       break;
   }
 
-  // Bootstrap tooltip functionality.
-  $suffix = '
-        <script>
-        jQuery(document).ready(function(){
-            jQuery(\'[data-toggle="tooltip"]\').tooltip();
-        });
-        </script>';
-
-  $form['#suffix'] = isset($form['#suffix']) ? $form['#suffix'] . $suffix : $suffix;
-  // [VS].
-  $module_path = drupal_get_path('module', 'tpps');
-  $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-  $form['#attached']['css'][] = $module_path . TPPS_CSS_PATH;
-  // [/VS].
   return $form;
 }
 
