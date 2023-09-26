@@ -317,7 +317,7 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
 
   $form_state['tpps_type'] = 'tppsc';
   tpps_update_submission($form_state);
-  if (variable_get('tppsc_theme', 'default') == 'rachel') {
+  if (variable_get('tpps_theme', 'default') == 'rachel') {
     tppsc_status_bar($form, $form_state);
   }
   else {
