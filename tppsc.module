@@ -5,9 +5,6 @@
  * Core of the TPPSC module.
  */
 
-require_once 'includes/submit_email.inc';
-require_once 'includes/doi.inc';
-
 /**
  * Implements hook_menu().
  */
@@ -237,34 +234,35 @@ function tppsc_page_build(&$page) {
 /**
  * Provides the form based on which step the user is on.
  *
- * @global stdObject $user The user submitting the form.
  * @param array $form
  *   The form to be created.
  * @param array $form_state
  *   The state of the form to be created.
  *
- * @return array The completed form.
+ * @return array
+ *   Returns the completed form.
  */
-function tppsc_main($form, &$form_state, $accession = NULL) {
-  // Require the front page file if it hasn't already been loaded.
-  require_once 'forms/build/front.php';
-
-  // Get the user object.
+function tppsc_main(array $form, array &$form_state, $accession = NULL) {
   global $user;
+  module_load_include('inc', 'tpps', 'includes/form');
   // Get the query parameters from the url.
   $params = drupal_get_query_parameters();
+
+  // [VS].
+  tpps_add_css_js($form);
+  // Add class to apply CSS rules differntly for TPPS and TPPSc Forms
+  // CSS form id is changing because of AJAX requests so we use form's class
+  // in CSS rules instead of form's id with regex.
+  $form['#attributes']['class'][] = 'tppsc-form';
+  // [/VS].
 
   // User not logged in, trying to access front page.
   if (!isset($user->mail) and !isset($form_state['stage'])) {
     $form_state['stage'] = 'frontpage';
 
     // Create front page.
-    tppsc_front_create_form($form, $form_state);
-
-    // [VS].
-    $module_path = drupal_get_path('module', 'tpps');
-    $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-    // [/VS].
+    module_load_include('php', 'tpps', 'forms/build/front');
+    tpps_front_create_form($form, $form_state);
     return $form;
   }
   // User not logged in, trying to access non-front page.
@@ -283,15 +281,18 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
       $form_state['stage'] = 'frontpage';
 
       // Create the front page.
-      tppsc_front_create_form($form, $form_state);
-      // [VS].
-      $module_path = drupal_get_path('module', 'tpps');
-      $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-      // [/VS].
+      module_load_include('php', 'tpps', 'forms/build/front');
+      tpps_front_create_form($form, $form_state);
       return $form;
     }
     else {
-      if (!isset($form_state['saved_values']['frontpage']['accession']) or (isset($form_state['saved_values']['frontpage']['accession']) and $form_state['saved_values']['frontpage']['accession'] === 'new')) {
+      if (
+        !isset($form_state['saved_values']['frontpage']['accession'])
+        or (
+          isset($form_state['saved_values']['frontpage']['accession'])
+          and $form_state['saved_values']['frontpage']['accession'] === 'new'
+        )
+      ) {
         // Initialize project.
         tpps_init_project($form_state);
         tpps_create_submission($form_state, $user->uid);
@@ -302,6 +303,10 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
   }
 
   // Hidden form accession element.
+  // Note: Adding this elements to $form heare require all sub-functions to
+  // use reference and not return $form array.
+  // @TODO [VS] Use common function which called from subfunctions to add
+  // common elements instead of pass $form by reference.
   $form['accession'] = array(
     '#type' => 'hidden',
     '#value' => $form_state['accession'],
@@ -313,12 +318,18 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
 
   $form_state['tpps_type'] = 'tppsc';
   tpps_update_submission($form_state);
-  tpps_status_bar($form, $form_state);
+  if (variable_get('tpps_top_bar', 'status') == 'status') {
+    module_load_include('inc', 'tpps', 'includes/status_bar');
+    tpps_status_bar($form, $form_state);
+  }
+  else {
+    tpps_form_navigation_bar($form, $form_state);
+  }
 
   switch ($form_state['stage']) {
     case TPPS_PAGE_1:
-      require_once 'forms/build/page_1.php';
-      tppsc_page_1_create_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/build/page_1');
+      tpps_page_1_create_form($form, $form_state);
       break;
 
     case TPPS_PAGE_2:
@@ -346,20 +357,6 @@ function tppsc_main($form, &$form_state, $accession = NULL) {
       break;
   }
 
-  // Bootstrap tooltip functionality.
-  $suffix = '
-        <script>
-        jQuery(document).ready(function(){
-            jQuery(\'[data-toggle="tooltip"]\').tooltip();
-        });
-        </script>';
-
-  $form['#suffix'] = isset($form['#suffix']) ? $form['#suffix'] . $suffix : $suffix;
-  // [VS].
-  $module_path = drupal_get_path('module', 'tpps');
-  $form['#attached']['js'][] = $module_path . TPPS_JS_PATH;
-  $form['#attached']['css'][] = $module_path . TPPS_CSS_PATH;
-  // [/VS].
   return $form;
 }
 
@@ -394,13 +391,13 @@ function tppsc_main_validate(&$form, &$form_state) {
       break;
 
     case TPPS_PAGE_1:
-      require_once 'forms/validate/page_1.php';
-      tppsc_page_1_validate_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/validate/page_1');
+      tpps_page_1_validate_form($form, $form_state);
       break;
 
     case TPPS_PAGE_2:
-      require_once 'forms/validate/page_2.php';
-      tppsc_page_2_validate_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/validate/page_2');
+      tpps_page_2_validate_form($form, $form_state);
       break;
 
     case TPPS_PAGE_3:
@@ -480,7 +477,7 @@ function tppsc_main_submit($form, &$form_state) {
       $form_state['status'] = 'Pending Approval';
       $form_state['completed'] = time();
       tpps_update_submission($form_state);
-      tppsc_submit_email($form, $form_state);
+      tpps_submit_email($form_state);
       drupal_goto("completed-submission/{$form_state['accession']}");
       return;
     }
