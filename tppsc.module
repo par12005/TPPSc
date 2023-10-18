@@ -333,8 +333,8 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
       break;
 
     case TPPS_PAGE_2:
-      require_once 'forms/build/page_2.php';
-      tppsc_page_2_create_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/build/page_2');
+      tpps_page_2_create_form($form, $form_state);
       break;
 
     case TPPS_PAGE_3:
@@ -348,8 +348,8 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
       break;
 
     case 'summarypage':
-      require_once 'forms/build/summary.php';
-      tppsc_summary_create_form($form, $form_state);
+      module_load_include('php', 'tpps', 'forms/build/summary');
+      tpps_summary_create_form($form, $form_state);
       break;
 
     default:
