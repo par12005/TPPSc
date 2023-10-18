@@ -373,6 +373,7 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
  *   The associated state of the form being validated.
  */
 function tppsc_main_validate(&$form, &$form_state) {
+   module_load_include('inc', 'tpps', 'includes/form');
 
   // If the user is going backwards or simply saving their data in the form,
   // make sure to save the column data for the managed_file elements. The rest
