@@ -4,3 +4,4 @@ core = 7.x
 
 ; NEW LINE
 configure = admin/config/content/tppsc
+version = 7.x-1.2.2
