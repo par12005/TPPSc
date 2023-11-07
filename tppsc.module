@@ -440,7 +440,7 @@ function tppsc_main_validate(array &$form, array &$form_state) {
  */
 function tppsc_main_submit($form, &$form_state) {
   global $user;
-  module_load_include('inc', 'tpps', 'includes/submissions');
+  module_load_include('inc', 'tpps', 'includes/submission_file');
 
   if ($form_state['stage'] == 'frontpage' and $form_state['values']['use_old_tgdr']) {
     $form_state['dbxref_id'] = $form_state['values']['old_tgdr'];
@@ -450,11 +450,7 @@ function tppsc_main_submit($form, &$form_state) {
     $form_state['values']['accession'] = $form_state['accession'];
     $form_state['status'] = 'Incomplete';
     tpps_create_submission($form_state, $user->uid);
-
-    // [VS] #86ayj4mc5.
-    tpps_submission_files_set_status($form_state, 0);
-    // [/VS].
-
+    tpps_submission_file_set_status($form_state, 0);
     tpps_main_submit($form, $form_state);
     tpps_update_submission($form_state);
     return;
@@ -473,9 +469,7 @@ function tppsc_main_submit($form, &$form_state) {
     else {
       $form_state['status'] = 'Pending Approval';
       $form_state['completed'] = time();
-      // [VS] #86ayj4mc5.
-      tpps_submission_files_set_status($form_state, FILE_STATUS_PERMANENT);
-      // [/VS].
+      tpps_submission_file_set_status($form_state, FILE_STATUS_PERMANENT);
       tpps_update_submission($form_state);
       tpps_submit_email($form_state);
       drupal_goto("completed-submission/{$form_state['accession']}");
