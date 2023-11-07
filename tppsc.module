@@ -361,27 +361,20 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
 }
 
 /**
- * Implements hook_FORM_ID_validate().
+ * Form validator for 'tppsc_main' form.
  *
  * Calls different validation functions based on the stage of the form. Also
  * saves file column data and add attributes to be used by the status bar where
  * appropriate.
- *
- * @param array $form
- *   The form being validated.
- * @param array $form_state
- *   The associated state of the form being validated.
  */
-function tppsc_main_validate(&$form, &$form_state) {
-
+function tppsc_main_validate(array &$form, array &$form_state) {
   // If the user is going backwards or simply saving their data in the form,
   // make sure to save the column data for the managed_file elements. The rest
   // of the validation function does not need to be completed.
-  if ($form_state['triggering_element']['#value'] == 'Back' or $form_state['triggering_element']['#value'] == 'Save') {
+  if (in_array($form_state['triggering_element']['#value'], ['Back', 'Save'])) {
     tpps_save_file_columns($form, $form_state);
     return;
   }
-
   // Call the appropriate validation function based on the form stage.
   switch ($form_state['stage']) {
     case 'frontpage':
@@ -440,8 +433,6 @@ function tppsc_main_validate(&$form, &$form_state) {
  * variable in the database so that it can be loaded later. If the form was
  * completed, notifies the user that their submission was received.
  *
- * @param global $user
- *   The user submitting the form.
  * @param array $form
  *   The form being submitted.
  * @param array $form_state
@@ -449,6 +440,7 @@ function tppsc_main_validate(&$form, &$form_state) {
  */
 function tppsc_main_submit($form, &$form_state) {
   global $user;
+  module_load_include('inc', 'tpps', 'includes/submissions');
 
   if ($form_state['stage'] == 'frontpage' and $form_state['values']['use_old_tgdr']) {
     $form_state['dbxref_id'] = $form_state['values']['old_tgdr'];
@@ -458,6 +450,11 @@ function tppsc_main_submit($form, &$form_state) {
     $form_state['values']['accession'] = $form_state['accession'];
     $form_state['status'] = 'Incomplete';
     tpps_create_submission($form_state, $user->uid);
+
+    // [VS] #86ayj4mc5.
+    tpps_submission_files_set_status($form_state, 0);
+    // [/VS].
+
     tpps_main_submit($form, $form_state);
     tpps_update_submission($form_state);
     return;
@@ -476,6 +473,9 @@ function tppsc_main_submit($form, &$form_state) {
     else {
       $form_state['status'] = 'Pending Approval';
       $form_state['completed'] = time();
+      // [VS] #86ayj4mc5.
+      tpps_submission_files_set_status($form_state, FILE_STATUS_PERMANENT);
+      // [/VS].
       tpps_update_submission($form_state);
       tpps_submit_email($form_state);
       drupal_goto("completed-submission/{$form_state['accession']}");
