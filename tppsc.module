@@ -249,7 +249,7 @@ function tppsc_main(array $form, array &$form_state, $accession = NULL) {
   $params = drupal_get_query_parameters();
 
   // [VS].
-  tpps_add_css_js($form);
+  tpps_add_css_js('main', $form);
   // Add class to apply CSS rules differntly for TPPS and TPPSc Forms
   // CSS form id is changing because of AJAX requests so we use form's class
   // in CSS rules instead of form's id with regex.
