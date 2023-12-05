@@ -3,4 +3,4 @@ description = tppsc is the internal TPPS module.
 core = 7.x
 
 configure = admin/config/content/tppsc
-version = 7.x-1.2.3
+version = 7.x-1.2.4
