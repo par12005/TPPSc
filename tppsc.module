@@ -126,56 +126,6 @@ function tppsc_mail($key, &$message, $params) {
   }
 }
 
-/**
- * Implements hook_element_info_alter().
- *
- * Increases max length on all textfields to 512. Adds
- * gttn_tpps_managed_file_process() to the array of process functions of all
- * managed_file form elements. This function is adapted from TPPS, which can be
- * found at https://tpps.rtfd.io.
- *
- * @param array $type
- *   The array of element information for each element type.
- */
-function tppsc_element_info_alter(&$type) {
-  if (isset($type['textfield']['#maxlength'])) {
-    // Increase maximum textfield length.
-    $type['textfield']['#maxlength'] = 512;
-  }
-  // Add tppsc_managed_file_process to the end of the '#process' array.
-  $type['managed_file']['#process'][] = 'tppsc_managed_file_process';
-}
-
-/**
- * Process function for all managed_file elements.
- *
- * This function is adapted from TPPS, which can be found at
- * https://tpps.rtfd.io.
- *
- * @param array $element
- *   The element being processed.
- * @param array $form_state
- *   The state of the form the element is a part of.
- * @param array $form
- *   The form the element is a part of.
- *
- * @return array The processed element.
- *
- * @todo Need to add $form_state['accession'] so that the file/project can be
- * properly linked.
- */
-function tppsc_managed_file_process($element, &$form_state, $form) {
-  if ($form_state['build_info']['form_id'] !== 'tppsc_main') {
-    // Only make changes to $element if it is part of the tppsc_main form.
-    return $element;
-  }
-  else {
-    $form_state['build_info']['form_id'] = 'tpps_main';
-    $element = tpps_managed_file_process($element, $form_state, $form);
-    $form_state['build_info']['form_id'] = 'tppsc_main';
-    return $element;
-  }
-}
 
 /**
  * Implements hook_form_alter().
