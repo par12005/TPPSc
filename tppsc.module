@@ -126,61 +126,6 @@ function tppsc_mail($key, &$message, $params) {
   }
 }
 
-
-/**
- * Implements hook_form_alter().
- *
- * @param mixed $form
- *   The form being altered.
- * @param mixed $form_state
- *   The state of the form being altered.
- * @param mixed $form_id
- *   The id of the form being altered.
- */
-function tppsc_form_alter(&$form, &$form_state, $form_id) {
-  if ($form['#form_id'] == 'tppsc_main') {
-    $stage = $form_state['stage'];
-
-    if (!isset($form_state['saved_values'][$stage])) {
-      // Initialize saved_values array for the current stage.
-      $form_state['saved_values'][$stage] = array();
-    }
-    if (!isset($form_state['values'])) {
-      // Initialize values array for the current form.
-      $form_state['values'] = array();
-    }
-
-    // Initialize default values for each of the leaves in the form tree.
-    tpps_leaves($form, $form_state['values'], $form_state['saved_values'][$stage]);
-  }
-}
-
-/**
- * Implements hook_page_build().
- *
- * This function adds the tppsc Status side bar to the page before it is rendered.
- *
- * @param array $page
- *   The page to be altered.
- *
- * @return type The altered page.
- */
-function tppsc_page_build(&$page) {
-
-  // If the form_id is not set, or it is not equal to gttn_tpps_main, or if the
-  // step field is not set, do not add the status side bar.
-  if (empty($page['content']['system_main']['#form_id']) or $page['content']['system_main']['#form_id'] != 'tppsc_main' or empty($page['content']['system_main']['step']['#default_value'])) {
-    return $page;
-  }
-
-  // Load side bar from TPPS.
-  $page['content']['system_main']['#form_id'] = 'tpps_main';
-  $page = tpps_page_build($page);
-  $page['content']['system_main']['#form_id'] = 'tppsc_main';
-
-  return $page;
-}
-
 /**
  * Provides the form based on which step the user is on.
  *
